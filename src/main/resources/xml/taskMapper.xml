@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jxufe.ljw.thesis.dao.TaskDao">
+    <select id="getAllTasks" resultType="com.jxufe.ljw.thesis.bean.Task">
+        select * from p_task;
+    </select>
+</mapper>
