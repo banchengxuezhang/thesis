@@ -4,6 +4,7 @@ import com.jxufe.ljw.thesis.bean.Task;
 import com.jxufe.ljw.thesis.service.TestService;
 
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -15,7 +16,6 @@ import java.util.List;
  * @Author: LeJunWen
  * @Date: 2020/2/24 21:41
  */
-@Api(value="用户controller",tags={"用户操作接口"})
 @RestController
 public class HelloController {
     @Autowired
