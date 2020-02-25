@@ -17,7 +17,7 @@ import java.util.List;
 public class HelloController {
     @Autowired
     private TestService test;
-    @RequestMapping("/index")
+    @RequestMapping("/test")
     public List<Task> index() {
         return test.getAllTasks();
     }
