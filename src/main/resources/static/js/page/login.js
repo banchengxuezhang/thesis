@@ -7,9 +7,9 @@ $(function(){
         let userType = $("input[name='role']:checked").val();
         let userAccount = $(".loginuser").val().trim();
         let userPassword = $(".loginpwd").val().trim();
-        let logincode=$(".logincode").val().trim();
+        let loginCode=$(".logincode").val().trim();
         //校验验证码是否输入
-        if(logincode ==""){
+        if(loginCode ==""){
             $.MsgBox.Alert("提示", "请输入验证码！");
             return;
         }
@@ -22,11 +22,11 @@ $(function(){
             'userType':userType,
             'userAccount':userAccount,
             'userPassword':userPassword,
-            'logincode':logincode
+            'loginCode':loginCode
         };
         $.ajax({
             type: 'post',
-            url: '/login',
+            url: '/thesis/login',
             data: $.param(param),
             success:function (data) {
                 if(data.code == 1){

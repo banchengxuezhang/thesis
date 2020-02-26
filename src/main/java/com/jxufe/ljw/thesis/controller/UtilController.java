@@ -24,8 +24,8 @@ import java.util.List;
  * @Date: 2020/2/24 21:41
  */
 @RestController
-public class HelloController {
-    private static final Logger logger = LoggerFactory.getLogger(HelloController.class);
+public class UtilController {
+    private static final Logger logger = LoggerFactory.getLogger(UtilController.class);
     @Autowired
     private TestService test;
     @RequestMapping("/test")
@@ -42,7 +42,7 @@ public class HelloController {
         BufferedImage image = kaptchaProducer.createImage(text);
 
         // 将验证码存入session
-        session.setAttribute("logincode", text);
+        session.setAttribute("loginCode", text);
 
         // 将突图片输出给浏览器
         response.setContentType("image/png");

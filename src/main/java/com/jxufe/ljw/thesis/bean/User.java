@@ -25,4 +25,8 @@ public class User {
      * 用户类型
      */
     private int userType;
+    /**
+     * 登录验证码
+     */
+    private String loginCode;
 }
