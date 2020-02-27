@@ -34,9 +34,9 @@
     $("#loginOut").click(function () {
         $.ajax({
             type:"post",
-            url:"/loginOut",
+            url:"/thesis/loginOut",
             success:function () {
-                window.top.location.href = "/login.html";
+                window.top.location.href = "/thesis/login.html";
             },
             error:function () {
                 $.MsgBox.Alert("错误","退出登陆异常");

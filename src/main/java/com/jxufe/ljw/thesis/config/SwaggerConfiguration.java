@@ -30,10 +30,9 @@ public class SwaggerConfiguration {
     }
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
-                .title("半城测试接口")
-                .description("接口的描述")
-                .termsOfServiceUrl("啥玩意")
-                .contact("developer@mail.com")
+                .title("毕业论文管理系统接口")
+                .description("文档描述")
+                .termsOfServiceUrl("xxx")
                 .version("1.0")
                 .build();
     }

@@ -14,11 +14,10 @@ $(function () {
             $(this).next('ul').slideDown();
         }
     });
-
     // 加载菜单
     $.ajax({
         type: "post",
-        url: "/menu/getMenuByMenuBelong",
+        url: "/thesis/menu/getMenuByMenuBelong",
         success: function (data) {
             if (data.code == 1) {
                 for (let i = 0; i < data.data.length; i++) {

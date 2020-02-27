@@ -8,5 +8,5 @@ import com.jxufe.ljw.thesis.bean.User;
  * @Date: 2020/2/26 21:36
  */
 public interface UserService {
-    User getUserByAccount(User user);
+    User getUserByAccountAndType(String userAccount,int userType);
 }

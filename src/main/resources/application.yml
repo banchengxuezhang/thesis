@@ -10,7 +10,6 @@ mybatis:
 spring:
   profiles:
     active: dev
-
   datasource:
     url: jdbc:mysql://127.0.0.1:3306/thesis?serverTimezone=UTC&useUnicode=true&characterEncoding=UTF-8 #配置url地址 加上Serxxx防止报错
     username: root

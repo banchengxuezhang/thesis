@@ -1,8 +1,6 @@
 package com.jxufe.ljw.thesis.controller;
 
 import com.google.code.kaptcha.Producer;
-import com.jxufe.ljw.thesis.bean.Task;
-import com.jxufe.ljw.thesis.service.TestService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +14,6 @@ import javax.servlet.http.HttpSession;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.util.List;
 
 /**
  * @Classname HelloController
@@ -26,12 +23,6 @@ import java.util.List;
 @RestController
 public class UtilController {
     private static final Logger logger = LoggerFactory.getLogger(UtilController.class);
-    @Autowired
-    private TestService test;
-    @RequestMapping("/test")
-    public List<Task> index() {
-        return test.getAllTasks();
-    }
     @Autowired
     private Producer kaptchaProducer;
 

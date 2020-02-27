@@ -1,7 +1,11 @@
 package com.jxufe.ljw.thesis.enumeration;
 
 import lombok.Getter;
-
+/**
+ * @Classname TaskDao
+ * @Author: LeJunWen
+ * @Date: 2020/2/24 22:33
+ */
 @Getter
 public enum UserType {
     TEACHER(2),STUDENT(1),MANAGE(3);

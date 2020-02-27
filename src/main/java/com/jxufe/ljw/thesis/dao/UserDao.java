@@ -1,9 +1,9 @@
 package com.jxufe.ljw.thesis.dao;
 
+import com.baomidou.mybatisplus.mapper.BaseMapper;
 import com.jxufe.ljw.thesis.bean.User;
 import org.apache.ibatis.annotations.Mapper;
 
-import java.util.List;
 
 /**
  * @Classname UserDao
@@ -11,6 +11,6 @@ import java.util.List;
  * @Date: 2020/2/26 17:58
  */
 @Mapper
-public interface UserDao {
+public interface UserDao  extends BaseMapper<User> {
      User getUserByAccountAndType(String userAccount, int userType);
 }

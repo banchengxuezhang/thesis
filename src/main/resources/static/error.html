@@ -1,0 +1,74 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>对不起，您访问的页面不存在 请转到首页进入</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <link href="css/error.css" rel="stylesheet" type="text/css" />
+    <meta content="MSHTML 6.00.2800.1458" name="GENERATOR"/>
+</head>
+<body topmargin="20">
+<table cellspacing="0" width="600" align="center" border="0" cepadding="0">
+    <tbody>
+    <tr colspan="2">
+        <td>
+            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                <tr>
+                    <td>
+                        <p>
+                            <strong><font color="#ba1c1c">访问权限错误</font></strong>:</p>
+                        <p>
+                            请登录后访问本页面</p>
+                    </td>
+                    <td>
+                        <p>
+                            <img height="100" src="images/error.jpg" width="100" border="0" alt="" /></p>
+                    </td>
+                </tr>
+            </table>
+            <hr size="0" />
+            即将为你跳转登录页面：
+            <p>
+                ·如果您已经在地址栏中输入该网页的地址，请确认其拼写正确。<br />
+                ·返回主站点登录。<br />
+            <p align="right">
+                如果您在浏览本站时，多次出现此错误，请与管理员联系</p>
+            <hr size="0" />
+            <form name="loading" id="loading" runat="server">
+                <p align="center">
+                    <font face="Arial" color="#0066ff" size="2">loading...</font>
+                    <input style="padding-right: 0px; padding-left: 0px; font-weight: bolder; padding-bottom: 0px;
+                            color: #0066ff; border-top-style: none; padding-top: 0px; font-family: Arial;
+                            border-right-style: none; border-left-style: none; background-color: white; border-bottom-style: none"
+                           size="46" name="chart" />
+                    <br />
+                    <input style="border-right: medium none; border-top: medium none; border-left: medium none;
+                            color: #0066ff; border-bottom: medium none; text-align: center" size="47" name="percent" />
+
+                    <script type="text/javascript" language="javascript">
+                        var bar=0
+                        var line="││"
+                        var amount="││"
+                        count()
+                        function count(){
+                            bar=bar+2
+                            amount =amount + line
+                            document.loading.chart.value=amount
+                            document.loading.percent.value=bar+"%"
+                            if (bar < 100)
+                            {setTimeout("count()",100);}
+                            else
+                            {window.location ="/thesis/login.html";}   //也可以跳到项目中的指定页面
+                        }
+                    </script>
+
+                </p>
+            </form>
+            <br />
+            <br />
+            </p><!------------End this!--------------->
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

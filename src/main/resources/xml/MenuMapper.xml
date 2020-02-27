@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jxufe.ljw.thesis.dao.MenuDao">
+    <select id="getMenyBymenuBelong" parameterType="java.lang.String" resultType="com.jxufe.ljw.thesis.bean.Menu">
+        select
+          *
+        from
+          T_MENU
+        where
+          menu_belong = #{menuBelong}
+        and menu_status = 1
+    </select>
+
+    <select id="selectAllMenu" parameterType="com.jxufe.ljw.thesis.bean.Menu" resultType="com.jxufe.ljw.thesis.bean.Menu">
+        select
+        *
+        from
+        T_MENU
+        where
+        menu_belong != 3
+        <if test="md.menuText != null and md.menuText != ''">
+            and menu_text like CONCAT( '%', #{md.menuText}, '%' )
+        </if>
+        <if test="md.menuBelong != null and md.menuBelong != ''">
+            and menu_belong = #{md.menuBelong}
+        </if>
+        <if test="md.menuStatus != null and md.menuStatus != ''">
+            and menu_status = #{md.menuStatus}
+        </if>
+    </select>
+</mapper>

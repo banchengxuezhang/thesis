@@ -7,8 +7,8 @@ $(function () {
 
     // 获取登录session值
     $.ajax({
-        type: 'post',
-        url:"/getLoginUserInfo",
+        type: 'get',
+        url:"/thesis/getLoginUserInfo",
         success:function (data) {
             $("#loginUser").html(data.userAccount);
         }

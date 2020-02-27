@@ -1,16 +1,16 @@
-package com.jxufe.ljw.thesis.bean;
+package com.jxufe.ljw.thesis.vo;
 
 import lombok.Data;
 
 /**
- * @Classname User
+ * @Classname UserInfoDetail
  * @Author: LeJunWen
- * @Date: 2020/2/26 17:24
+ * @Date: 2020/2/27 13:04
  */
 @Data
-public class User {
+public class UserInfoDetail {
     /**
-    *用户id
+     *用户id
      */
     private String userId;
     /**
@@ -25,4 +25,8 @@ public class User {
      * 用户类型
      */
     private int userType;
+    /**
+     * 登录验证码
+     */
+    private String loginCode;
 }

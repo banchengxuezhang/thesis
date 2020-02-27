@@ -16,8 +16,8 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserDao userDao;
     @Override
-    public User getUserByAccount(User user) {
-        return userDao.getUserByAccountAndType(user.getUserAccount(),user.getUserType());
+    public User getUserByAccountAndType(String userAccount,int userType) {
+        return userDao.getUserByAccountAndType(userAccount,userType);
 
     }
 }
