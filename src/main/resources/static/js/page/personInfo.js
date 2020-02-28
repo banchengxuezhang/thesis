@@ -12,7 +12,7 @@ $(function () {
             $("#modifyBtn").show();
         } else {
             // 不选中，修改无效，重新刷新页面
-            location.href = "personInfo.html";
+            location.href = "/thesis/personInfo.html";
         }
     });
 
@@ -29,7 +29,7 @@ function commitInfo() {
     ``
     $.ajax({
         type: "post",
-        url: "/person/modifyInfo?" + $.param(data),
+        url: "/thesis/user/updateInfo?" + $.param(data),
         success: function (data) {
             $.MsgBox.Alert(data.code == 1 ? "提示" : "错误", data.msg, function () {
                 location.href = "personInfo.html";
@@ -43,13 +43,13 @@ function commitInfo() {
 
 function loadPersonInfo() {
     $.ajax({
-        type: "post",
-        url: "/person/getInfo",
+        type: "get",
+        url: "/thesis/user/getInfo",
         async: false,
         success: function (data) {
             let u = data.data.user;
             // 如果是学生信息
-            if (1 == u.userType) {
+            if (3 == u.userType) {
                 let studentPhone = data.data.personInfo.studentPhone == null ? '' : data.data.personInfo.studentPhone;
                 let studentEmail = data.data.personInfo.studentEmail == null ? '' : data.data.personInfo.studentEmail;
                 $("#forminfo").html(`

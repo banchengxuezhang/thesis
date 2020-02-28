@@ -19,4 +19,14 @@ public class StudentServiceImpl implements StudentService {
     public int addStudentInfo(StudentInfo studentInfo) {
         return studentInfoDao.addStudentInfo(studentInfo);
     }
+
+    @Override
+    public StudentInfo getStudentInfo(String userId) {
+        return studentInfoDao.getStudentInfo(userId);
+    }
+
+    @Override
+    public int updateStudentInfo(String userId, String phone, String email) {
+        return studentInfoDao.updateStudentInfo(userId,phone,email);
+    }
 }

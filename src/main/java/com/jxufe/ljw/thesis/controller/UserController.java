@@ -1,5 +1,6 @@
 package com.jxufe.ljw.thesis.controller;
 
+import com.google.common.collect.Maps;
 import com.jxufe.ljw.thesis.bean.StudentInfo;
 import com.jxufe.ljw.thesis.bean.TeacherInfo;
 import com.jxufe.ljw.thesis.bean.User;
@@ -9,14 +10,19 @@ import com.jxufe.ljw.thesis.service.TeacherService;
 import com.jxufe.ljw.thesis.service.UserService;
 import com.jxufe.ljw.thesis.util.Md5Tools;
 import com.jxufe.ljw.thesis.vo.ResultUtil;
+import com.jxufe.ljw.thesis.vo.UserInfoDetail;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.EmptyStackException;
+import java.util.Map;
 
 
 /**
@@ -91,5 +97,41 @@ public class UserController {
             }
 
         }
+        @GetMapping("/getInfo")
+        public Object getPersionInfo(HttpServletRequest request){
+        try {
+            LOG.info("==================开始获取用户信息==================");
+            User user= (User) request.getSession().getAttribute("user");
+            Map<String,Object> res = Maps.newHashMap();
+            if(user.getUserType()==UserType.STUDENT.getType()){
+                res.put("personInfo",studentService.getStudentInfo(user.getUserId()));
+                LOG.info("获取信息："+res+user.getUserId()+user);
+
+            }else {
+                res.put("personInfo",teacherService.getTeacherInfo(user.getUserId()));
+                LOG.info("获取信息："+res+user+teacherService.getTeacherInfo(user.getUserId()));
+            }
+            res.put("user",user);
+            return ResultUtil.success(res);
+        }catch (Exception e){
+            LOG.error("【获取到程序出现异常】:",e);
+            return ResultUtil.error("查询登录用户信息异常");
+        }
+
+        }
+      @PostMapping("/updateInfo")
+      public Object updatePersionInfo(UserInfoDetail userInfoDetail,HttpServletRequest request){
+        User user= (User) request.getSession().getAttribute("user");
+        try {
+            if(user.getUserType()==UserType.STUDENT.getType()){
+                studentService.updateStudentInfo(user.getUserId(),userInfoDetail.getPhone(),userInfoDetail.getEmail());
+            }else {
+                teacherService.updateTeacherInfo(user.getUserId(),userInfoDetail.getPhone(),userInfoDetail.getEmail());
+            }
+        }catch (Exception e){
+            ResultUtil.error("修改用户信息出错！！！");
+        }
+          return ResultUtil.success("修改用户信息成功！！！");
+      }
 
 }

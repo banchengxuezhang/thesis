@@ -5,4 +5,16 @@
         insert into t_student_info(student_id,user_id,student_no,student_name,student_major,student_instructor,student_class,student_phone,student_email)
         values (#{studentId},#{userId},#{studentNo},#{studentName},#{studentMajor},#{studentInstructor},#{studentClass},#{studentPhone},#{studentEmail})
     </insert>
+    <update id="updateStudentInfo">
+      update
+        T_STUDENT_INFO
+      set
+        student_phone = #{phone},student_email = #{email}
+      where
+        user_id = #{userId}
+    </update>
+    <select id="getStudentInfo" resultType="com.jxufe.ljw.thesis.bean.StudentInfo">
+        select * from t_student_info
+        where user_id=#{userId}
+    </select>
 </mapper>

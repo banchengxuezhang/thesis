@@ -1,10 +1,18 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.jxufe.ljw.thesis.dao.TeacherInfoDao">
-
-
     <insert id="addTeacherInfo">
         insert into t_teacher_info(teacher_id,user_id,teacher_no,teacher_name,teacher_title,teacher_education,teacher_phone,teacher_email)
         values (#{teacherId},#{userId},#{teacherNo},#{teacherName},#{teacherTitle},#{teacherEducation},#{teacherPhone},#{teacherEmail})
     </insert>
+    <update id="updateTeacherInfo">
+        update t_teacher_info
+        set
+        teacher_phone=#{phone},teacher_email=#{email}
+        where user_id=#{userId}
+    </update>
+    <select id="getTeacherInfo" resultType="com.jxufe.ljw.thesis.bean.TeacherInfo">
+        select  * from t_teacher_info
+        where user_id=#{userId}
+    </select>
 </mapper>

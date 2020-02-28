@@ -9,4 +9,6 @@ import com.jxufe.ljw.thesis.bean.TeacherInfo;
  */
 public interface TeacherService {
     int addTeacherInfo(TeacherInfo teacherInfo);
+    TeacherInfo getTeacherInfo(String userId);
+    int updateTeacherInfo(String userId,String telephone,String email);
 }

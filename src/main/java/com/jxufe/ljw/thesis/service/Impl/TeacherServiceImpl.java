@@ -19,4 +19,14 @@ public class TeacherServiceImpl implements TeacherService {
     public int addTeacherInfo(TeacherInfo teacherInfo) {
         return  teacherInfoDao.addTeacherInfo(teacherInfo);
     }
+
+    @Override
+    public TeacherInfo getTeacherInfo(String userId) {
+        return teacherInfoDao.getTeacherInfo(userId);
+    }
+
+    @Override
+    public int updateTeacherInfo(String userId, String phone, String email) {
+        return teacherInfoDao.updateTeacherInfo(userId,phone,email);
+    }
 }

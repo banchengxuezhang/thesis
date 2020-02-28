@@ -29,4 +29,12 @@ public class UserInfoDetail {
      * 登录验证码
      */
     private String loginCode;
+    /**
+     * 电话号码
+     */
+    private String phone;
+    /**
+     * 邮箱信息
+     */
+    private String email ;
 }
