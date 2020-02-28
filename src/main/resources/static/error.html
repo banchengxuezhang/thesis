@@ -1,12 +1,12 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <title>对不起，您访问的页面不存在 请转到首页进入</title>
+    <title>对不起，您的访问被拒绝了！</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <link href="css/error.css" rel="stylesheet" type="text/css" />
     <meta content="MSHTML 6.00.2800.1458" name="GENERATOR"/>
 </head>
-<body topmargin="20">
+<body topmargin="50" style="text-align:center;" >
 <table cellspacing="0" width="600" align="center" border="0" cepadding="0">
     <tbody>
     <tr colspan="2">
@@ -15,9 +15,9 @@
                 <tr>
                     <td>
                         <p>
-                            <strong><font color="#ba1c1c">访问权限错误</font></strong>:</p>
+                            <strong><font size="15" color="#ba1c1c">访问权限错误</font></strong>:</p>
                         <p>
-                            请登录后访问本页面</p>
+                            请登录正确账户后访问本页面</p>
                     </td>
                     <td>
                         <p>
@@ -55,7 +55,7 @@
                             document.loading.chart.value=amount
                             document.loading.percent.value=bar+"%"
                             if (bar < 100)
-                            {setTimeout("count()",100);}
+                            {setTimeout("count()",80);}
                             else
                             {window.location ="/thesis/login.html";}   //也可以跳到项目中的指定页面
                         }

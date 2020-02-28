@@ -14,7 +14,7 @@ import javax.servlet.http.HttpSession;
  * @Date: 2020/2/24 22:35
  */
 @Component
-public class LoginIntercepter implements HandlerInterceptor {
+public class CommonIntercepter implements HandlerInterceptor {
 
     //这个方法是在访问接口之前执行的，我们只需要在这里写验证登陆状态的业务逻辑，就可以在用户调用指定接口之前验证登陆状态了
     @Override
@@ -29,6 +29,12 @@ public class LoginIntercepter implements HandlerInterceptor {
             response.sendRedirect("/thesis/error.html");
             return false;
         }else {
+            if(request.getRequestURL().toString().contains("addStudent") || request.getRequestURL().toString().contains("addTeacher")||request.getRequestURL().toString().contains("doc.html")||request.getRequestURL().toString().contains("druid")){
+               if(user.getUserType()!=1){
+                   response.sendRedirect("/thesis/error.html");
+                   return  false;
+               }
+            }
             return true;    //如果session里有user，表示该用户已经登陆，放行，用户即可继续调用自己需要的接口
         }
     }

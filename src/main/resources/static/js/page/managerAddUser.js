@@ -39,7 +39,7 @@ function submitInfo(flag) {
             $.MsgBox.Alert("提示","必填项未填写！");
             return;
         }
-        url = "/user/addStudent?";
+        url = "/thesis/user/addStudent?";
     } else {
         info = {
             teacherNo: $("#teacherNo").val(),
@@ -53,7 +53,7 @@ function submitInfo(flag) {
             $.MsgBox.Alert("提示","必填项未填写！");
             return;
         }
-        url = "/user/addTeacher?";
+        url = "/thesis/user/addTeacher?";
     }
     $.ajax({
         type: "post",

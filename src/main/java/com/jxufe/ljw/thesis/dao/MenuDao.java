@@ -12,6 +12,6 @@ import java.util.List;
 public interface MenuDao extends BaseMapper<Menu> {
     List<Menu> getMenyBymenuBelong(String menuBelong);
 
-    List<Menu> selectAllMenu(@Param("md") Menu menu, Pagination page);
+    List<Menu> selectAllMenu(Menu menu, Pagination page);
 
 }

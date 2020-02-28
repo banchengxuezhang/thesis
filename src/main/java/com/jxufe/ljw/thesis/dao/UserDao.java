@@ -4,6 +4,8 @@ import com.baomidou.mybatisplus.mapper.BaseMapper;
 import com.jxufe.ljw.thesis.bean.User;
 import org.apache.ibatis.annotations.Mapper;
 
+import java.util.List;
+
 
 /**
  * @Classname UserDao
@@ -12,5 +14,6 @@ import org.apache.ibatis.annotations.Mapper;
  */
 @Mapper
 public interface UserDao  extends BaseMapper<User> {
-     User getUserByAccountAndType(String userAccount, int userType);
+     List<User> getUserByAccountAndType(String userAccount, int userType);
+     int addUser(User user);
 }

@@ -8,7 +8,7 @@ import lombok.Getter;
  */
 @Getter
 public enum UserType {
-    TEACHER(2),STUDENT(1),MANAGE(3);
+    TEACHER(2),STUDENT(3),MANAGE(1);
     private int type;
 
     UserType(int type){

@@ -2,6 +2,7 @@ package com.jxufe.ljw.thesis.controller;
 
 import com.jxufe.ljw.thesis.bean.User;
 import com.jxufe.ljw.thesis.service.UserService;
+import com.jxufe.ljw.thesis.util.Md5Tools;
 import com.jxufe.ljw.thesis.vo.ResultUtil;
 import com.jxufe.ljw.thesis.vo.UserInfoDetail;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 /**
  * @Classname UserController
@@ -34,10 +36,12 @@ public class LoginController {
                 return ResultUtil.error("验证码输入错误！");
             }
             else {
-                User user=userService.getUserByAccountAndType(userInfoDetail.getUserAccount(),userInfoDetail.getUserType());
-                if(user==null){
+                List<User> users=userService.getUserByAccountAndType(userInfoDetail.getUserAccount(),userInfoDetail.getUserType());
+                if(users.size()<1){
                     return ResultUtil.error("用户信息不存在！");
-                }else if(!user.getUserPassword().equals(userInfoDetail.getUserPassword())){
+                }
+                User user=users.get(0);
+                if(!Md5Tools.convertMD5(user.getUserPassword()).equals(userInfoDetail.getUserPassword())){
                     return ResultUtil.error("账号或密码出错！！！");
                 }
                 session.setAttribute("user",user);

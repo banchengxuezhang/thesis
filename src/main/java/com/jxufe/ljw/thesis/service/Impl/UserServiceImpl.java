@@ -6,6 +6,8 @@ import com.jxufe.ljw.thesis.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * @Classname UserServiceImpl
  * @Author: LeJunWen
@@ -16,8 +18,13 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserDao userDao;
     @Override
-    public User getUserByAccountAndType(String userAccount,int userType) {
+    public List<User> getUserByAccountAndType(String userAccount, int userType) {
         return userDao.getUserByAccountAndType(userAccount,userType);
 
+    }
+
+    @Override
+    public  int addUser(User user) {
+        return userDao.addUser(user);
     }
 }

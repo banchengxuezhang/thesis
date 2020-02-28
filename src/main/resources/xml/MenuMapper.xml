@@ -18,14 +18,14 @@
         T_MENU
         where
         menu_belong != 3
-        <if test="md.menuText != null and md.menuText != ''">
-            and menu_text like CONCAT( '%', #{md.menuText}, '%' )
+        <if test="menuText != null and menuText != ''">
+            and menu_text like CONCAT( '%', #{menuText}, '%' )
         </if>
-        <if test="md.menuBelong != null and md.menuBelong != ''">
-            and menu_belong = #{md.menuBelong}
+        <if test="menuBelong != null and menuBelong != ''">
+            and menu_belong = #{menuBelong}
         </if>
-        <if test="md.menuStatus != null and md.menuStatus != ''">
-            and menu_status = #{md.menuStatus}
+        <if test="menuStatus != null and menuStatus != ''">
+            and menu_status = #{menuStatus}
         </if>
     </select>
 </mapper>
