@@ -35,34 +35,38 @@ public class StudentTeacherRelationController {
     private StudentTeacherRelationService relationService;
     @PostMapping("/getStudentSelectThesisResult")
     public Object getStudentSelectThesisResult(String thesisId, HttpServletRequest request){
-        logger.info("进入论文题目关系建立接口，thesisId："+thesisId);
-        User user= (User) request.getSession().getAttribute("user");
-        StudentInfo studentInfo=studentService.getStudentInfo(user.getUserId());
-        Init init = initService.getInitInfo();
-        int studentNum = init.getStudentNum();
-        List<StudentTeacherRelation> res=relationService.getStudentTeacherRelationByStudentNo(user.getUserAccount());
-        if(res.size()>=studentNum){
-            return  ResultUtil.success("选题数已经达到最大值，不能再选！");
-        }
-        ThesisInfo thesisInfo=thesisInfoService.getThesisByThesisId(thesisId);
-        if(thesisInfo.getSelectNum()>0){
-            return ResultUtil.success("该选题已被选,请选择其他选题！");
-        }
-        StudentTeacherRelation studentTeacherRelation=new StudentTeacherRelation();
-        String id="RELATION"+System.currentTimeMillis();
-        studentTeacherRelation.setRelationId(id);
-        studentTeacherRelation.setStudentNo(studentInfo.getStudentNo());
-        studentTeacherRelation.setStudentName(studentInfo.getStudentName());
-        studentTeacherRelation.setStudentClass(studentInfo.getStudentClass());
-        studentTeacherRelation.setTeacherNo(thesisInfo.getTeacherNo());
-        studentTeacherRelation.setTeacherName(thesisInfo.getTeacherName());
-        studentTeacherRelation.setThesisNo(thesisInfo.getThesisId());
-        studentTeacherRelation.setThesisTitle(thesisInfo.getThesisTitle());
-        relationService.addStudentTeacherRelation(studentTeacherRelation);
-        thesisInfo.setSelectNum(thesisInfo.getSelectNum()+1);
-        logger.info("查看ThesisInfo："+thesisInfo);
-        thesisInfoService.updateThesis(thesisInfo);
-        return ResultUtil.success("选题成功");
+      try{
+          logger.info("进入论文题目关系建立接口，thesisId："+thesisId);
+          User user= (User) request.getSession().getAttribute("user");
+          StudentInfo studentInfo=studentService.getStudentInfo(user.getUserId());
+          Init init = initService.getInitInfo();
+          int studentNum = init.getStudentNum();
+          List<StudentTeacherRelation> res=relationService.getStudentTeacherRelationByStudentNo(user.getUserAccount());
+          if(res.size()>=studentNum){
+              return  ResultUtil.success("选题数已经达到最大值，不能再选！");
+          }
+          ThesisInfo thesisInfo=thesisInfoService.getThesisByThesisId(thesisId);
+          if(thesisInfo.getSelectNum()>0){
+              return ResultUtil.success("该选题已被选,请选择其他选题！");
+          }
+          StudentTeacherRelation studentTeacherRelation=new StudentTeacherRelation();
+          String id="RELATION"+System.currentTimeMillis();
+          studentTeacherRelation.setRelationId(id);
+          studentTeacherRelation.setStudentNo(studentInfo.getStudentNo());
+          studentTeacherRelation.setStudentName(studentInfo.getStudentName());
+          studentTeacherRelation.setStudentClass(studentInfo.getStudentClass());
+          studentTeacherRelation.setTeacherNo(thesisInfo.getTeacherNo());
+          studentTeacherRelation.setTeacherName(thesisInfo.getTeacherName());
+          studentTeacherRelation.setThesisNo(thesisInfo.getThesisId());
+          studentTeacherRelation.setThesisTitle(thesisInfo.getThesisTitle());
+          relationService.addStudentTeacherRelation(studentTeacherRelation);
+          thesisInfo.setSelectNum(thesisInfo.getSelectNum()+1);
+          logger.info("查看ThesisInfo："+thesisInfo);
+          thesisInfoService.updateThesis(thesisInfo);
+          return ResultUtil.success("选题成功！！！");
+      }catch (Exception e){
+          return ResultUtil.error("选题异常！！！");
+      }
 
     }
 }
