@@ -5,7 +5,7 @@ $(function () {
     loadDataGrid();
 
     $("#addBtn").click(function () {
-        location.href = "addThesis.html";
+        location.href = "/thesis/addThesis.html";
     });
 
     $("#modifyBtn").click(function () {
@@ -19,7 +19,7 @@ $(function () {
             return;
         }
         let thesisId = $(checkedObj[0]).val();
-        location.href = "modifyThesis.html?thesisId=" + thesisId;
+        location.href = "/thesis/modifyThesis.html?thesisId=" + thesisId;
     });
 
     $("#deleteBtn").click(function () {
@@ -38,7 +38,7 @@ $(function () {
                 url: "/thesis/deleteThesisInfoByIds?ids=" + thesisIds,
                 success: function (data) {
                     $.MsgBox.Alert("提示", data.msg,function () {
-                        location.href="teacherGiveThesis.html";
+                        location.href="/thesis/teacherGiveThesis.html";
                     });
                 },
                 error: function () {
@@ -100,7 +100,7 @@ function loadDataGrid() {
         rows: rows
     }
     $.ajax({
-        type: "post",
+        type: "get",
         url: "/thesis/getThesisInfoByTeacherNo?" + $.param(pageInfo),
         success: function (data) {
             totalPage = Math.ceil(data.total / 5);
@@ -110,7 +110,7 @@ function loadDataGrid() {
                 let gridData = (data.rows)[i];
                 $("#data").append(`
                     <tr>
-                        <td><input name="thesis" type="checkbox" value="${gridData.id}"/></td>
+                        <td><input name="thesis" type="checkbox" value="${gridData.thesisId}"/></td>
                         <td>${i + 1}</td>
                         <td>${gridData.thesisTitle}</td>
                         <td>${gridData.noticeInfo}</td>

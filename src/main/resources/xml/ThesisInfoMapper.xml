@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jxufe.ljw.thesis.dao.ThesisInfoDao">
+    <insert id="addThesis">
+        insert into t_thesis_info(thesis_id,thesis_title,teacher_no,teacher_name,notice_info,select_num)
+        values (#{thesisId},#{thesisTitle},#{teacherNo},#{teacherName},#{noticeInfo},#{selectNum})
+    </insert>
+    <update id="updateThesis">
+        update t_thesis_info
+        set
+        thesis_title=#{thesisTitle},notice_info=#{noticeInfo}
+        <if test="selectNum != 0">
+            ,select_num=#{selectNum}
+        </if>
+        where thesis_id=#{thesisId}
+    </update>
+
+    <delete id="deleteThesis">
+    delete  from t_thesis_info
+    where thesis_id=#{thesisId}
+    </delete>
+    <select id="getThesisInfo" resultType="com.jxufe.ljw.thesis.bean.ThesisInfo">
+        select
+        thesis.*,
+        teacher.teacher_title,
+        teacher.teacher_phone,
+        teacher.teacher_email
+      from
+        t_thesis_info thesis
+      left join t_teacher_info teacher
+      on thesis.teacher_no = teacher.teacher_no
+      <if test="condition!='000'">
+          where
+      </if>
+      <if test="condition=='111'">
+      thesis.thesis_title=#{thesis.thesisTitle}and thesis.teacher_no=#{thesis.teacherNo}and thesis.teacher_name=#{thesis.teacherName}
+      </if>
+      <if test="condition=='001'">
+          thesis.teacher_name=#{thesis.teacherName}
+      </if>
+        <if test="condition=='011'">
+            thesis.teacher_no=#{thesis.teacherNo} and thesis.teacher_name=#{thesis.teacherName}
+        </if>
+        <if test="condition=='010'">
+            thesis.teacher_no=#{thesis.teacherNo}
+        </if>
+        <if test="condition=='110'">
+            thesis.thesis_title=#{thesis.thesisTitle}and thesis.teacher_no=#{thesis.teacherNo}
+        </if>
+        <if test="condition=='100'">
+            thesis.thesis_title=#{thesis.thesisTitle}
+        </if>
+
+    </select>
+    <select id="getThesisInfoByTeacherNo" resultType="com.jxufe.ljw.thesis.bean.ThesisInfo">
+         select
+        *
+      from
+        t_thesis_info
+      where
+        teacher_no = #{teacherNo}
+    </select>
+    <select id="getThesisByThesisId" resultType="com.jxufe.ljw.thesis.bean.ThesisInfo">
+        select * from t_thesis_info
+        where
+        thesis_id=#{thesisId}
+    </select>
+</mapper>

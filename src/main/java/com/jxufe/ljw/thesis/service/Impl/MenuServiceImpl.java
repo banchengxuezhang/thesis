@@ -18,7 +18,7 @@ import java.util.Map;
  * @Description:
  **/
 @Service
-public class MenuServiceImpl extends ServiceImpl<MenuDao, Menu> implements MenuService {
+public class MenuServiceImpl  implements MenuService {
     @Autowired
     private MenuDao menuDao;
 
@@ -35,6 +35,11 @@ public class MenuServiceImpl extends ServiceImpl<MenuDao, Menu> implements MenuS
         map.put("total", pageRecord.getTotal());
         map.put("rows", menuList);
         return map;
+    }
+
+    @Override
+    public int updateMenuByMenuId(Menu menu) {
+        return menuDao.updateMenuByMenuId(menu);
     }
 
 }

@@ -1,10 +1,19 @@
 var page = 1;
 const rows = 5;
 var totalPage;
+var thesisTitle="";
+var teacherNo="";
+var teacherName="";
 $(function () {
     // 加载表格数据
     loadDataGrid();
-
+    $("#queryBtn").click(function () {
+        thesisTitle=$("#thesisTitle").val();
+        teacherNo=$("#teacherNo").val();
+        teacherName=$("#teacherName").val();
+        $("#data").empty();
+        loadDataGrid();
+    })
     $("#selectBtn").click(function () {
         let checkedObj = $("input[name='thesis']:checked");
         if (checkedObj.length <= 0) {
@@ -18,12 +27,12 @@ $(function () {
         $.MsgBox.Confirm("提示", "确定选择该选题吗？", function () {
             let thesisId = $(checkedObj[0]).val();
             $.ajax({
-                typ: "post",
-                url: "/studentTeacherRelation/getStudentSelectThesisResult?thesisId=" + thesisId,
+                type: "post",
+                url: "/thesis/studentTeacherRelation/getStudentSelectThesisResult?thesisId=" + thesisId,
                 async: false,
                 success: function (data) {
                     $.MsgBox.Alert("提示", data.msg, function () {
-                        location.href = "studentSelectThesis.html";
+                        location.href = "/thesis/studentSelectThesis.html";
                     });
                 },
                 error: function () {
@@ -81,10 +90,13 @@ $(function () {
 function loadDataGrid() {
     let pageInfo = {
         page: page,
-        rows: rows
+        rows: rows,
+        thesisTitle:thesisTitle,
+        teacherName:teacherName,
+        teacherNo:teacherNo
     }
     $.ajax({
-        type: "post",
+        type: "get",
         url: "/thesis/getThesisInfo?" + $.param(pageInfo),
         async: false,
         success: function (data) {
@@ -95,8 +107,8 @@ function loadDataGrid() {
                 let gridData = (data.rows)[i];
                 $("#data").append(`
                     <tr>
-                        <td><input name="thesis" type="checkbox" value="${gridData.id}"/></td>
-                        <td>${gridData.id}</td>
+                        <td><input name="thesis" type="checkbox" value="${gridData.thesisId}"/></td>
+                        <td>${gridData.thesisId}</td>
                         <td>${gridData.thesisTitle}</td>
                         <td>${gridData.teacherNo}</td>
                         <td>${gridData.teacherName}</td>

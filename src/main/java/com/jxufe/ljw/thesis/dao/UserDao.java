@@ -2,6 +2,7 @@ package com.jxufe.ljw.thesis.dao;
 
 import com.baomidou.mybatisplus.mapper.BaseMapper;
 import com.jxufe.ljw.thesis.bean.User;
+import com.jxufe.ljw.thesis.vo.UserInfoDetail;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -16,4 +17,5 @@ import java.util.List;
 public interface UserDao  extends BaseMapper<User> {
      List<User> getUserByAccountAndType(String userAccount, int userType);
      int addUser(User user);
+     int updateUserPassword(UserInfoDetail userInfoDetail);
 }

@@ -10,7 +10,12 @@ $(document).ready(function (e) {
         submitInfo(2);
     })
 });
-
+function isPhone(phone){
+    return /^1(3\d|4\d|5\d|6\d|7\d|8\d|9\d)\d{8}$/g.test(phone);
+}
+function isEmail(email){
+    return /^\w+@[a-z0-9]+\.[a-z]+$/i.test(email);
+}
 function roleChange() {
     let role = $("#role").val();
     if (role == "2") {
@@ -39,6 +44,14 @@ function submitInfo(flag) {
             $.MsgBox.Alert("提示","必填项未填写！");
             return;
         }
+        if((!isPhone(info.studentPhone))&&info.studentPhone!=""){
+            $.MsgBox.Alert("错误", "手机号格式错误！");
+            return;
+        }
+        if((!isEmail(info.studentEmail))&&info.studentEmail!=""){
+            $.MsgBox.Alert("错误", "邮箱格式错误！");
+            return;
+        }
         url = "/thesis/user/addStudent?";
     } else {
         info = {
@@ -51,6 +64,14 @@ function submitInfo(flag) {
         }
         if (info.teacherNo == "" || info.teacherName == "" || info.teacherTitle == "" || info.teacherEducation == "") {
             $.MsgBox.Alert("提示","必填项未填写！");
+            return;
+        }
+        if((!isPhone(info.teacherPhone))&&info.teacherPhone!=""){
+            $.MsgBox.Alert("错误", "手机号格式错误！");
+            return;
+        }
+        if((!isEmail(info.teacherEmail))&&info.teacherEmail!=""){
+            $.MsgBox.Alert("错误", "邮箱格式错误！");
             return;
         }
         url = "/thesis/user/addTeacher?";

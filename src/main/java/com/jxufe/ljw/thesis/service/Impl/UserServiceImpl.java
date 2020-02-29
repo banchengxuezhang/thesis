@@ -3,6 +3,7 @@ package com.jxufe.ljw.thesis.service.Impl;
 import com.jxufe.ljw.thesis.bean.User;
 import com.jxufe.ljw.thesis.dao.UserDao;
 import com.jxufe.ljw.thesis.service.UserService;
+import com.jxufe.ljw.thesis.vo.UserInfoDetail;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,4 +28,10 @@ public class UserServiceImpl implements UserService {
     public  int addUser(User user) {
         return userDao.addUser(user);
     }
+
+    @Override
+    public int updateUserPassword(UserInfoDetail userInfoDetail) {
+        return userDao.updateUserPassword(userInfoDetail);
+    }
+
 }

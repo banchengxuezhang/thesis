@@ -9,7 +9,7 @@ import lombok.Data;
  */
 @Data
 public class ThesisInfo {
-    private Integer thesisId;
+    private String thesisId;
     private String thesisTitle;
     private String teacherNo;
     private String teacherName;

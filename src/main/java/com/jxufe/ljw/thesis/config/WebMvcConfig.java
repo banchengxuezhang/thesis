@@ -27,7 +27,7 @@ public class WebMvcConfig  implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
         // excludePathPatterns("/login") 表示除了登陆与注册之外，因为登陆注册不需要登陆也可以访问
         registry.addInterceptor(commonIntercepter).addPathPatterns("/**")
-              //  .excludePathPatterns("/doc.html")
+               .excludePathPatterns("/doc.html")
                 .excludePathPatterns("/classpath:/META-INF/resources/")
                 .excludePathPatterns("/webjars/**")
                 .excludePathPatterns("/classpath:/META-INF/resources/webjars/")

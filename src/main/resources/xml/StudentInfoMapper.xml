@@ -7,7 +7,7 @@
     </insert>
     <update id="updateStudentInfo">
       update
-        T_STUDENT_INFO
+        t_student_info
       set
         student_phone = #{phone},student_email = #{email}
       where

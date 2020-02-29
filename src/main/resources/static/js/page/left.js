@@ -16,7 +16,7 @@ $(function () {
     });
     // 加载菜单
     $.ajax({
-        type: "post",
+        type: "get",
         url: "/thesis/menu/getMenuByMenuBelong",
         success: function (data) {
             if (data.code == 1) {

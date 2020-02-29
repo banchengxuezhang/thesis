@@ -37,4 +37,16 @@ public class UserInfoDetail {
      * 邮箱信息
      */
     private String email ;
+    /**
+     * 原密码
+     */
+    private String prePwd;
+    /**
+     * 新密码
+     */
+    private String newPwd;
+    /**
+     * 确认新密码
+     */
+    private String sureNewPwd;
 }

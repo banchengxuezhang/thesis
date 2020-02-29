@@ -7,8 +7,9 @@ import com.jxufe.ljw.thesis.bean.Menu;
 import java.util.List;
 import java.util.Map;
 
-public interface MenuService extends IService<Menu> {
+public interface MenuService {
     List<Menu> getMenyBymenuBelong(String menuBelong);
 
     Map<String, Object> selectAllMenu(Menu menu, int page, int rows);
+    int  updateMenuByMenuId(Menu menu);
 }

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jxufe.ljw.thesis.dao.StudentTeacherRelationDao">
+    <insert id="addStudentTeacherRelation">
+        insert  into t_student_teacher_relation(relation_id,student_no,student_name,student_class,teacher_no,teacher_name,thesis_no,thesis_title,teacher_opinion,opinion_flag,task_status,task_url,thesis_status,thesis_url)
+        values (#{relationId},#{studentNo},#{studentName},#{studentClass},#{teacherNo},#{teacherName},#{thesisNo},#{thesisTitle},#{teacherOpinion},#{opinionFlag},#{taskStatus},#{taskUrl},#{thesisStatus},#{thesisUrl})
+    </insert>
+    <select id="getStudentTeacherRelationByStudentNo" resultType="com.jxufe.ljw.thesis.bean.StudentTeacherRelation">
+        select * from t_student_teacher_relation
+        where student_no=#{studentNo}
+    </select>
+</mapper>

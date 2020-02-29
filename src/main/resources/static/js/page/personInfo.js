@@ -25,6 +25,14 @@ function commitInfo() {
     // 获取修改后的用户电话和邮箱
     let phone = $("#phone").val();
     let email = $("#email").val();
+    if((!isPhone(phone))&&phone!=""){
+        $.MsgBox.Alert("错误", "手机号格式错误！");
+        return;
+    }
+    if((!isEmail(email))&&email!=""){
+        $.MsgBox.Alert("错误", "邮箱格式错误！");
+        return;
+    }
     let data = {phone: phone, email: email};
     ``
     $.ajax({
@@ -39,6 +47,12 @@ function commitInfo() {
             $.MsgBox.Alert("错误", "修改用户信息错误！");
         }
     })
+}
+function isPhone(phone){
+    return /^1(3\d|4\d|5\d|6\d|7\d|8\d|9\d)\d{8}$/g.test(phone);
+}
+function isEmail(email){
+    return /^\w+@[a-z0-9]+\.[a-z]+$/i.test(email);
 }
 
 function loadPersonInfo() {

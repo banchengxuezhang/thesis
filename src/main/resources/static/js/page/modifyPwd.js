@@ -23,11 +23,11 @@ $(function () {
             data = {prePwd: prePwd, newPwd: newPwd, sureNewPwd: sureNewPwd}
             $.ajax({
                 type: "post",
-                url: "/user/modifyPwd?" + $.param(data),
+                url: "/thesis/user/updatePassword?" + $.param(data),
                 success:function (data) {
                     if (data.code == 1){
                         $.MsgBox.Alert("提示",data.msg,function () {
-                            location.href = "modifyPwd.html";
+                            location.href = "/thesis/modifyPwd.html";
                         });
                     }
                 },

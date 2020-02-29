@@ -70,12 +70,12 @@ $(function () {
 
 function changeMenuStatus(id, flag) {
     let data = {
-        id: id,
+        menuId: id,
         menuStatus: flag
     }
     $.ajax({
         type: "post",
-        url: "menu/updateMenuStatus?" + $.param(data),
+        url: "/thesis/menu/updateMenuStatus?" + $.param(data),
         success:function () {
             
         },
@@ -96,7 +96,7 @@ function loadMenu() {
     }
     $.ajax({
         type: 'get',
-        url: '/menu/list?' + $.param(pageInfo),
+        url: '/thesis/menu/list?' + $.param(pageInfo),
         success: function (data) {
             totalPage = Math.ceil(data.data.total / 5);
             $("#totalData").html(data.data.total);
@@ -105,7 +105,7 @@ function loadMenu() {
                 let gridData = (data.data.rows)[i];
                 let belongUser = gridData.menuBelong == "2" ? "教师" : "学生";
                 let status = gridData.menuStatus == "1" ? "开启" : "关闭";
-                let id = gridData.id;
+                let id = gridData.menuId;
                 let switchStatus;
                 if (gridData.menuStatus == "1") {
                     switchStatus = "switchOn";

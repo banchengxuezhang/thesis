@@ -5,6 +5,13 @@
         Insert into t_user(user_id,user_account,user_password,user_type)
         values(#{userId},#{userAccount},#{userPassword},#{userType})
     </insert>
+    <update id="updateUserPassword">
+        update t_user
+        set
+        user_password=#{newPwd}
+        where
+        user_id=#{userId}
+    </update>
     <select id="getUserByAccountAndType" resultType="com.jxufe.ljw.thesis.bean.User">
         select * from t_user
         where user_account=#{userAccount} and user_type=#{userType}

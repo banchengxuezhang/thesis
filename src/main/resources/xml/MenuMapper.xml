@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.jxufe.ljw.thesis.dao.MenuDao">
+    <update id="updateMenuByMenuId">
+        update t_menu
+        set
+        menu_status=#{menuStatus}
+        where
+        menu_id=#{menuId}
+    </update>
     <select id="getMenyBymenuBelong" parameterType="java.lang.String" resultType="com.jxufe.ljw.thesis.bean.Menu">
         select
           *
@@ -17,7 +24,7 @@
         from
         T_MENU
         where
-        menu_belong != 3
+        menu_belong != 1
         <if test="menuText != null and menuText != ''">
             and menu_text like CONCAT( '%', #{menuText}, '%' )
         </if>

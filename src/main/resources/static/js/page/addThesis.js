@@ -3,7 +3,7 @@ $(function () {
         add();
     })
     $("#returnBtn").click(function () {
-        location.href = "teacherGiveThesis.html";
+        location.href = "/thesis/teacherGiveThesis.html";
     })
 })
 
@@ -24,7 +24,7 @@ function add() {
             url: "/thesis/addThesis?" + $.param(data),
             success: function (data) {
                 $.MsgBox.Alert("提示", data.msg, function () {
-                    location.href = "teacherGiveThesis.html";
+                    location.href = "/thesis/teacherGiveThesis.html";
                 });
             },
             error: function () {

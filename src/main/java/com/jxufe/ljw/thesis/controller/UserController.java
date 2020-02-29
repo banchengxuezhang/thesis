@@ -14,7 +14,6 @@ import com.jxufe.ljw.thesis.vo.UserInfoDetail;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,7 +32,7 @@ import java.util.Map;
 @RestController
 @RequestMapping("/user")
 public class UserController {
-    private static final Logger LOG = LoggerFactory.getLogger(UserController.class);
+    private static final Logger logger = LoggerFactory.getLogger(UserController.class);
     @Autowired
     private UserService userService;
     @Autowired
@@ -46,14 +45,14 @@ public class UserController {
             return ResultUtil.success("用户已存在！！！");
         }
         User user =new User();
-        String id="user"+System.currentTimeMillis();
-        String stu_id="student"+System.currentTimeMillis();
+        String id="USER"+System.currentTimeMillis();
+        String stu_id="STUDENT"+System.currentTimeMillis();
         user.setUserType(UserType.STUDENT.getType());
         user.setUserAccount(studentInfo.getStudentNo());
         try{
             user.setUserPassword(Md5Tools.convertMD5(studentInfo.getStudentNo()));
         }catch (Exception e){
-            LOG.info("==================加密密码失败==================");
+            logger.info("==================加密密码失败==================");
             user.setUserPassword(studentInfo.getStudentNo());
         }
         user.setUserId(id);
@@ -62,7 +61,7 @@ public class UserController {
         try{
             userService.addUser(user);
             studentService.addStudentInfo(studentInfo);
-            LOG.info("==================添加用户信息完成==================");
+            logger.info("==================添加用户信息完成==================");
             return  ResultUtil.success("添加成功！！！");
         }catch (Exception e){
             return ResultUtil.error("添加失败！！！");
@@ -75,14 +74,14 @@ public class UserController {
             return  ResultUtil.success("用户已存在！！！");
         }
             User user =new User();
-            String id="user"+System.currentTimeMillis();
-            String tea_id="teacher"+System.currentTimeMillis();
+            String id="USER"+System.currentTimeMillis();
+            String tea_id="TEACHER"+System.currentTimeMillis();
             user.setUserType(UserType.TEACHER.getType());
             user.setUserAccount(teacherInfo.getTeacherNo());
             try{
                 user.setUserPassword(Md5Tools.convertMD5(teacherInfo.getTeacherNo()));
             }catch (Exception e){
-                LOG.info("==================加密密码失败==================");
+                logger.info("==================加密密码失败==================");
                 user.setUserPassword(teacherInfo.getTeacherNo());
             }
             user.setUserId(id);
@@ -100,21 +99,21 @@ public class UserController {
         @GetMapping("/getInfo")
         public Object getPersionInfo(HttpServletRequest request){
         try {
-            LOG.info("==================开始获取用户信息==================");
+            logger.info("==================开始获取用户信息==================");
             User user= (User) request.getSession().getAttribute("user");
             Map<String,Object> res = Maps.newHashMap();
             if(user.getUserType()==UserType.STUDENT.getType()){
                 res.put("personInfo",studentService.getStudentInfo(user.getUserId()));
-                LOG.info("获取信息："+res+user.getUserId()+user);
+                logger.info("获取信息："+res+user.getUserId()+user);
 
             }else {
                 res.put("personInfo",teacherService.getTeacherInfo(user.getUserId()));
-                LOG.info("获取信息："+res+user+teacherService.getTeacherInfo(user.getUserId()));
+                logger.info("获取信息："+res+user+teacherService.getTeacherInfo(user.getUserId()));
             }
             res.put("user",user);
             return ResultUtil.success(res);
         }catch (Exception e){
-            LOG.error("【获取到程序出现异常】:",e);
+            logger.error("【获取到程序出现异常】:",e);
             return ResultUtil.error("查询登录用户信息异常");
         }
 
@@ -132,6 +131,21 @@ public class UserController {
             ResultUtil.error("修改用户信息出错！！！");
         }
           return ResultUtil.success("修改用户信息成功！！！");
+      }
+      @PostMapping("/updatePassword")
+      public Object updatePassword(UserInfoDetail userInfoDetail,HttpServletRequest request){
+        try {
+            User user= (User) request.getSession().getAttribute("user");
+            if(!Md5Tools.convertMD5(user.getUserPassword()).equals(userInfoDetail.getPrePwd())){
+                return ResultUtil.success("原密码错误！！！");
+            }
+            userInfoDetail.setUserId(user.getUserId());
+            userInfoDetail.setNewPwd(Md5Tools.convertMD5(userInfoDetail.getNewPwd()));
+            userService.updateUserPassword(userInfoDetail);
+        }catch (Exception e){
+           return ResultUtil.error("修改密码异常！！！");
+        }
+          return ResultUtil.success("修改密码成功！！！");
       }
 
 }

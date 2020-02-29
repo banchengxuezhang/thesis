@@ -37,7 +37,7 @@ public class StudentTeacherRelation {
     private Integer taskStatus;
 
     private String taskUrl ;
-    private String thesisStatus;
+    private int thesisStatus;
 
     private String thesisUrl;
 

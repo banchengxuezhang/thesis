@@ -17,17 +17,17 @@ $(function () {
         modify(thesisId);
     })
     $("#returnBtn").click(function () {
-        location.href = "teacherGiveThesis.html";
+        location.href = "/thesis/teacherGiveThesis.html";
     })
 })
 
 function loadInitData(thesisId) {
     let param = {
-        id: thesisId
+        thesisId: thesisId
     }
     $.ajax({
-        type: "post",
-        url: "/thesis/getThesisInfoById?" + $.param(param),
+        type: "get",
+        url: "/thesis/getThesisInfoByThesisId?" + $.param(param),
         success: function (data) {
             $("#thesisTitle").val(data.data.thesisTitle);
             $("#noticeInfo").val(data.data.noticeInfo);
@@ -46,17 +46,17 @@ function modify(thesisId) {
         return;
     }
     let data = {
-        id: thesisId,
+        thesisId: thesisId,
         thesisTitle: thesisTitle,
         noticeInfo: noticeInfo
     }
     $.MsgBox.Alert("提示", "确定修改此论文信息？", function () {
         $.ajax({
             type: "post",
-            url: "/thesis/modifyThesis?" + $.param(data),
+            url: "/thesis/updateThesis?" + $.param(data),
             success: function (data) {
                 $.MsgBox.Alert("提示", data.msg, function () {
-                    location.href = "teacherGiveThesis.html";
+                    location.href = "/thesis/teacherGiveThesis.html";
                 });
             },
             error: function () {
