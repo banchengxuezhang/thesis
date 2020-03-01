@@ -1,8 +1,11 @@
 package com.jxufe.ljw.thesis.controller;
 
+import com.jxufe.ljw.thesis.bean.StudentTeacherRelation;
 import com.jxufe.ljw.thesis.bean.TeacherInfo;
 import com.jxufe.ljw.thesis.bean.ThesisInfo;
 import com.jxufe.ljw.thesis.bean.User;
+import com.jxufe.ljw.thesis.service.IMailService;
+import com.jxufe.ljw.thesis.service.StudentTeacherRelationService;
 import com.jxufe.ljw.thesis.service.TeacherService;
 import com.jxufe.ljw.thesis.service.ThesisInfoService;
 import com.jxufe.ljw.thesis.vo.ResultUtil;
@@ -27,6 +30,10 @@ import java.util.Map;
 @RestController
 public class ThesisInfoController {
     private static final Logger logger= LoggerFactory.getLogger(ThesisInfoController.class);
+    @Autowired
+    private IMailService iMailService;
+    @Autowired
+    private StudentTeacherRelationService relationService;
     @Autowired
     private ThesisInfoService thesisInfoService;
     @Autowired
@@ -54,16 +61,32 @@ public class ThesisInfoController {
         logger.info("进行更新论文过程！,数据为："+thesisInfo);
         try{
             thesisInfoService.updateThesis(thesisInfo);
+            StudentTeacherRelation studentTeacherRelation=relationService.getStudentTeacherRelationByThesisNo(thesisInfo.getThesisId());
+            if(studentTeacherRelation!=null) {
+                if ((!studentTeacherRelation.getStudentEmail().isEmpty()) && studentTeacherRelation.getStudentEmail() != "") {
+                    iMailService.sendSimpleMail(studentTeacherRelation.getStudentEmail(), "论文课题已被更新！请查看详情！", studentTeacherRelation.getStudentName() + "同学您好！\n您选择的论文课题已经被" + studentTeacherRelation.getTeacherName() + "教师更新了，如果有什么问题，请您及时联系您的导师！\n");
+                }
+            }
             return ResultUtil.success("修改论文课题成功！！！");
         }catch (Exception e){
             return ResultUtil.error("修改论文课题异常！！！");
         }
     }
-    @DeleteMapping("/deleteThesisInfo")
+    @DeleteMapping("/deleteThesisInfoByThesisIds")
     public Object deleteThesisInfo(String[] thesisIds){
         try{
-            //删除论文信息，待完善
-           thesisInfoService.deleteThesisInfo(Arrays.asList(thesisIds));
+            for (String thesisId:thesisIds
+                 ) {
+                thesisInfoService.deleteThesisInfo(thesisId);
+                StudentTeacherRelation studentTeacherRelation=relationService.getStudentTeacherRelationByThesisNo(thesisId);
+                if(studentTeacherRelation!=null){
+                    if((!studentTeacherRelation.getStudentEmail().isEmpty())&&studentTeacherRelation.getStudentEmail()!=""){
+                        iMailService.sendSimpleMail(studentTeacherRelation.getStudentEmail(),"论文课题已被删除！请查看详情！",studentTeacherRelation.getStudentName()+"同学您好！很抱歉！\n您选择的论文课题已经被"+studentTeacherRelation.getTeacherName()+"教师删除了，请您及时选择其它论文课题！\n");
+
+                    }
+                }
+                relationService.deleteRelationByThesisNo(thesisId);
+            }
             return ResultUtil.success("删除论文成功！");
         }catch (Exception e){
             return ResultUtil.error("删除论文异常！");

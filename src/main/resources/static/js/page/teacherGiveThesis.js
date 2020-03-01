@@ -34,8 +34,8 @@ $(function () {
         });
         $.MsgBox.Alert("提示","确定删除所选择的论文信息？",function () {
             $.ajax({
-                type: "post",
-                url: "/thesis/deleteThesisInfoByIds?ids=" + thesisIds,
+                type: "delete",
+                url: "/thesis/deleteThesisInfoByThesisIds?thesisIds=" + thesisIds,
                 success: function (data) {
                     $.MsgBox.Alert("提示", data.msg,function () {
                         location.href="/thesis/teacherGiveThesis.html";

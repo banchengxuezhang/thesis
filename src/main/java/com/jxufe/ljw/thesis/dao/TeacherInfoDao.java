@@ -13,4 +13,5 @@ public interface TeacherInfoDao {
     int addTeacherInfo(TeacherInfo teacherInfo);
     TeacherInfo getTeacherInfo(String userId);
     int updateTeacherInfo(String userId,String phone,String email);
+    TeacherInfo getTeacherInfoByTeacherNo(String teacherNo);
 }

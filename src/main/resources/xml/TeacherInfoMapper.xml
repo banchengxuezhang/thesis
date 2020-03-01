@@ -15,4 +15,8 @@
         select  * from t_teacher_info
         where user_id=#{userId}
     </select>
+    <select id="getTeacherInfoByTeacherNo" resultType="com.jxufe.ljw.thesis.bean.TeacherInfo">
+        select * from t_teacher_info
+        where teacher_no=#{teacherNo}
+    </select>
 </mapper>

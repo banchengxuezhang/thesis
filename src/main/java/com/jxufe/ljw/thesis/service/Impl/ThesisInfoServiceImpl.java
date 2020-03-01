@@ -26,13 +26,8 @@ public class ThesisInfoServiceImpl implements ThesisInfoService {
     }
 
     @Override
-    public int deleteThesisInfo(List<String> thesisIds) {
-        int sum=0;
-        for (String thesisId:thesisIds
-             ) {
-            sum+=thesisInfoDao.deleteThesis(thesisId);
-        }
-        return (thesisIds.size()-sum);
+    public int deleteThesisInfo(String thesisId) {
+        return thesisInfoDao.deleteThesis(thesisId);
     }
 
     @Override
@@ -42,16 +37,19 @@ public class ThesisInfoServiceImpl implements ThesisInfoService {
        StringBuilder stringBuilder = new StringBuilder("");
        if(thesisInfo.getThesisTitle()!=""&&thesisInfo.getThesisTitle()!=null){
            stringBuilder.append('1');
+           thesisInfo.setThesisTitle("%"+thesisInfo.getThesisTitle()+"%");
        }else {
            stringBuilder.append('0');
        }
         if(thesisInfo.getTeacherNo()!=""&&thesisInfo.getTeacherNo()!=null){
             stringBuilder.append('1');
+            thesisInfo.setTeacherNo(thesisInfo.getTeacherNo()+"%");
         }else {
             stringBuilder.append('0');
         }
         if(thesisInfo.getTeacherName()!=""&&thesisInfo.getTeacherName()!=null){
             stringBuilder.append('1');
+            thesisInfo.setTeacherName(thesisInfo.getTeacherName()+"%");
         }else {
             stringBuilder.append('0');
         }

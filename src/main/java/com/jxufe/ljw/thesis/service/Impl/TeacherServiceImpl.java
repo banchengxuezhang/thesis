@@ -29,4 +29,9 @@ public class TeacherServiceImpl implements TeacherService {
     public int updateTeacherInfo(String userId, String phone, String email) {
         return teacherInfoDao.updateTeacherInfo(userId,phone,email);
     }
+
+    @Override
+    public TeacherInfo getTeacherInfoByTeacherNo(String teacherNo) {
+        return teacherInfoDao.getTeacherInfoByTeacherNo(teacherNo);
+    }
 }

@@ -56,8 +56,8 @@ function loadDataGrid() {
         rows: rows
     }
     $.ajax({
-        type: "post",
-        url: "/studentTeacherRelation/getAgreeThesisByTeacherNo?" + $.param(pageInfo),
+        type: "get",
+        url: "/thesis/studentTeacherRelation/getAgreeThesisByTeacherNo?" + $.param(pageInfo),
         success: function (data) {
             totalPage = Math.ceil(data.total / 5);
             $("#totalData").html(data.total);
@@ -89,7 +89,7 @@ function loadDataGrid() {
 }
 
 function uploadTask(thesisTitle, thesisNo) {
-    Dialog.init(`<form action="/file/uploadTask" method="post" enctype="multipart/form-data">
+    Dialog.init(`<form action="/thesis/file/uploadTask" method="post" enctype="multipart/form-data">
         <input type="hidden" name="thesisNo" id="thsisNo" value="${thesisNo}"/>
         <input type="hidden" name="thesisTitle" id="thesisTitle" value="${thesisTitle}"/>
         <p>选择文件: <input type="file" name="file"/></p>

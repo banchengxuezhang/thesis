@@ -5,8 +5,8 @@ $(function () {
 
 function loadDataGrid() {
     $.ajax({
-        type: "post",
-        url: "/studentTeacherRelation/getStudentSelectThesisByStudentNo",
+        type: "get",
+        url: "/thesis/studentTeacherRelation/getStudentTeacherRelationByStudentNo",
         async: false,
         success: function (data) {
             for (let i = 0; i < data.data.length; i++) {

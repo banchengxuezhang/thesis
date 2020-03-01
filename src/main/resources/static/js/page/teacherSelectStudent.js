@@ -69,8 +69,8 @@ function loadDataGrid() {
         rows: rows
     }
     $.ajax({
-        type: "post",
-        url: "/studentTeacherRelation/getStudentSelectThesisByTeacherNo?" + $.param(pageInfo),
+        type: "get",
+        url: "/thesis/studentTeacherRelation/getStudentSelectThesisByTeacherNo?" + $.param(pageInfo),
         success: function (data) {
             totalPage = Math.ceil(data.total / 5);
             $("#totalData").html(data.total);

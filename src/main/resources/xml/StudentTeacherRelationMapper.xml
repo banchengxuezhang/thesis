@@ -5,8 +5,57 @@
         insert  into t_student_teacher_relation(relation_id,student_no,student_name,student_class,teacher_no,teacher_name,thesis_no,thesis_title,teacher_opinion,opinion_flag,task_status,task_url,thesis_status,thesis_url)
         values (#{relationId},#{studentNo},#{studentName},#{studentClass},#{teacherNo},#{teacherName},#{thesisNo},#{thesisTitle},#{teacherOpinion},#{opinionFlag},#{taskStatus},#{taskUrl},#{thesisStatus},#{thesisUrl})
     </insert>
+    <update id="operateStudent">
+        update t_student_teacher_relation
+        set teacher_opinion=#{teacherOpinion},opinion_flag=#{opinionFlag}
+        where thesis_no=#{thesisNo}
+    </update>
+    <update id="updateTaskUrlByThesisNo">
+        update t_student_teacher_relation
+        set task_url=#{taskUrl},task_status=1
+        where thesis_no=#{thesisNo}
+    </update>
+    <update id="updateThesisUrlByThesisNo">
+         update t_student_teacher_relation
+        set thesis_url=#{thesisUrl},task_status=1
+        where thesis_no=#{thesisNo}
+    </update>
+    <delete id="deleteRelationByThesisNo">
+        delete from  t_student_teacher_relation
+        where thesis_no=#{thesisNo}
+    </delete>
     <select id="getStudentTeacherRelationByStudentNo" resultType="com.jxufe.ljw.thesis.bean.StudentTeacherRelation">
         select * from t_student_teacher_relation
         where student_no=#{studentNo}
     </select>
+    <select id="getStudentSelectThesisByTeacherNo"
+            resultType="com.jxufe.ljw.thesis.bean.StudentTeacherRelation">
+        select
+        relation.*,
+        student.student_major,
+        student.student_instructor,
+        student.student_phone,
+        student.student_email
+        from t_student_teacher_relation relation
+        left join t_student_info student
+        on relation.student_no=student.student_no
+        where teacher_no=#{teacherNo}
+        <if test="flag==1">
+            and opinion_flag=#{flag}
+        </if>
+    </select>
+    <select id="getStudentTeacherRelationByThesisNo"
+            resultType="com.jxufe.ljw.thesis.bean.StudentTeacherRelation">
+          select
+        relation.*,
+        student.student_major,
+        student.student_instructor,
+        student.student_phone,
+        student.student_email
+        from t_student_teacher_relation relation
+        left join t_student_info student
+        on relation.student_no=student.student_no
+        where thesis_no=#{thesisNo}
+    </select>
+
 </mapper>

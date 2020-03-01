@@ -9,9 +9,7 @@
         update t_thesis_info
         set
         thesis_title=#{thesisTitle},notice_info=#{noticeInfo}
-        <if test="selectNum != 0">
-            ,select_num=#{selectNum}
-        </if>
+        <if test="selectNum!=null">,select_num=#{selectNum}</if>
         where thesis_id=#{thesisId}
     </update>
 
@@ -33,22 +31,25 @@
           where
       </if>
       <if test="condition=='111'">
-      thesis.thesis_title=#{thesis.thesisTitle}and thesis.teacher_no=#{thesis.teacherNo}and thesis.teacher_name=#{thesis.teacherName}
+      thesis.thesis_title like #{thesis.thesisTitle}and thesis.teacher_no like #{thesis.teacherNo}and thesis.teacher_name like #{thesis.teacherName}
       </if>
+        <if test="condition=='101'">
+            thesis.thesis_title like #{thesis.thesisTitle}and thesis.teacher_name like #{thesis.teacherName}
+        </if>
       <if test="condition=='001'">
-          thesis.teacher_name=#{thesis.teacherName}
+          thesis.teacher_name like #{thesis.teacherName}
       </if>
         <if test="condition=='011'">
-            thesis.teacher_no=#{thesis.teacherNo} and thesis.teacher_name=#{thesis.teacherName}
+            thesis.teacher_no like #{thesis.teacherNo} and thesis.teacher_name like #{thesis.teacherName}
         </if>
         <if test="condition=='010'">
-            thesis.teacher_no=#{thesis.teacherNo}
+            thesis.teacher_no like #{thesis.teacherNo}
         </if>
         <if test="condition=='110'">
-            thesis.thesis_title=#{thesis.thesisTitle}and thesis.teacher_no=#{thesis.teacherNo}
+            thesis.thesis_title like #{thesis.thesisTitle} and thesis.teacher_no like #{thesis.teacherNo}
         </if>
         <if test="condition=='100'">
-            thesis.thesis_title=#{thesis.thesisTitle}
+            thesis.thesis_title like #{thesis.thesisTitle}
         </if>
 
     </select>
