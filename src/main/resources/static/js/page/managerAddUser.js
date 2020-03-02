@@ -40,7 +40,7 @@ function submitInfo(flag) {
             studentPhone: $("#studentPhone").val(),
             studentEmail: $("#studentEmail").val()
         };
-        if (info.studentNo == "" || info.studentName == "" || info.studentMajor == "" || info.studentInstructor == "" || info.studentClass == "") {
+        if (info.studentEmail==""||info.studentNo == "" || info.studentName == "" || info.studentMajor == "" || info.studentInstructor == "" || info.studentClass == "") {
             $.MsgBox.Alert("提示","必填项未填写！");
             return;
         }
@@ -62,7 +62,7 @@ function submitInfo(flag) {
             teacherPhone: $("#teacherPhone").val(),
             teacherEmail: $("#teacherEmail").val()
         }
-        if (info.teacherNo == "" || info.teacherName == "" || info.teacherTitle == "" || info.teacherEducation == "") {
+        if (info.studentEmail==""||info.teacherNo == "" || info.teacherName == "" || info.teacherTitle == "" || info.teacherEducation == "") {
             $.MsgBox.Alert("提示","必填项未填写！");
             return;
         }
@@ -70,7 +70,7 @@ function submitInfo(flag) {
             $.MsgBox.Alert("错误", "手机号格式错误！");
             return;
         }
-        if((!isEmail(info.teacherEmail))&&info.teacherEmail!=""){
+        if((!isEmail(info.teacherEmail))&&info.studentEmail!=""){
             $.MsgBox.Alert("错误", "邮箱格式错误！");
             return;
         }

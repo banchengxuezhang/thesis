@@ -1,6 +1,7 @@
 package com.jxufe.ljw.thesis.service.Impl;
 
 import com.baomidou.mybatisplus.plugins.Page;
+import com.baomidou.mybatisplus.plugins.pagination.Pagination;
 import com.jxufe.ljw.thesis.bean.StudentTeacherRelation;
 import com.jxufe.ljw.thesis.dao.StudentTeacherRelationDao;
 import com.jxufe.ljw.thesis.service.StudentTeacherRelationService;
@@ -65,6 +66,12 @@ public class StudentTeacherRelationServiceImpl implements StudentTeacherRelation
     }
 
     @Override
+    public int getStudentSelectThesisAgreeNumByTeacherNo(String teacherNo, int flag) {
+        return studentTeacherRelationDao.getStudentSelectThesisAgreeNumByTeacherNo(teacherNo,flag);
+    }
+
+
+    @Override
     public int operateStudent(StudentTeacherRelation studentTeacherRelation) {
         return studentTeacherRelationDao.operateStudent(studentTeacherRelation);
     }
@@ -98,4 +105,15 @@ public class StudentTeacherRelationServiceImpl implements StudentTeacherRelation
     public int updateThesisUrlByThesisNo(String thesisUrl, String thesisNo) {
         return studentTeacherRelationDao.updateThesisUrlByThesisNo(thesisUrl,thesisNo);
     }
+
+    @Override
+    public Object getAgreeThesisByStudentNo(int page, int rows, String studentNo, int opinionFlag) {
+      Map<String,Object> map=new HashMap<>();
+      Page<StudentTeacherRelation> page1=new Page<>(page,rows);
+      List<StudentTeacherRelation> list=studentTeacherRelationDao.getAgreeThesisByStudentNo(page1,studentNo,opinionFlag);
+      map.put("total",page1.getTotal());
+      map.put("rows",list);
+      return  map;
+    }
+
 }

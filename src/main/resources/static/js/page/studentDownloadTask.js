@@ -5,46 +5,62 @@ $(function () {
     loadDataGrid();
 
     $("#firstPage").click(function () {
-        if (page == 1) {
-            $.MsgBox.Alert("提示", "当前已经是第一页！");
-        } else {
-            page = 1;
-            // 清除之前表格中的数据
-            $("#data").empty();
-            loadDataGrid();
+        if(totalPage==0){
+            $.MsgBox.Alert("提示", "没有论文列表！");
+        }else {
+            if (page == 1) {
+                $.MsgBox.Alert("提示", "当前已经是第一页！");
+            } else {
+                page = 1;
+                // 清除之前表格中的数据
+                $("#data").empty();
+                loadDataGrid();
+            }
         }
     });
 
     $("#prePage").click(function () {
-        if (page == 1) {
-            $.MsgBox.Alert("提示", "无上一页！");
-        } else {
-            page -= 1;
-            // 清除之前表格中的数据
-            $("#data").empty();
-            loadDataGrid();
+        if(totalPage==0){
+            $.MsgBox.Alert("提示", "没有论文列表！");
+        }else {
+            if (page == 1) {
+                $.MsgBox.Alert("提示", "无上一页！");
+            } else {
+                page -= 1;
+                // 清除之前表格中的数据
+                $("#data").empty();
+                loadDataGrid();
+            }
         }
     });
 
     $("#nextPage").click(function () {
-        if (page == totalPage) {
-            $.MsgBox.Alert("提示", "无下一页！");
-        } else {
-            page += 1;
-            // 清除之前表格中的数据
-            $("#data").empty();
-            loadDataGrid();
+        if(totalPage==0){
+            $.MsgBox.Alert("提示", "没有论文列表！");
+        }else {
+            if (page == totalPage) {
+                $.MsgBox.Alert("提示", "无下一页！");
+            } else {
+                page += 1;
+                // 清除之前表格中的数据
+                $("#data").empty();
+                loadDataGrid();
+            }
         }
     });
 
     $("#lastPage").click(function () {
-        if (page == totalPage) {
-            $.MsgBox.Alert("提示", "当前已经是最后一页！");
-        } else {
-            page = totalPage;
-            // 清除之前表格中的数据
-            $("#data").empty();
-            loadDataGrid();
+        if(totalPage==0){
+            $.MsgBox.Alert("提示", "没有论文列表！");
+        }else {
+            if (page == totalPage) {
+                $.MsgBox.Alert("提示", "当前已经是最后一页！");
+            } else {
+                page = totalPage;
+                // 清除之前表格中的数据
+                $("#data").empty();
+                loadDataGrid();
+            }
         }
     });
 
@@ -57,7 +73,7 @@ function loadDataGrid() {
     }
     $.ajax({
         type: "post",
-        url: "/studentTeacherRelation/getAgreeThesisByStudentNo?" + $.param(pageInfo),
+        url: "/thesis/studentTeacherRelation/getAgreeThesisByStudentNo?" + $.param(pageInfo),
         success: function (data) {
             totalPage = Math.ceil(data.total / 5);
             $("#totalData").html(data.total);

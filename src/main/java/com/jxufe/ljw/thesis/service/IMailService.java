@@ -33,7 +33,8 @@ public interface IMailService {
      * @param to 收件人
      * @param subject 主题
      * @param content 内容
-     * @param filePath 附件
+     * @param filePath 附件路径
+     * @param fileName 附件名字
      */
-    public void sendAttachmentsMail(String to, String subject, String content, String filePath);
+    public void sendAttachmentsMail(String to, String subject, String content,String filePath,String fileName);
 }

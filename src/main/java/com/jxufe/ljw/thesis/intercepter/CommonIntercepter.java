@@ -2,6 +2,7 @@ package com.jxufe.ljw.thesis.intercepter;
 
 
 import com.jxufe.ljw.thesis.bean.User;
+import com.jxufe.ljw.thesis.enumeration.UserType;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 
@@ -29,11 +30,18 @@ public class CommonIntercepter implements HandlerInterceptor {
             response.sendRedirect("/thesis/error.html");
             return false;
         }else {
-            if(request.getRequestURL().toString().contains("addStudent") || request.getRequestURL().toString().contains("addTeacher")||request.getRequestURL().toString().contains("doc.html")||request.getRequestURL().toString().contains("druid")){
-               if(user.getUserType()!=1){
+            if(request.getRequestURL().toString().contains("updateMenuStatus") ||request.getRequestURL().toString().contains("/init") ||request.getRequestURL().toString().contains("addStudent") || request.getRequestURL().toString().contains("addTeacher")||request.getRequestURL().toString().contains("doc.html")||request.getRequestURL().toString().contains("druid")){
+               if(user.getUserType()>UserType.MANAGE.getType()){
                    response.sendRedirect("/thesis/error.html");
                    return  false;
                }
+            }
+            if(request.getRequestURL().toString().contains("uploadTask") ||request.getRequestURL().toString().contains("getStudentSelectThesisByTeacherNo") ||request.getRequestURL().toString().contains("getAgreeThesisByTeacherNo") ||request.getRequestURL().toString().contains("getThesisInfoByTeacherNo") ||request.getRequestURL().toString().contains("addThesis") ||request.getRequestURL().toString().contains("updateThesis") ||request.getRequestURL().toString().contains("deleteThesisInfoByThesisIds") ||request.getRequestURL().toString().contains("operateStudent")){
+                if(user.getUserType()>UserType.TEACHER.getType()){
+                    response.sendRedirect("/thesis/error.html");
+                    return  false;
+
+                }
             }
             return true;    //如果session里有user，表示该用户已经登陆，放行，用户即可继续调用自己需要的接口
         }

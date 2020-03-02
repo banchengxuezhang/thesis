@@ -17,7 +17,7 @@
     </update>
     <update id="updateThesisUrlByThesisNo">
          update t_student_teacher_relation
-        set thesis_url=#{thesisUrl},task_status=1
+        set thesis_url=#{thesisUrl},thesis_status=1
         where thesis_no=#{thesisNo}
     </update>
     <delete id="deleteRelationByThesisNo">
@@ -40,8 +40,8 @@
         left join t_student_info student
         on relation.student_no=student.student_no
         where teacher_no=#{teacherNo}
-        <if test="flag==1">
-            and opinion_flag=#{flag}
+        <if test="opinionFlag==1">
+            and opinion_flag=#{opinionFlag}
         </if>
     </select>
     <select id="getStudentTeacherRelationByThesisNo"
@@ -56,6 +56,26 @@
         left join t_student_info student
         on relation.student_no=student.student_no
         where thesis_no=#{thesisNo}
+    </select>
+    <select id="getStudentSelectThesisAgreeNumByTeacherNo" resultType="java.lang.Integer">
+        select count(*)
+ FROM t_student_teacher_relation
+ WHERE teacher_no=#{teacherNo} and opinion_flag=#{opinionFlag}
+    </select>
+    <select id="getAgreeThesisByStudentNo" resultType="com.jxufe.ljw.thesis.bean.StudentTeacherRelation">
+          select
+        relation.*,
+        student.student_major,
+        student.student_instructor,
+        student.student_phone,
+        student.student_email
+        from t_student_teacher_relation relation
+        left join t_student_info student
+        on relation.student_no=student.student_no
+        where relation.student_no=#{studentNo}
+        <if test="opinionFlag!=null">
+            and opinion_flag=#{opinionFlag}
+        </if>
     </select>
 
 </mapper>

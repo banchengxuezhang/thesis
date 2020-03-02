@@ -94,12 +94,9 @@ public class ThesisInfoController {
 
     }
     @GetMapping("/getThesisInfo")
-    public Object getThesisInfo(int page,int rows,String thesisTitle,String teacherNo,String teacherName){
+    public Object getThesisInfo(int page,int rows,ThesisInfo thesisInfo){
         try {
-            ThesisInfo thesisInfo=new ThesisInfo();
-            thesisInfo.setThesisTitle(thesisTitle);
-            thesisInfo.setTeacherName(teacherName);
-            thesisInfo.setTeacherNo(teacherNo);
+            logger.info("查看选择条件ThesisInfo："+thesisInfo);
             Map<String, Object> res = thesisInfoService.getThesisInfo(page, rows,thesisInfo);
             logger.info("==================查询论文信息结束，数据：{}==================", res);
             return res;

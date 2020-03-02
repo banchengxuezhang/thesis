@@ -51,6 +51,9 @@ public class StudentTeacherRelationController {
           if(thesisInfo.getSelectNum()>0){
               return ResultUtil.success("该选题已被选,请选择其他选题！");
           }
+          if(relationService.getStudentSelectThesisAgreeNumByTeacherNo(thesisInfo.getTeacherNo(),0)+relationService.getStudentSelectThesisAgreeNumByTeacherNo(thesisInfo.getTeacherNo(),1)>=init.getTeacherNum()){
+              return ResultUtil.success("该老师名额已经被选满了,请选择其他老师选题！");
+          }
           StudentTeacherRelation studentTeacherRelation=new StudentTeacherRelation();
           String id="RELATION"+System.currentTimeMillis();
           studentTeacherRelation.setRelationId(id);
@@ -63,9 +66,10 @@ public class StudentTeacherRelationController {
           studentTeacherRelation.setThesisTitle(thesisInfo.getThesisTitle());
           studentTeacherRelation.setOpinionFlag(0);
           studentTeacherRelation.setTaskStatus(2);
+          studentTeacherRelation.setThesisStatus(2);
           TeacherInfo teacherInfo=teacherService.getTeacherInfoByTeacherNo(thesisInfo.getTeacherNo());
           if(!(teacherInfo.getTeacherEmail().isEmpty())&&teacherInfo.getTeacherEmail()!=""){
-              iMailService.sendSimpleMail(teacherInfo.getTeacherEmail(),"论文课题已被选择！请查看详情！",teacherInfo.getTeacherName()+"教师您好！\n您的论文课题已经被"+studentTeacherRelation.getStudentClass()+"的"+studentTeacherRelation.getStudentName()+"同学申请了，请您及时处理，超过选题阶段时限后，系统将自动为您同意！");
+              iMailService.sendSimpleMail(teacherInfo.getTeacherEmail(),"论文课题已被选择！请查看详情！",teacherInfo.getTeacherName()+"教师您好！\n您的论文课题《"+studentTeacherRelation.getThesisTitle()+"》已经被"+studentTeacherRelation.getStudentClass()+"的"+studentTeacherRelation.getStudentName()+"同学申请了，请您及时处理，超过选题阶段时限后，系统将自动为您同意！");
           }
           relationService.addStudentTeacherRelation(studentTeacherRelation);
           thesisInfo.setSelectNum(thesisInfo.getSelectNum()+1);
@@ -116,36 +120,48 @@ public class StudentTeacherRelationController {
         }
     }
     @PostMapping("/operateStudent")
-    public Object operateStudent(StudentTeacherRelation studentTeacherRelation){
+    public Object operateStudent(StudentTeacherRelation studentTeacherRelation,HttpServletRequest request){
         try {
-            relationService.operateStudent(studentTeacherRelation);
+            User user= (User) request.getSession().getAttribute("user");
             StudentTeacherRelation relation=relationService.getStudentTeacherRelationByThesisNo(studentTeacherRelation.getThesisNo());
-        if(relation.getTeacherOpinion().isEmpty()||relation.getTeacherOpinion()==""){
+            relation.setTeacherOpinion(studentTeacherRelation.getTeacherOpinion());
+            relation.setOpinionFlag(studentTeacherRelation.getOpinionFlag());
+
+            if(relation.getTeacherOpinion().isEmpty()||relation.getTeacherOpinion()==""){
             relation.setTeacherOpinion("教师没有留下什么话！");
         }
-            if(relation.getOpinionFlag()==2){
-                ThesisInfo thesisInfo=thesisInfoService.getThesisByThesisId(relation.getThesisNo());
-                thesisInfo.setSelectNum(0);
-                thesisInfoService.updateThesis(thesisInfo);
-                relationService.deleteRelationByThesisNo(relation.getThesisNo());
-                if((!relation.getStudentEmail().isEmpty())&&relation.getStudentEmail()!=""){
-                    logger.info("进入删除邮件发送中心！打印信息："+relation);
-                    iMailService.sendSimpleMail(relation.getStudentEmail(),"论文课题选题失败！请查看详情！",relation.getStudentName()+"同学您好！\n您选择的论文课题申请被"+relation.getTeacherName()+"教师拒绝了，教师给的留言是：\n"+relation.getTeacherOpinion());
-                }
-                }
-            if(relation.getOpinionFlag()==1){
-                iMailService.sendSimpleMail(relation.getStudentEmail(),"论文课题选题成功！请查看详情！",relation.getStudentName()+"同学您好！恭喜你！\n您选择的论文课题申请被"+relation.getTeacherName()+"教师同意了，教师给的留言是：\n"+relation.getTeacherOpinion());
-
+        if(relation.getOpinionFlag()==1){
+            Init init = initService.getInitInfo();
+            if(relationService.getStudentSelectThesisAgreeNumByTeacherNo(user.getUserAccount(),1)>=init.getTeacherNum()){
+                return ResultUtil.success("您已选满了"+init.getTeacherNum()+"名学生，无法同意该申请!");
             }
-         
-            return ResultUtil.success("处理成功！！！");
-        }catch (Exception e){
-            return ResultUtil.error("处理异常！！！");
+            iMailService.sendSimpleMail(relation.getStudentEmail(),"论文课题选题成功！请查看详情！",relation.getStudentName()+"同学您好！恭喜你！\n您选择的论文课题《"+relation.getThesisTitle()+"》被"+relation.getTeacherName()+"教师同意了，教师给的留言是：\n"+relation.getTeacherOpinion());
+
         }
+        relationService.operateStudent(relation);
+            if(relation.getOpinionFlag()==2){
+            ThesisInfo thesisInfo=thesisInfoService.getThesisByThesisId(relation.getThesisNo());
+            thesisInfo.setSelectNum(0);
+            thesisInfoService.updateThesis(thesisInfo);
+            relationService.deleteRelationByThesisNo(relation.getThesisNo());
+            if((!relation.getStudentEmail().isEmpty())&&relation.getStudentEmail()!=""){
+                logger.info("进入删除邮件发送中心！打印信息："+relation);
+                iMailService.sendSimpleMail(relation.getStudentEmail(),"论文课题选题失败！请查看详情！",relation.getStudentName()+"同学您好！\n您选择的论文课题题《"+relation.getThesisTitle()+"》被"+relation.getTeacherName()+"教师拒绝了，教师给的留言是：\n"+relation.getTeacherOpinion());
+            }
+            }
+        return ResultUtil.success("处理成功！！！");
+    }catch (Exception e){
+        return ResultUtil.error("处理异常！！！");
+    }
     }
     @GetMapping("/getAgreeThesisByTeacherNo")
     public Object getAgreeThesisByTeacherNo(int page,int rows,HttpServletRequest request){
         User user= (User) request.getSession().getAttribute("user");
         return relationService.getAgreeThesisByTeacherNo(page,rows,user.getUserAccount());
+    }
+    @PostMapping("/getAgreeThesisByStudentNo")
+    public Object getAgreeThesisByStudentNo(int page,int rows,HttpServletRequest request){
+        User user= (User) request.getSession().getAttribute("user");
+        return relationService.getAgreeThesisByStudentNo(page,rows,user.getUserAccount(),1);
     }
 }

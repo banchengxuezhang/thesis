@@ -27,31 +27,19 @@
         t_thesis_info thesis
       left join t_teacher_info teacher
       on thesis.teacher_no = teacher.teacher_no
-      <if test="condition!='000'">
-          where
+      where 1=1
+      <if test="thesis.thesisTitle!=null and thesis.thesisTitle!=''">
+         and thesis.thesis_title like #{thesis.thesisTitle}
       </if>
-      <if test="condition=='111'">
-      thesis.thesis_title like #{thesis.thesisTitle}and thesis.teacher_no like #{thesis.teacherNo}and thesis.teacher_name like #{thesis.teacherName}
+      <if test="thesis.teacherNo!=null and thesis.teacherNo!=''">
+          and thesis.teacher_no like #{thesis.teacherNo}
       </if>
-        <if test="condition=='101'">
-            thesis.thesis_title like #{thesis.thesisTitle}and thesis.teacher_name like #{thesis.teacherName}
-        </if>
-      <if test="condition=='001'">
-          thesis.teacher_name like #{thesis.teacherName}
+      <if test="thesis.teacherName!=null and thesis.teacherName!=''">
+        and thesis.teacher_name like #{thesis.teacherName}
       </if>
-        <if test="condition=='011'">
-            thesis.teacher_no like #{thesis.teacherNo} and thesis.teacher_name like #{thesis.teacherName}
+        <if test="thesis.selectNum!=null">
+            and thesis.select_num = #{thesis.selectNum}
         </if>
-        <if test="condition=='010'">
-            thesis.teacher_no like #{thesis.teacherNo}
-        </if>
-        <if test="condition=='110'">
-            thesis.thesis_title like #{thesis.thesisTitle} and thesis.teacher_no like #{thesis.teacherNo}
-        </if>
-        <if test="condition=='100'">
-            thesis.thesis_title like #{thesis.thesisTitle}
-        </if>
-
     </select>
     <select id="getThesisInfoByTeacherNo" resultType="com.jxufe.ljw.thesis.bean.ThesisInfo">
          select

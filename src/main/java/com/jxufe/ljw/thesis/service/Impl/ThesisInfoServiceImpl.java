@@ -34,26 +34,16 @@ public class ThesisInfoServiceImpl implements ThesisInfoService {
     public Map<String, Object> getThesisInfo(int page, int rows,ThesisInfo thesisInfo) {
        Map<String,Object> map=new HashMap<>();
        Page<ThesisInfo> pageRecord=new Page<>(page,rows);
-       StringBuilder stringBuilder = new StringBuilder("");
        if(thesisInfo.getThesisTitle()!=""&&thesisInfo.getThesisTitle()!=null){
-           stringBuilder.append('1');
            thesisInfo.setThesisTitle("%"+thesisInfo.getThesisTitle()+"%");
-       }else {
-           stringBuilder.append('0');
        }
         if(thesisInfo.getTeacherNo()!=""&&thesisInfo.getTeacherNo()!=null){
-            stringBuilder.append('1');
             thesisInfo.setTeacherNo(thesisInfo.getTeacherNo()+"%");
-        }else {
-            stringBuilder.append('0');
         }
         if(thesisInfo.getTeacherName()!=""&&thesisInfo.getTeacherName()!=null){
-            stringBuilder.append('1');
             thesisInfo.setTeacherName(thesisInfo.getTeacherName()+"%");
-        }else {
-            stringBuilder.append('0');
         }
-       List<ThesisInfo> list=thesisInfoDao.getThesisInfo(pageRecord,String.valueOf(stringBuilder),thesisInfo);
+       List<ThesisInfo> list=thesisInfoDao.getThesisInfo(pageRecord,thesisInfo);
        map.put("total",pageRecord.getTotal());
        map.put("rows",list);
        return map;

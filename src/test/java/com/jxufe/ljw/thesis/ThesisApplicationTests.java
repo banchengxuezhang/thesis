@@ -11,7 +11,9 @@ class ThesisApplicationTests {
 
     @Test
     void contextLoads() {
-        iMailService.sendSimpleMail("1213159526@qq.com","测试","ceh");
+        String file="D:\\毕业设计管理本地数据盘\\004\\Thesis";
+        String file1="毕业论文管理系统设计与实现文献综述.doc";
+        iMailService.sendAttachmentsMail("1213159526@qq.com","测试","ceh",file,file1);
 
     }
 

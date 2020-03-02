@@ -5,46 +5,62 @@ $(function () {
     loadDataGrid();
 
     $("#firstPage").click(function () {
-        if (page == 1) {
-            $.MsgBox.Alert("提示", "当前已经是第一页！");
-        } else {
-            page = 1;
-            // 清除之前表格中的数据
-            $("#data").empty();
-            loadDataGrid();
+        if(totalPage==0){
+            $.MsgBox.Alert("提示", "没有论文列表！");
+        }else {
+            if (page == 1) {
+                $.MsgBox.Alert("提示", "当前已经是第一页！");
+            } else {
+                page = 1;
+                // 清除之前表格中的数据
+                $("#data").empty();
+                loadDataGrid();
+            }
         }
     });
 
     $("#prePage").click(function () {
-        if (page == 1) {
-            $.MsgBox.Alert("提示", "无上一页！");
-        } else {
-            page -= 1;
-            // 清除之前表格中的数据
-            $("#data").empty();
-            loadDataGrid();
+        if(totalPage==0){
+            $.MsgBox.Alert("提示", "没有论文列表！");
+        }else {
+            if (page == 1) {
+                $.MsgBox.Alert("提示", "无上一页！");
+            } else {
+                page -= 1;
+                // 清除之前表格中的数据
+                $("#data").empty();
+                loadDataGrid();
+            }
         }
     });
 
     $("#nextPage").click(function () {
-        if (page == totalPage) {
-            $.MsgBox.Alert("提示", "无下一页！");
-        } else {
-            page += 1;
-            // 清除之前表格中的数据
-            $("#data").empty();
-            loadDataGrid();
+        if(totalPage==0){
+            $.MsgBox.Alert("提示", "没有论文列表！");
+        }else {
+            if (page == totalPage) {
+                $.MsgBox.Alert("提示", "无下一页！");
+            } else {
+                page += 1;
+                // 清除之前表格中的数据
+                $("#data").empty();
+                loadDataGrid();
+            }
         }
     });
 
     $("#lastPage").click(function () {
-        if (page == totalPage) {
-            $.MsgBox.Alert("提示", "当前已经是最后一页！");
-        } else {
-            page = totalPage;
-            // 清除之前表格中的数据
-            $("#data").empty();
-            loadDataGrid();
+        if(totalPage==0){
+            $.MsgBox.Alert("提示", "没有论文列表！");
+        }else {
+            if (page == totalPage) {
+                $.MsgBox.Alert("提示", "当前已经是最后一页！");
+            } else {
+                page = totalPage;
+                // 清除之前表格中的数据
+                $("#data").empty();
+                loadDataGrid();
+            }
         }
     });
 
@@ -77,7 +93,7 @@ function loadDataGrid() {
                         <td>${gridData.studentEmail}</td>
                         <td>${gridData.thesisTitle}</td>
                         <td style="color: red">${status}</td>
-                        <td><a style="text-decoration: underline;cursor: pointer" onclick="uploadTask('${gridData.thesisTitle}','${gridData.thesisNo}')">给任务书</a></td>
+                        <td><a style="text-decoration: underline;cursor: pointer" onclick="uploadTask('${gridData.thesisTitle}','${gridData.thesisNo}')">给任务书</a></td>       
                     </tr>
                 `)
             }
@@ -94,7 +110,7 @@ function uploadTask(thesisTitle, thesisNo) {
         <input type="hidden" name="thesisTitle" id="thesisTitle" value="${thesisTitle}"/>
         <p>选择文件: <input type="file" name="file"/></p>
     </form>`, {
-        title: '给定模板',
+        title: '上传任务书',
         button: {
             确定: function () {
                 // 使用jq的form插件

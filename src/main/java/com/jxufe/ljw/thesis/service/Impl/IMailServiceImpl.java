@@ -12,7 +12,10 @@ import org.springframework.stereotype.Service;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeUtility;
 import java.io.File;
+import java.io.UnsupportedEncodingException;
+
 /**
  * @Classname IMailServiceImpl
  * @Author: LeJunWen
@@ -95,7 +98,7 @@ public class IMailServiceImpl implements IMailService {
      * @param filePath 附件
      */
     @Override
-    public void sendAttachmentsMail(String to, String subject, String content, String filePath) {
+    public void sendAttachmentsMail(String to, String subject, String content, String filePath,String fileName) {
         MimeMessage message = mailSender.createMimeMessage();
         try {
             MimeMessageHelper helper = new MimeMessageHelper(message, true);
@@ -104,12 +107,11 @@ public class IMailServiceImpl implements IMailService {
             helper.setSubject(subject);
             helper.setText(content, true);
 
-            FileSystemResource file = new FileSystemResource(new File(filePath));
-            String fileName = filePath.substring(filePath.lastIndexOf(File.separator));
+            FileSystemResource file = new FileSystemResource(new File(filePath,fileName));
             helper.addAttachment(fileName, file);
             mailSender.send(message);
             //日志信息
-            logger.info("邮件已经发送。");
+            logger.info("邮件已经发送。附件名为："+fileName);
         } catch (MessagingException e) {
             logger.error("发送邮件时发生异常！", e);
         }

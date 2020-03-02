@@ -14,5 +14,6 @@ import java.util.List;
 public interface StudentInfoDao {
     int addStudentInfo(StudentInfo studentInfo);
     StudentInfo getStudentInfo(String userId);
+    StudentInfo getStudentInfoByStudentNo(String studentNo);
     int updateStudentInfo(String userId,String phone,String email);
 }

@@ -17,7 +17,7 @@ import java.util.List;
 public interface ThesisInfoDao{
     int addThesis(ThesisInfo thesisInfo);
     int deleteThesis(String thesisId);
-    List<ThesisInfo> getThesisInfo(Pagination page,@Param("condition") String condition,@Param("thesis") ThesisInfo thesisInfo);
+    List<ThesisInfo> getThesisInfo(Pagination page,@Param("thesis") ThesisInfo thesisInfo);
     List<ThesisInfo> getThesisInfoByTeacherNo(Pagination page,String teacherNo);
     int updateThesis(ThesisInfo thesisInfo);
     ThesisInfo getThesisByThesisId(String thesisId);

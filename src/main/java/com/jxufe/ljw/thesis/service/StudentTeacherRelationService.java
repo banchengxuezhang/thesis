@@ -1,5 +1,6 @@
 package com.jxufe.ljw.thesis.service;
 
+import com.baomidou.mybatisplus.plugins.pagination.Pagination;
 import com.jxufe.ljw.thesis.bean.StudentTeacherRelation;
 
 import java.util.List;
@@ -13,10 +14,12 @@ public interface StudentTeacherRelationService {
     int addStudentTeacherRelation(StudentTeacherRelation studentTeacherRelation);
     List<StudentTeacherRelation> getStudentTeacherRelationByStudentNo(String studentNo);
     Object getStudentSelectThesisByTeacherNo(int page ,int rows,String teacherNo);
+    int getStudentSelectThesisAgreeNumByTeacherNo(String teacherNo,int flag);
     int  operateStudent(StudentTeacherRelation studentTeacherRelation);
     int deleteRelationByThesisNo(String thesisNo);
     StudentTeacherRelation getStudentTeacherRelationByThesisNo(String thesisNo);
     Object getAgreeThesisByTeacherNo(int page,int rows,String teacherNo);
     int updateTaskUrlByThesisNo(String taskUrl,String thesisNo);
     int updateThesisUrlByThesisNo(String thesisUrl,String thesisNo);
+    Object getAgreeThesisByStudentNo(int page,int rows, String studentNo, int opinionFlag);
 }

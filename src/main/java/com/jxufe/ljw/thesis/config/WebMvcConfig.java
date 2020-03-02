@@ -36,6 +36,7 @@ public class WebMvcConfig  implements WebMvcConfigurer {
                 .excludePathPatterns("/error.html")
                 .excludePathPatterns("/logincode")
                 .excludePathPatterns("/druid/*")
+                .excludePathPatterns("/forgetPassword")
                 .excludePathPatterns("/login")
                 .excludePathPatterns("/loginOut")
                 .excludePathPatterns("/common/*.js")
