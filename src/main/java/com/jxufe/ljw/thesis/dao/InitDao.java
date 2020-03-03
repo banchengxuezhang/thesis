@@ -10,6 +10,7 @@ import org.apache.ibatis.annotations.Mapper;
  */
 @Mapper
 public interface InitDao {
-      Init getInitInfo();
-      int updateInitInfo(Init init);
+    Init getInitInfo();
+
+    int updateInitInfo(Init init);
 }

@@ -6,8 +6,8 @@ $(function () {
 
     $("#firstPage").click(function () {
         if(totalPage==0){
-            $.MsgBox.Alert("提示", "没有论文列表！");
-        }else {
+            return;
+        }
             if (page == 1) {
                 $.MsgBox.Alert("提示", "当前已经是第一页！");
             } else {
@@ -15,14 +15,14 @@ $(function () {
                 // 清除之前表格中的数据
                 $("#data").empty();
                 loadDataGrid();
-            }
+
         }
     });
 
     $("#prePage").click(function () {
         if(totalPage==0){
-            $.MsgBox.Alert("提示", "没有论文列表！");
-        }else {
+            return;
+        }
             if (page == 1) {
                 $.MsgBox.Alert("提示", "无上一页！");
             } else {
@@ -30,14 +30,14 @@ $(function () {
                 // 清除之前表格中的数据
                 $("#data").empty();
                 loadDataGrid();
-            }
+
         }
     });
 
     $("#nextPage").click(function () {
         if(totalPage==0){
-            $.MsgBox.Alert("提示", "没有论文列表！");
-        }else {
+            return;
+        }
             if (page == totalPage) {
                 $.MsgBox.Alert("提示", "无下一页！");
             } else {
@@ -45,14 +45,14 @@ $(function () {
                 // 清除之前表格中的数据
                 $("#data").empty();
                 loadDataGrid();
-            }
+
         }
     });
 
     $("#lastPage").click(function () {
         if(totalPage==0){
-            $.MsgBox.Alert("提示", "没有论文列表！");
-        }else {
+            return;
+        }
             if (page == totalPage) {
                 $.MsgBox.Alert("提示", "当前已经是最后一页！");
             } else {
@@ -61,7 +61,7 @@ $(function () {
                 $("#data").empty();
                 loadDataGrid();
             }
-        }
+
     });
 
 })

@@ -8,17 +8,8 @@
         where
         menu_id=#{menuId}
     </update>
-    <select id="getMenyBymenuBelong" parameterType="java.lang.String" resultType="com.jxufe.ljw.thesis.bean.Menu">
-        select
-          *
-        from
-          T_MENU
-        where
-          menu_belong = #{menuBelong}
-        and menu_status = 1
-    </select>
-
-    <select id="selectAllMenu" parameterType="com.jxufe.ljw.thesis.bean.Menu" resultType="com.jxufe.ljw.thesis.bean.Menu">
+    <select id="selectAllMenu" parameterType="com.jxufe.ljw.thesis.bean.Menu"
+            resultType="com.jxufe.ljw.thesis.bean.Menu">
         select
         *
         from
@@ -34,5 +25,22 @@
         <if test="menuStatus != null and menuStatus != ''">
             and menu_status = #{menuStatus}
         </if>
+    </select>
+    <select id="getMenyBymenuBelong" resultType="com.jxufe.ljw.thesis.bean.Menu">
+         select
+          *
+        from
+          T_MENU
+        where
+          menu_belong = #{menuBelong}
+        and menu_status = 1
+    </select>
+    <select id="getMenuByStatus" resultType="com.jxufe.ljw.thesis.bean.Menu">
+         select
+          *
+        from
+          T_MENU
+        where
+          menu_status = #{menuStatus}
     </select>
 </mapper>

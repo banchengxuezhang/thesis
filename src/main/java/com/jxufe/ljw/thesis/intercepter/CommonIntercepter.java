@@ -9,6 +9,7 @@ import org.springframework.web.servlet.HandlerInterceptor;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
 /**
  * @Classname TaskDao
  * @Author: LeJunWen
@@ -25,21 +26,21 @@ public class CommonIntercepter implements HandlerInterceptor {
         //这里的User是登陆时放入session的
         User user = (User) session.getAttribute("user");
         //如果session中没有user，表示没登陆
-        if (user == null){
+        if (user == null) {
             //这个方法返回false表示忽略当前请求，如果一个用户调用了需要登陆才能使用的接口，如果他没有登陆这里会直接忽略掉
             response.sendRedirect("/thesis/error.html");
             return false;
-        }else {
-            if(request.getRequestURL().toString().contains("updateMenuStatus") ||request.getRequestURL().toString().contains("/init") ||request.getRequestURL().toString().contains("addStudent") || request.getRequestURL().toString().contains("addTeacher")||request.getRequestURL().toString().contains("doc.html")||request.getRequestURL().toString().contains("druid")){
-               if(user.getUserType()>UserType.MANAGE.getType()){
-                   response.sendRedirect("/thesis/error.html");
-                   return  false;
-               }
-            }
-            if(request.getRequestURL().toString().contains("uploadTask") ||request.getRequestURL().toString().contains("getStudentSelectThesisByTeacherNo") ||request.getRequestURL().toString().contains("getAgreeThesisByTeacherNo") ||request.getRequestURL().toString().contains("getThesisInfoByTeacherNo") ||request.getRequestURL().toString().contains("addThesis") ||request.getRequestURL().toString().contains("updateThesis") ||request.getRequestURL().toString().contains("deleteThesisInfoByThesisIds") ||request.getRequestURL().toString().contains("operateStudent")){
-                if(user.getUserType()>UserType.TEACHER.getType()){
+        } else {
+            if (request.getRequestURL().toString().contains("updateMenuStatus") || request.getRequestURL().toString().contains("/init") || request.getRequestURL().toString().contains("addStudent") || request.getRequestURL().toString().contains("addTeacher") || request.getRequestURL().toString().contains("doc.html") || request.getRequestURL().toString().contains("druid")) {
+                if (user.getUserType() > UserType.MANAGE.getType()) {
                     response.sendRedirect("/thesis/error.html");
-                    return  false;
+                    return false;
+                }
+            }
+            if (request.getRequestURL().toString().contains("uploadTask") || request.getRequestURL().toString().contains("getStudentSelectThesisByTeacherNo") || request.getRequestURL().toString().contains("getAgreeThesisByTeacherNo") || request.getRequestURL().toString().contains("getThesisInfoByTeacherNo") || request.getRequestURL().toString().contains("addThesis") || request.getRequestURL().toString().contains("updateThesis") || request.getRequestURL().toString().contains("deleteThesisInfoByThesisIds") || request.getRequestURL().toString().contains("operateStudent")) {
+                if (user.getUserType() > UserType.TEACHER.getType()) {
+                    response.sendRedirect("/thesis/error.html");
+                    return false;
 
                 }
             }

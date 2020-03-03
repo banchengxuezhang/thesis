@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 public class StudentServiceImpl implements StudentService {
     @Autowired
     private StudentInfoDao studentInfoDao;
+
     @Override
     public int addStudentInfo(StudentInfo studentInfo) {
         return studentInfoDao.addStudentInfo(studentInfo);
@@ -31,7 +32,7 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public int updateStudentInfo(String userId, String phone, String email) {
-        return studentInfoDao.updateStudentInfo(userId,phone,email);
+    public int updateStudentInfo(String studentNo, String phone, String email,String stage) {
+        return studentInfoDao.updateStudentInfo(studentNo, phone, email,stage);
     }
 }

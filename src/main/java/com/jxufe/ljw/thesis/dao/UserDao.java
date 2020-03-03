@@ -14,8 +14,10 @@ import java.util.List;
  * @Date: 2020/2/26 17:58
  */
 @Mapper
-public interface UserDao  extends BaseMapper<User> {
-     List<User> getUserByAccountAndType(String userAccount, int userType);
-     int addUser(User user);
-     int updateUserPassword(UserInfoDetail userInfoDetail);
+public interface UserDao extends BaseMapper<User> {
+    List<User> getUserByAccountAndType(String userAccount, int userType);
+
+    int addUser(User user);
+
+    int updateUserPassword(UserInfoDetail userInfoDetail);
 }

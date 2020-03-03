@@ -28,6 +28,7 @@ public class SwaggerConfiguration {
                 .paths(PathSelectors.any())
                 .build();
     }
+
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
                 .title("毕业论文管理系统接口")

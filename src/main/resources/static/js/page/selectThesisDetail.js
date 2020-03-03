@@ -43,47 +43,62 @@ $(function () {
     });
 
     $("#firstPage").click(function () {
-        if (page == 1) {
-            $.MsgBox.Alert("提示", "当前已经是第一页！");
-        } else {
-            page = 1;
-            // 清除之前表格中的数据
-            $("#data").empty();
-            loadDataGrid();
+        if(totalPage==0){
+            return;
         }
+            if (page == 1) {
+                $.MsgBox.Alert("提示", "当前已经是第一页！");
+            } else {
+                page = 1;
+                // 清除之前表格中的数据
+                $("#data").empty();
+                loadDataGrid();
+            }
     });
 
     $("#prePage").click(function () {
-        if (page == 1) {
-            $.MsgBox.Alert("提示", "无上一页！");
-        } else {
-            page -= 1;
-            // 清除之前表格中的数据
-            $("#data").empty();
-            loadDataGrid();
+        if(totalPage==0){
+            return;
         }
+            if (page == 1) {
+                $.MsgBox.Alert("提示", "无上一页！");
+            } else {
+                page -= 1;
+                // 清除之前表格中的数据
+                $("#data").empty();
+                loadDataGrid();
+            }
+
     });
 
     $("#nextPage").click(function () {
-        if (page == totalPage) {
-            $.MsgBox.Alert("提示", "无下一页！");
-        } else {
-            page += 1;
-            // 清除之前表格中的数据
-            $("#data").empty();
-            loadDataGrid();
+        if(totalPage==0){
+            return;
+        }
+            if (page == totalPage) {
+                $.MsgBox.Alert("提示", "无下一页！");
+            } else {
+                page += 1;
+                // 清除之前表格中的数据
+                $("#data").empty();
+                loadDataGrid();
+
         }
     });
 
     $("#lastPage").click(function () {
-        if (page == totalPage) {
-            $.MsgBox.Alert("提示", "当前已经是最后一页！");
-        } else {
-            page = totalPage;
-            // 清除之前表格中的数据
-            $("#data").empty();
-            loadDataGrid();
+        if(totalPage==0){
+            return;
         }
+            if (page == totalPage) {
+                $.MsgBox.Alert("提示", "当前已经是最后一页！");
+            } else {
+                page = totalPage;
+                // 清除之前表格中的数据
+                $("#data").empty();
+                loadDataGrid();
+            }
+
     });
 })
 
@@ -101,8 +116,8 @@ function loadDataGrid() {
         opinionFlagStr: $("#opinionFlagStr").val(),
     }
     $.ajax({
-        type: "post",
-        url: "/studentTeacherRelation/getThesisInfoDetail?" + $.param(queryData),
+        type: "get",
+        url: "/thesis/studentTeacherRelation/getAllStudentTeacherDetail?" + $.param(queryData),
         async: false,
         success: function (data) {
             totalPage = Math.ceil(data.total / 5);
@@ -114,7 +129,7 @@ function loadDataGrid() {
                 if (gridData.thesisNo == null || gridData.thesisNo == "") {
                     opinionStatus = "未选题";
                 } else {
-                    opinionStatus = gridData.opinionFlag == null ? "未审核" : (gridData.opinionFlag == 1 ? "审核通过" : "审核未通过");
+                    opinionStatus = gridData.opinionFlag == 0 ? "未审核" : (gridData.opinionFlag == 1 ? "审核通过" : "审核未通过");
                 }
                 $("#data").append(`
                     <tr>
@@ -131,7 +146,7 @@ function loadDataGrid() {
                         <td>${gridData.teacherTitle}</td>
                         <td>${gridData.teacherPhone}</td>
                         <td>${gridData.teacherEmail}</td>
-                        <td>${opinionStatus}</td>
+                        <td style="color: red">${opinionStatus}</td>
                         <td>${gridData.teacherOpinion}</td>
                     </tr>
                 `)

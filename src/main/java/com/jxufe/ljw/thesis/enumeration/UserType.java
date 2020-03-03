@@ -1,6 +1,7 @@
 package com.jxufe.ljw.thesis.enumeration;
 
 import lombok.Getter;
+
 /**
  * @Classname TaskDao
  * @Author: LeJunWen
@@ -8,10 +9,10 @@ import lombok.Getter;
  */
 @Getter
 public enum UserType {
-    TEACHER(2),STUDENT(3),MANAGE(1);
+    TEACHER(2), STUDENT(3), MANAGE(1);
     private int type;
 
-    UserType(int type){
+    UserType(int type) {
         this.type = type;
     }
 }

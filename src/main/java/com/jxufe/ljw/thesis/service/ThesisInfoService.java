@@ -13,9 +13,15 @@ import java.util.Map;
  */
 public interface ThesisInfoService {
     int addThesisInfo(ThesisInfo thesisInfo);
+
     int deleteThesisInfo(String thesisId);
-    Map<String, Object> getThesisInfo(int page, int rows,ThesisInfo thesisInfo);
-    Map<String,Object> getThesisInfoByTeacherNo(int page ,int rows,String teacherNo);
+
+    Map<String, Object> getThesisInfo(int page, int rows, ThesisInfo thesisInfo);
+
+    Map<String, Object> getThesisInfoByTeacherNo(int page, int rows, String teacherNo);
+
     int updateThesis(ThesisInfo thesisInfo);
+
     ThesisInfo getThesisByThesisId(String thesisId);
+    int getThesisNum(int selectNum);
 }

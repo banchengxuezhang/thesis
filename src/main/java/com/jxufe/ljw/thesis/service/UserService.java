@@ -11,7 +11,9 @@ import java.util.List;
  * @Date: 2020/2/26 21:36
  */
 public interface UserService {
-    List<User > getUserByAccountAndType(String userAccount, int userType);
+    List<User> getUserByAccountAndType(String userAccount, int userType);
+
     int addUser(User user);
+
     int updateUserPassword(UserInfoDetail userInfoDetail);
 }

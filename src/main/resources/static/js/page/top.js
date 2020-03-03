@@ -8,9 +8,18 @@ $(function () {
     // 获取登录session值
     $.ajax({
         type: 'get',
-        url:"/thesis/getLoginUserInfo",
-        success:function (data) {
-            $("#loginUser").html(data.userAccount);
+        url: "/thesis/getLoginUserInfo",
+        success: function (data) {
+            if (data.userType == 3) {
+                $("#loginUser").html("学生，" + data.userAccount);
+            }
+            if (data.userType == 2) {
+                $("#loginUser").html("教师，" + data.userAccount);
+            }
+            if (data.userType == 1) {
+                $("#loginUser").html("管理员，" + data.userAccount);
+
+            }
         }
     })
 })

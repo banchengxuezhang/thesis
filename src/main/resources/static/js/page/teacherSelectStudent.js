@@ -19,6 +19,9 @@ $(function () {
     });
 
     $("#firstPage").click(function () {
+        if(totalPage==0){
+            return;
+        }
         if (page == 1) {
             $.MsgBox.Alert("提示", "当前已经是第一页！");
         } else {
@@ -30,6 +33,9 @@ $(function () {
     });
 
     $("#prePage").click(function () {
+        if(totalPage==0){
+            return;
+        }
         if (page == 1) {
             $.MsgBox.Alert("提示", "无上一页！");
         } else {
@@ -41,6 +47,9 @@ $(function () {
     });
 
     $("#nextPage").click(function () {
+        if(totalPage==0){
+            return;
+        }
         if (page == totalPage) {
             $.MsgBox.Alert("提示", "无下一页！");
         } else {
@@ -52,6 +61,9 @@ $(function () {
     });
 
     $("#lastPage").click(function () {
+        if(totalPage==0){
+            return;
+        }
         if (page == totalPage) {
             $.MsgBox.Alert("提示", "当前已经是最后一页！");
         } else {

@@ -18,14 +18,15 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
     @Autowired
     private UserDao userDao;
+
     @Override
     public List<User> getUserByAccountAndType(String userAccount, int userType) {
-        return userDao.getUserByAccountAndType(userAccount,userType);
+        return userDao.getUserByAccountAndType(userAccount, userType);
 
     }
 
     @Override
-    public  int addUser(User user) {
+    public int addUser(User user) {
         return userDao.addUser(user);
     }
 

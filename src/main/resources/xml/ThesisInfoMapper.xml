@@ -54,4 +54,10 @@
         where
         thesis_id=#{thesisId}
     </select>
+    <select id="getThesisNum" resultType="java.lang.Integer">
+        select count(thesis_id)
+        from t_thesis_info
+        where
+        select_num=#{selectNum}
+    </select>
 </mapper>

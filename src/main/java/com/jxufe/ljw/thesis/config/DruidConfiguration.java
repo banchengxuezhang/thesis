@@ -15,6 +15,7 @@ import org.springframework.stereotype.Component;
 
 import javax.sql.DataSource;
 import java.sql.SQLException;
+
 /**
  * @Classname DruidConfiguration
  * @Author: LeJunWen

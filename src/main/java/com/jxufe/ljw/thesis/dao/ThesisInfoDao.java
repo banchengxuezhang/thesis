@@ -14,11 +14,17 @@ import java.util.List;
  * @Date: 2020/2/29 15:30
  */
 @Mapper
-public interface ThesisInfoDao{
+public interface ThesisInfoDao {
     int addThesis(ThesisInfo thesisInfo);
+
     int deleteThesis(String thesisId);
-    List<ThesisInfo> getThesisInfo(Pagination page,@Param("thesis") ThesisInfo thesisInfo);
-    List<ThesisInfo> getThesisInfoByTeacherNo(Pagination page,String teacherNo);
+
+    List<ThesisInfo> getThesisInfo(Pagination page, @Param("thesis") ThesisInfo thesisInfo);
+
+    List<ThesisInfo> getThesisInfoByTeacherNo(Pagination page, String teacherNo);
+
     int updateThesis(ThesisInfo thesisInfo);
+
     ThesisInfo getThesisByThesisId(String thesisId);
+    int getThesisNum(int selectNum);
 }

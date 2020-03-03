@@ -15,9 +15,10 @@ import org.springframework.stereotype.Service;
 public class TeacherServiceImpl implements TeacherService {
     @Autowired
     private TeacherInfoDao teacherInfoDao;
+
     @Override
     public int addTeacherInfo(TeacherInfo teacherInfo) {
-        return  teacherInfoDao.addTeacherInfo(teacherInfo);
+        return teacherInfoDao.addTeacherInfo(teacherInfo);
     }
 
     @Override
@@ -27,7 +28,7 @@ public class TeacherServiceImpl implements TeacherService {
 
     @Override
     public int updateTeacherInfo(String userId, String phone, String email) {
-        return teacherInfoDao.updateTeacherInfo(userId,phone,email);
+        return teacherInfoDao.updateTeacherInfo(userId, phone, email);
     }
 
     @Override

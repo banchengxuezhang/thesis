@@ -40,7 +40,7 @@
         left join t_student_info student
         on relation.student_no=student.student_no
         where teacher_no=#{teacherNo}
-        <if test="opinionFlag==1">
+        <if test="opinionFlag!=3">
             and opinion_flag=#{opinionFlag}
         </if>
     </select>
@@ -58,7 +58,7 @@
         where thesis_no=#{thesisNo}
     </select>
     <select id="getStudentSelectThesisAgreeNumByTeacherNo" resultType="java.lang.Integer">
-        select count(*)
+        select count(relation_id)
  FROM t_student_teacher_relation
  WHERE teacher_no=#{teacherNo} and opinion_flag=#{opinionFlag}
     </select>
@@ -76,6 +76,59 @@
         <if test="opinionFlag!=null">
             and opinion_flag=#{opinionFlag}
         </if>
+    </select>
+    <select id="getAllStudentTeacherDetail" resultType="com.jxufe.ljw.thesis.bean.StudentTeacherRelation">
+        SELECT
+        si.*,
+        temp.teacher_no,
+        temp.teacher_name,
+        temp.thesis_no,
+        temp.thesis_title,
+        temp.teacher_opinion,
+        temp.opinion_flag,
+        temp.task_status,
+        temp.task_url,
+        temp.thesis_status,
+        temp.thesis_url,
+        temp.teacher_title,
+        temp.teacher_phone,
+        temp.teacher_email
+        FROM
+        t_student_info si
+        LEFT JOIN (
+        SELECT
+        str.*,
+        ti.teacher_title,
+        ti.teacher_phone,
+        ti.teacher_email
+        FROM
+        t_student_teacher_relation str
+        LEFT JOIN t_teacher_info ti ON str.teacher_no = ti.teacher_no
+        ) temp ON temp.student_no = si.student_no
+        WHERE
+        1 = 1
+        <if test="relation.studentName !=null and relation.studentName!=''">
+            AND si.student_name LIKE CONCAT( '%', #{relation.studentName}, '%' )
+        </if>
+        <if test="relation.studentNo !=null and relation.studentNo!=''">
+            AND si.student_no LIKE CONCAT( '%', #{relation.studentNo}, '%' )
+        </if>
+        <if test="relation.thesisTitle !=null and relation.thesisTitle!=''">
+            AND temp.thesis_title LIKE CONCAT( '%', #{relation.thesisTitle}, '%' )
+        </if>
+        <if test="relation.teacherName !=null and relation.teacherName!=''">
+            AND temp.teacher_name LIKE CONCAT( '%', #{relation.teacherName}, '%' )
+        </if>
+        <if test="relation.teacherNo !=null and relation.teacherNo!=''">
+            AND temp.teacher_no LIKE CONCAT( '%', #{relation.teacherNo}, '%' )
+        </if>
+    </select>
+    <select id="getAllDealNum" resultType="java.lang.Integer">
+        SELECT count(relation_id)
+     from t_student_teacher_relation
+      WHERE
+      <if test="opinionFlag!=null"></if>
+      opinion_flag=#{opinionFlag}
     </select>
 
 </mapper>

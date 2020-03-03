@@ -5,14 +5,16 @@ package com.jxufe.ljw.thesis.config;
  * @Author: LeJunWen
  * @Date: 2020/2/25 14:21
  */
+
 import com.jxufe.ljw.thesis.intercepter.CommonIntercepter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+
 @Configuration
-public class WebMvcConfig  implements WebMvcConfigurer {
+public class WebMvcConfig implements WebMvcConfigurer {
 
     @Autowired
     private CommonIntercepter commonIntercepter;
@@ -27,11 +29,11 @@ public class WebMvcConfig  implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
         // excludePathPatterns("/login") 表示除了登陆与注册之外，因为登陆注册不需要登陆也可以访问
         registry.addInterceptor(commonIntercepter).addPathPatterns("/**")
-               .excludePathPatterns("/doc.html")
+                .excludePathPatterns("/doc.html")
                 .excludePathPatterns("/classpath:/META-INF/resources/")
                 .excludePathPatterns("/webjars/**")
                 .excludePathPatterns("/classpath:/META-INF/resources/webjars/")
-                .excludePathPatterns("/v2/api-docs","/swagger-resources","/v2/api-docs-ext")
+                .excludePathPatterns("/v2/api-docs", "/swagger-resources", "/v2/api-docs-ext")
                 .excludePathPatterns("/login.html")
                 .excludePathPatterns("/error.html")
                 .excludePathPatterns("/logincode")
@@ -45,5 +47,5 @@ public class WebMvcConfig  implements WebMvcConfigurer {
                 .excludePathPatterns("/css/*.css")
                 .excludePathPatterns("/images/*.png")
                 .excludePathPatterns("/images/*.jpg");
-   }
+    }
 }

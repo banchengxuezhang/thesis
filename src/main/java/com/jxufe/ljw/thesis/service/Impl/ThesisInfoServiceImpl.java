@@ -20,6 +20,7 @@ import java.util.Map;
 public class ThesisInfoServiceImpl implements ThesisInfoService {
     @Autowired
     private ThesisInfoDao thesisInfoDao;
+
     @Override
     public int addThesisInfo(ThesisInfo thesisInfo) {
         return thesisInfoDao.addThesis(thesisInfo);
@@ -31,31 +32,31 @@ public class ThesisInfoServiceImpl implements ThesisInfoService {
     }
 
     @Override
-    public Map<String, Object> getThesisInfo(int page, int rows,ThesisInfo thesisInfo) {
-       Map<String,Object> map=new HashMap<>();
-       Page<ThesisInfo> pageRecord=new Page<>(page,rows);
-       if(thesisInfo.getThesisTitle()!=""&&thesisInfo.getThesisTitle()!=null){
-           thesisInfo.setThesisTitle("%"+thesisInfo.getThesisTitle()+"%");
-       }
-        if(thesisInfo.getTeacherNo()!=""&&thesisInfo.getTeacherNo()!=null){
-            thesisInfo.setTeacherNo(thesisInfo.getTeacherNo()+"%");
+    public Map<String, Object> getThesisInfo(int page, int rows, ThesisInfo thesisInfo) {
+        Map<String, Object> map = new HashMap<>();
+        Page<ThesisInfo> pageRecord = new Page<>(page, rows);
+        if (thesisInfo.getThesisTitle() != "" && thesisInfo.getThesisTitle() != null) {
+            thesisInfo.setThesisTitle("%" + thesisInfo.getThesisTitle() + "%");
         }
-        if(thesisInfo.getTeacherName()!=""&&thesisInfo.getTeacherName()!=null){
-            thesisInfo.setTeacherName(thesisInfo.getTeacherName()+"%");
+        if (thesisInfo.getTeacherNo() != "" && thesisInfo.getTeacherNo() != null) {
+            thesisInfo.setTeacherNo(thesisInfo.getTeacherNo() + "%");
         }
-       List<ThesisInfo> list=thesisInfoDao.getThesisInfo(pageRecord,thesisInfo);
-       map.put("total",pageRecord.getTotal());
-       map.put("rows",list);
-       return map;
+        if (thesisInfo.getTeacherName() != "" && thesisInfo.getTeacherName() != null) {
+            thesisInfo.setTeacherName(thesisInfo.getTeacherName() + "%");
+        }
+        List<ThesisInfo> list = thesisInfoDao.getThesisInfo(pageRecord, thesisInfo);
+        map.put("total", pageRecord.getTotal());
+        map.put("rows", list);
+        return map;
     }
 
     @Override
     public Map<String, Object> getThesisInfoByTeacherNo(int page, int rows, String teacherNo) {
-        Map<String,Object> map=new HashMap<>();
-        Page<ThesisInfo> pageRecord=new Page<>(page,rows);
-        List<ThesisInfo> list= thesisInfoDao.getThesisInfoByTeacherNo(pageRecord,teacherNo);
-        map.put("total",pageRecord.getTotal());
-        map.put("rows",list);
+        Map<String, Object> map = new HashMap<>();
+        Page<ThesisInfo> pageRecord = new Page<>(page, rows);
+        List<ThesisInfo> list = thesisInfoDao.getThesisInfoByTeacherNo(pageRecord, teacherNo);
+        map.put("total", pageRecord.getTotal());
+        map.put("rows", list);
         return map;
     }
 
@@ -67,6 +68,11 @@ public class ThesisInfoServiceImpl implements ThesisInfoService {
     @Override
     public ThesisInfo getThesisByThesisId(String thesisId) {
         return thesisInfoDao.getThesisByThesisId(thesisId);
+    }
+
+    @Override
+    public int getThesisNum(int selectNum) {
+        return thesisInfoDao.getThesisNum(selectNum);
     }
 
 }

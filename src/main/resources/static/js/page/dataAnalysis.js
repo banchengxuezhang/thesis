@@ -10,8 +10,8 @@ $(function () {
 
 function initPieEcharts() {
     $.ajax({
-        type:"post",
-        url:"/studentTeacherRelation/getEchartData",
+        type:"get",
+        url:"/thesis/studentTeacherRelation/getEchartData",
         success:function (data) {
             paddingData(data.data);
         }

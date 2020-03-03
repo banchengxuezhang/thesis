@@ -13,7 +13,10 @@ import java.util.List;
 @Mapper
 public interface StudentInfoDao {
     int addStudentInfo(StudentInfo studentInfo);
+
     StudentInfo getStudentInfo(String userId);
+
     StudentInfo getStudentInfoByStudentNo(String studentNo);
-    int updateStudentInfo(String userId,String phone,String email);
+
+    int updateStudentInfo(String studentNo, String phone, String email,String stage);
 }

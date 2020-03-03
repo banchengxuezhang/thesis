@@ -9,7 +9,10 @@ import com.jxufe.ljw.thesis.bean.StudentInfo;
  */
 public interface StudentService {
     int addStudentInfo(StudentInfo studentInfo);
+
     StudentInfo getStudentInfo(String userId);
+
     StudentInfo getStudentInfoByStudentNo(String studentNo);
-    int updateStudentInfo(String userId,String telephone,String email);
+
+    int updateStudentInfo(String studentNo, String telephone, String email,String stage);
 }

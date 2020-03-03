@@ -28,4 +28,6 @@ public class StudentInfo {
     private String studentPhone;
 
     private String studentEmail ;
+
+    private String studentStage;
 }

@@ -7,10 +7,12 @@ import org.apache.ibatis.annotations.Mapper;
 import java.util.List;
 
 @Mapper
-public interface MenuDao{
+public interface MenuDao {
     List<Menu> getMenyBymenuBelong(String menuBelong);
+    List<Menu> getMenuByStatus(int menuStatus);
 
     List<Menu> selectAllMenu(Menu menu, Pagination page);
+
     int updateMenuByMenuId(Menu menu);
 
 }

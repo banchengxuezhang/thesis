@@ -9,7 +9,9 @@ import java.util.Map;
 
 public interface MenuService {
     List<Menu> getMenyBymenuBelong(String menuBelong);
+    List<Menu> getMenuByStatus(int menuStatus);
 
     Map<String, Object> selectAllMenu(Menu menu, int page, int rows);
-    int  updateMenuByMenuId(Menu menu);
+
+    int updateMenuByMenuId(Menu menu);
 }

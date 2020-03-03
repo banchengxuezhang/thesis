@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 public class InitServiceImpl implements InitService {
     @Autowired
     private InitDao initDao;
+
     @Override
     public Init getInitInfo() {
         return initDao.getInitInfo();

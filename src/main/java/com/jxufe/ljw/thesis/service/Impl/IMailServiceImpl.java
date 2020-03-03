@@ -1,4 +1,5 @@
 package com.jxufe.ljw.thesis.service.Impl;
+
 import com.jxufe.ljw.thesis.service.IMailService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,6 +25,11 @@ import java.io.UnsupportedEncodingException;
 
 @Service("imailService")
 public class IMailServiceImpl implements IMailService {
+    static {
+        System.setProperty("mail.mime.splitlongparameters", "false");
+        System.setProperty("mail.mime.charset", "UTF-8");
+    }
+
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     /**
@@ -40,7 +46,8 @@ public class IMailServiceImpl implements IMailService {
 
     /**
      * 简单文本邮件
-     * @param to 收件人
+     *
+     * @param to      收件人
      * @param subject 主题
      * @param content 内容
      */
@@ -62,7 +69,8 @@ public class IMailServiceImpl implements IMailService {
 
     /**
      * html邮件
-     * @param to 收件人
+     *
+     * @param to      收件人
      * @param subject 主题
      * @param content 内容
      */
@@ -92,13 +100,14 @@ public class IMailServiceImpl implements IMailService {
 
     /**
      * 带附件的邮件
-     * @param to 收件人
-     * @param subject 主题
-     * @param content 内容
+     *
+     * @param to       收件人
+     * @param subject  主题
+     * @param content  内容
      * @param filePath 附件
      */
     @Override
-    public void sendAttachmentsMail(String to, String subject, String content, String filePath,String fileName) {
+    public void sendAttachmentsMail(String to, String subject, String content, String filePath, String fileName) {
         MimeMessage message = mailSender.createMimeMessage();
         try {
             MimeMessageHelper helper = new MimeMessageHelper(message, true);
@@ -107,12 +116,16 @@ public class IMailServiceImpl implements IMailService {
             helper.setSubject(subject);
             helper.setText(content, true);
 
-            FileSystemResource file = new FileSystemResource(new File(filePath,fileName));
+            FileSystemResource file = new FileSystemResource(new File(filePath, fileName));
+            if ((fileName != null) && ((fileName.toLowerCase().indexOf("gb2312") != -1) || (fileName.toLowerCase().indexOf("gbk") != -1))) {
+                fileName = MimeUtility.decodeText(fileName);
+                fileName = fileName.replace("\\r", "").replace("\\n", "");
+            }
             helper.addAttachment(fileName, file);
             mailSender.send(message);
             //日志信息
-            logger.info("邮件已经发送。附件名为："+fileName);
-        } catch (MessagingException e) {
+            logger.info("邮件已经发送。附件名为：" + fileName);
+        } catch (MessagingException | UnsupportedEncodingException e) {
             logger.error("发送邮件时发生异常！", e);
         }
 

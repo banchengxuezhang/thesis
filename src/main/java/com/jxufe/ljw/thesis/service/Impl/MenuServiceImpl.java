@@ -18,13 +18,18 @@ import java.util.Map;
  * @Description:
  **/
 @Service
-public class MenuServiceImpl  implements MenuService {
+public class MenuServiceImpl implements MenuService {
     @Autowired
     private MenuDao menuDao;
 
     @Override
     public List<Menu> getMenyBymenuBelong(String menuBelong) {
         return menuDao.getMenyBymenuBelong(menuBelong);
+    }
+
+    @Override
+    public List<Menu> getMenuByStatus(int menuStatus) {
+        return menuDao.getMenuByStatus(menuStatus);
     }
 
     @Override

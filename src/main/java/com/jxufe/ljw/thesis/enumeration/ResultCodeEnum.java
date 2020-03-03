@@ -1,6 +1,7 @@
 package com.jxufe.ljw.thesis.enumeration;
 
 import lombok.Getter;
+
 /**
  * @Classname TaskDao
  * @Author: LeJunWen
@@ -8,7 +9,7 @@ import lombok.Getter;
  */
 @Getter
 public enum ResultCodeEnum {
-    FAIL(2,"失败"),SUCCESS(1,"成功");
+    FAIL(2, "失败"), SUCCESS(1, "成功");
     private Integer code;
     private String msg;
 

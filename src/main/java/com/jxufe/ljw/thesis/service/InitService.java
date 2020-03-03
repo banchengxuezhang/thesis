@@ -9,5 +9,6 @@ import com.jxufe.ljw.thesis.bean.Init;
  */
 public interface InitService {
     Init getInitInfo();
+
     int updateInitInfo(Init init);
 }

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jxufe.ljw.thesis.dao.NoPassThesisDao">
+    <insert id="addNoPassThesis">
+        insert  into t_no_pass_thesis(no_pass_id,student_no,student_name,student_class,teacher_no,teacher_name,thesis_no,thesis_title,teacher_opinion)
+        values (#{noPassId},#{studentNo},#{studentName},#{studentClass},#{teacherNo},#{teacherName},#{thesisNo},#{thesisTitle},#{teacherOpinion})
+    </insert>
+    <select id="getNoPassThesisByStudentNo" resultType="com.jxufe.ljw.thesis.bean.NoPassThesis">
+        select * from t_no_pass_thesis
+        where student_no=#{studentNo}
+    </select>
+    <select id="getSelectAll" resultType="com.jxufe.ljw.thesis.bean.StudentTeacherRelation">
+        SELECT
+        temp.*,
+        si.student_major,
+        si.student_instructor,
+        si.student_Email,
+        si.student_phone
+        FROM
+        (
+        SELECT
+        npt.*,
+        ti.teacher_title,
+        ti.teacher_phone,
+        ti.teacher_email
+        FROM
+        t_no_pass_thesis npt
+        LEFT JOIN t_teacher_info ti ON npt.teacher_no = ti.teacher_no
+        ) temp
+        LEFT JOIN t_student_info si ON temp.student_no = si.student_no
+        WHERE
+        1 = 1
+        <if test="relation.studentName !=null and relation.studentName!=''">
+            AND si.student_name LIKE CONCAT( '%', #{relation.studentName}, '%' )
+        </if>
+        <if test="relation.studentNo !=null and relation.studentNo!=''">
+            AND si.student_no LIKE CONCAT( '%', #{relation.studentNo}, '%' )
+        </if>
+        <if test="relation.thesisTitle !=null and relation.thesisTitle!=''">
+            AND temp.thesis_title LIKE CONCAT( '%', #{relation.thesisTitle}, '%' )
+        </if>
+        <if test="relation.teacherName !=null and relation.teacherName!=''">
+            AND temp.teacher_name LIKE CONCAT( '%', #{relation.teacherName}, '%' )
+        </if>
+        <if test="relation.teacherNo !=null and relation.teacherNo!=''">
+            AND temp.teacher_no LIKE CONCAT( '%', #{relation.teacherNo}, '%' )
+        </if>
+    </select>
+    <select id="getNoPassNum" resultType="java.lang.Integer">
+        SELECT count(no_pass_id)
+        from t_no_pass_thesis
+    </select>
+
+</mapper>
