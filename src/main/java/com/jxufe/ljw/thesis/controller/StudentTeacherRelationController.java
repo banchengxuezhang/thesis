@@ -224,8 +224,13 @@ public class StudentTeacherRelationController {
      */
     @GetMapping("/getAgreeThesisByTeacherNo")
     public Object getAgreeThesisByTeacherNo(int page, int rows, HttpServletRequest request) {
-        User user = (User) request.getSession().getAttribute("user");
-        return relationService.getAgreeThesisByTeacherNo(page, rows, user.getUserAccount());
+        try {
+            User user = (User) request.getSession().getAttribute("user");
+            return relationService.getAgreeThesisByTeacherNo(page, rows, user.getUserAccount());
+        }catch (Exception e){
+            return ResultUtil.error("获取信息失败！");
+        }
+
     }
 
     /**
@@ -238,8 +243,12 @@ public class StudentTeacherRelationController {
      */
     @PostMapping("/getAgreeThesisByStudentNo")
     public Object getAgreeThesisByStudentNo(int page, int rows, HttpServletRequest request) {
+        try {
         User user = (User) request.getSession().getAttribute("user");
         return relationService.getAgreeThesisByStudentNo(page, rows, user.getUserAccount(), 1);
+        }catch (Exception e){
+            return ResultUtil.error("获取信息失败！");
+        }
     }
 
     /**
@@ -252,7 +261,11 @@ public class StudentTeacherRelationController {
      */
     @GetMapping("/getAllStudentTeacherDetail")
     public Object getAllStudentTeacherDetail(int page, int rows, StudentTeacherRelation studentTeacherRelation) {
+        try {
         return relationService.getAllStudentTeacherDetail(page, rows, studentTeacherRelation);
+        }catch (Exception e){
+            return ResultUtil.error("获取信息失败！");
+        }
     }
 
     /**
@@ -262,6 +275,7 @@ public class StudentTeacherRelationController {
      */
     @GetMapping("/getEchartData")
     public Object getEchartData() {
+        try {
         int underPassNum = relationService.getAllDealNum(0);
         int noPassNum = noPassThesisService.getNoPassNum();
         int passNum = relationService.getAllDealNum(1);
@@ -270,5 +284,8 @@ public class StudentTeacherRelationController {
         map.put("noPassNum", noPassNum);
         map.put("passNum", passNum);
         return ResultUtil.success(map);
+        }catch (Exception e){
+            return ResultUtil.error("获取数据失败！");
+        }
     }
 }

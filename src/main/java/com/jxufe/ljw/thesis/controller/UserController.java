@@ -159,16 +159,16 @@ public class UserController {
     @PostMapping("/updateInfo")
     public Object updatePersionInfo(UserInfoDetail userInfoDetail, HttpServletRequest request) {
         User user = (User) request.getSession().getAttribute("user");
-//        try {
+        try {
             if (user.getUserType() == UserType.STUDENT.getType()) {
                 studentService.updateStudentInfo(user.getUserAccount(), userInfoDetail.getPhone(), userInfoDetail.getEmail(),"");
             } else {
                 teacherService.updateTeacherInfo(user.getUserId(), userInfoDetail.getPhone(), userInfoDetail.getEmail());
             }
-//        } catch (Exception e) {
-//            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
-//            return ResultUtil.error("修改用户信息出错！！！");
-//        }
+        } catch (Exception e) {
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+            return ResultUtil.error("修改用户信息出错！！！");
+        }
         return ResultUtil.success("修改用户信息成功！！！");
     }
 

@@ -10,7 +10,7 @@ $(function () {
                    $('#text2').append("当前状态<a style=\"color:white;font-weight:bold;font-size: 30px;padding-left: 20px;padding-right: 30px\">"+data.data.text2+"</a>");
                }
                if(data.data.userType=="2"){
-                   $('#text1').append("已选课题数<a style=\"color:white;font-weight:bold;font-size: 30px;padding-left: 20px;padding-right: 30px\">" + data.data.text1 + "</a>");
+                   $('#text1').append("被选课题数<a style=\"color:white;font-weight:bold;font-size: 30px;padding-left: 20px;padding-right: 30px\">" + data.data.text1 + "</a>");
                    $('#text2').append("待确认人数<a style=\"color:white;font-weight:bold;font-size: 30px;padding-left: 20px;padding-right: 30px\">"+data.data.text2+"</a>");
                }
                if(data.data.userType=="1"){
