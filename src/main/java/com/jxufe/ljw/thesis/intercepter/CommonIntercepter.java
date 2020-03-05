@@ -3,6 +3,8 @@ package com.jxufe.ljw.thesis.intercepter;
 
 import com.jxufe.ljw.thesis.bean.User;
 import com.jxufe.ljw.thesis.enumeration.UserType;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 
@@ -17,10 +19,14 @@ import javax.servlet.http.HttpSession;
  */
 @Component
 public class CommonIntercepter implements HandlerInterceptor {
-
+    private static final Logger logger= LoggerFactory.getLogger(CommonIntercepter.class);
     //这个方法是在访问接口之前执行的，我们只需要在这里写验证登陆状态的业务逻辑，就可以在用户调用指定接口之前验证登陆状态了
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+        if(request.getRequestURI().equals("/thesis/")){
+            response.sendRedirect("/thesis/login.html");
+            return false;
+        }
         //每一个项目对于登陆的实现逻辑都有所区别，我这里使用最简单的Session提取User来验证登陆。
         HttpSession session = request.getSession();
         //这里的User是登陆时放入session的

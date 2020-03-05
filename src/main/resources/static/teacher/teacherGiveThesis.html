@@ -1,0 +1,77 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>无标题文档</title>
+    <link href="../css/style.css" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" href="../amazeui/css/amazeui.min.css" />
+    <link rel="stylesheet" href="../css/admin.css">
+    <link rel="stylesheet" href="../css/app.css">
+    <script type="text/javascript" src="../js/jquery.js"></script>
+    <script type="text/javascript" src="../common/common.js"></script>
+    <script type="text/javascript" src="js/teacherGiveThesis.js"></script>
+</head>
+
+
+<body>
+
+
+<div class="tpl-content-page-title" style="margin-bottom: 10px;">
+    内容概要</div>
+<ol class="am-breadcrumb">
+    <li><a href="../content.html" class="am-icon-home">首页</a></li>
+    <li class="am-active">查看信息</li>
+</ol>
+<div class="am-panel am-panel-default"
+>
+    <div class="am-panel-bd">
+
+<div class="rightinfo">
+    <div class="tools">
+
+        <ul class="toolbar">
+            <li id="addBtn"><span><img src="../images/t01.png" /></span>添加</li>
+            <li id="modifyBtn"><span><img src="../images/t02.png" /></span>修改</li>
+            <li id="deleteBtn"> <span><img src="../images/t03.png" /></span>删除</li>
+        </ul>
+    </div>
+    <div class="am-panel am-panel-default">
+        <div class="am-panel-bd am-scrollable-horizontal">
+            <div class="am-u-sm-12">
+                <table class="am-table am-table-centered am-table-striped am-table-hover table-main" >
+        <thead>
+        <tr>
+            <th>选择</th>
+            <th>序号</th>
+            <th>论文题目</th>
+            <th>备注</th>
+        </tr>
+        </thead>
+        <tbody id="data">
+
+        </tbody>
+    </table>
+            </div>
+        </div>
+    </div>
+    <div class="pagin">
+        <div class="message">共<i id="totalData" class="blue"></i>条记录，当前显示第&nbsp;<i id="currentPage" class="blue"></i>&nbsp;页
+        </div>
+        <ul class="paginList">
+            <li id="firstPage" class="paginItem"><a href="javascript:;">首页</a></li>
+            <li id="prePage" class="paginItem"><a href="javascript:;">上一页</a></li>
+            <li id="nextPage" class="paginItem"><a href="javascript:;">下一页</a></li>
+            <li id="lastPage" class="paginItem"><a href="javascript:;">尾页</a></li>
+        </ul>
+    </div>
+</div>
+    </div>
+</div>
+<script type="text/javascript">
+    $('.tablelist tbody tr:odd').addClass('odd');
+</script>
+
+</body>
+
+</html>

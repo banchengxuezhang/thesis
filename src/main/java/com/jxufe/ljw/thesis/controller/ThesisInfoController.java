@@ -1,15 +1,13 @@
 package com.jxufe.ljw.thesis.controller;
 
-import com.jxufe.ljw.thesis.bean.StudentTeacherRelation;
-import com.jxufe.ljw.thesis.bean.TeacherInfo;
-import com.jxufe.ljw.thesis.bean.ThesisInfo;
-import com.jxufe.ljw.thesis.bean.User;
+import com.jxufe.ljw.thesis.bean.*;
 import com.jxufe.ljw.thesis.enumeration.PublicData;
 import com.jxufe.ljw.thesis.service.*;
 import com.jxufe.ljw.thesis.vo.ResultUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.web.servlet.server.Session;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -18,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -30,6 +29,8 @@ import java.util.Map;
 @RestController
 public class ThesisInfoController {
     private static final Logger logger = LoggerFactory.getLogger(ThesisInfoController.class);
+    @Autowired
+    private InitService initService;
     @Autowired
     private StudentService studentService;
     @Autowired
@@ -174,7 +175,8 @@ public class ThesisInfoController {
     @GetMapping("/getThesisInfoByTeacherNo")
     public Object getThesisInfoByTeacherNo(int page, int rows, HttpServletRequest request) {
         try {
-            User user = (User) request.getSession().getAttribute("user");
+            HttpSession session= request.getSession();
+            User user = (User) session.getAttribute("user");
             Map<String, Object> res = thesisInfoService.getThesisInfoByTeacherNo(page, rows, user.getUserAccount());
             logger.info("==================查询论文信息结束，数据：{}==================", res);
             return res;
@@ -182,5 +184,19 @@ public class ThesisInfoController {
             logger.info("获取论文题目列表失败，失败原因e={}。", e);
         }
         return ResultUtil.dataGridEmptyResult();
+    }
+    @GetMapping("/getPowerGiveThesis")
+    public Object getPowerGiveThesis(HttpServletRequest request){
+        try {
+            User user= (User) request.getSession().getAttribute("user");
+            Map<String, Object> res = thesisInfoService.getThesisInfoByTeacherNo(1, Integer.MAX_VALUE, user.getUserAccount());
+            Init init=initService.getInitInfo();
+            if(((List)res.get("rows")).size()>=init.getTeacherGive()){
+                return ResultUtil.error("已达到最大出题数目！！！");
+            }
+        }catch (Exception e){
+            logger.info("获取题目数量出错！");
+        }
+       return ResultUtil.success("允许进入！");
     }
 }

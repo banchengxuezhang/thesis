@@ -5,15 +5,15 @@ import com.jxufe.ljw.thesis.enumeration.UserType;
 import com.jxufe.ljw.thesis.service.*;
 import com.jxufe.ljw.thesis.vo.ResultUtil;
 import org.apache.ibatis.annotations.Mapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @Classname NoticeController
@@ -23,6 +23,9 @@ import java.util.Map;
 @RestController
 @RequestMapping("/notice")
 public class NoticeController {
+    private static final Logger logger= LoggerFactory.getLogger(NoticeController.class);
+    @Autowired
+    private InitService initService;
     @Autowired
     private CommonService commonService;
     @Autowired
@@ -42,6 +45,9 @@ public class NoticeController {
             List<Menu> list = menuService.getMenuByStatus(1);
             Map<String, Object> map = new HashMap<>();
             StringBuilder stringBuilder = new StringBuilder("");
+            Init init=initService.getInitInfo();
+            List<String> noteList =new ArrayList<>() ;
+            List<Notice> noticeList=new ArrayList<>();
             String nowStage = "评分阶段";
             String text1 = "";
             String text2 = "";
@@ -64,6 +70,8 @@ public class NoticeController {
                 text1 =String.valueOf(thesisInfoService.getThesisNum(0));
                 //当前状态
                 text2=studentInfo.getStudentStage();
+                noteList= Arrays.asList(init.getNotesForStudent().split("\\|\\|"));
+
             }
             if(user.getUserType()==UserType.TEACHER.getType()){
                 map.put("userType","2");
@@ -81,6 +89,7 @@ public class NoticeController {
                 //待确认人数
                 Map<String,Object> map2= (Map<String, Object>) relationService.getStudentSelectThesisByTeacherNo(1,Integer.MAX_VALUE,user.getUserAccount(),0);
                 text2=((List)map2.get("rows")).size()+"";
+                noteList= Arrays.asList(init.getNotesForTeacher().split("\\|\\|"));
             }
             if(user.getUserType()==UserType.MANAGE.getType()){
                 map.put("userType","1");
@@ -88,9 +97,12 @@ public class NoticeController {
                 text1=String.valueOf(commonService.getNoThesisStudentNum());
                 //未带学生教师数
                 text2=String.valueOf(commonService.getNoStudentTeacherNum());
+                noteList= Arrays.asList(init.getNotesForManager().split("\\|\\|"));
             }
             map.put("text1",text1);
             map.put("text2",text2);
+            map.put("noteList",noteList);
+            logger.info("查看map"+map);
             return ResultUtil.success(map);
         }catch (Exception e){
             return ResultUtil.error("加载首页信息异常！");

@@ -1,0 +1,62 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>无标题文档</title>
+    <link href="../css/style.css" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" href="../amazeui/css/amazeui.min.css" />
+    <link rel="stylesheet" href="../css/admin.css">
+    <link rel="stylesheet" href="../css/app.css">
+    <script type="text/javascript" src="../js/jquery.js"></script>
+    <script type="text/javascript" src="../common/common.js"></script>
+    <script type="text/javascript" src="js/viewSelectThesisInfo.js"></script>
+</head>
+
+
+<body>
+
+<div class="tpl-content-page-title" style="margin-bottom: 10px;">
+    内容概要</div>
+<ol class="am-breadcrumb">
+    <li><a href="../content.html" class="am-icon-home">首页</a></li>
+    <li class="am-active">修改论文</li>
+</ol>
+<div class="am-panel am-panel-default">
+    <div class="am-panel-bd">
+
+<div class="rightinfo">
+    <div class="am-panel am-panel-default">
+        <div class="am-panel-bd am-scrollable-horizontal">
+            <div class="am-u-sm-12">
+                <table class="am-table am-table-centered am-table-striped am-table-hover table-main" >
+        <thead>
+        <tr>
+            <th>序号</th>
+            <th>学号</th>
+            <th>姓名</th>
+            <th>班级</th>
+            <th>教师编号</th>
+            <th>教师姓名</th>
+            <th>论文题目</th>
+            <th>教师意见</th>
+            <th>备注</th>
+        </tr>
+        </thead>
+        <tbody id="data">
+
+        </tbody>
+    </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $('.tablelist tbody tr:odd').addClass('odd');
+</script>
+    </div>
+</div>
+</body>
+
+</html>

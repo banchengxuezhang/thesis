@@ -14,4 +14,12 @@ public class Init {
     private Integer studentNum;
 
     private Integer teacherNum;
+
+    private Integer teacherGive;
+
+    private String notesForTeacher;
+
+    private String notesForStudent;
+
+    private String notesForManager;
 }

@@ -138,6 +138,7 @@ public class StudentTeacherRelationController {
                     }
                 }
             }
+            logger.info("打印信息列表！！！"+studentTeacherRelations);
             return ResultUtil.success(studentTeacherRelations);
         } catch (Exception e) {
             return ResultUtil.error("获取选题情况异常！");
