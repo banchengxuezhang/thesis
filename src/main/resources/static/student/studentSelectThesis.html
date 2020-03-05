@@ -5,6 +5,9 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>无标题文档</title>
     <link href="../css/style.css" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" href="../amazeui/css/amazeui.min.css" />
+    <link rel="stylesheet" href="../css/admin.css">
+    <link rel="stylesheet" href="../css/app.css">
     <script type="text/javascript" src="../js/jquery.js"></script>
     <script type="text/javascript" src="../common/common.js"></script>
     <script type="text/javascript" src="js/studentSelectThesis.js"></script>
@@ -13,12 +16,15 @@
 
 <body>
 
-<div class="place">
-    <span>位置：</span>
-    <ul class="placeul">
-        <li><a href="#">学生选题</a></li>
-    </ul>
-</div>
+<div class="tpl-content-page-title" style="margin-bottom: 10px;">
+    内容概要</div>
+<ol class="am-breadcrumb">
+    <li><a href="content.html" class="am-icon-home">首页</a></li>
+    <li class="am-active">查看信息</li>
+</ol>
+<div class="am-panel am-panel-default"
+>
+    <div class="am-panel-bd">
 
 <div class="rightinfo">
 
@@ -40,7 +46,10 @@
             </select>
         <label>&nbsp;</label><input id="queryBtn" name="" type="button" class="btn" value="查询" style="margin-left: 20px;margin-bottom: 10px"/>
     </div>
-    <table class="tablelist">
+        <div class="am-panel am-panel-default">
+            <div class="am-panel-bd am-scrollable-horizontal">
+                <div class="am-u-sm-12">
+                    <table class="am-table am-table-centered am-table-striped am-table-hover table-main" >
         <thead>
         <tr>
             <th>选择</th>
@@ -59,7 +68,9 @@
         <tbody id="data">
         </tbody>
     </table>
-
+                </div>
+            </div>
+        </div>
 
     <div class="pagin">
         <div class="message">共<i id="totalData" class="blue"></i>条记录，当前显示第&nbsp;<i id="currentPage" class="blue"></i>&nbsp;页
@@ -76,7 +87,9 @@
 <script type="text/javascript">
     $('.tablelist tbody tr:odd').addClass('odd');
 </script>
-
+</div>
+    </div>
+</div>
 </body>
 
 </html>

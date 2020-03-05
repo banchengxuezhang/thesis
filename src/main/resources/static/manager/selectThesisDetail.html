@@ -4,20 +4,32 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>无标题文档</title>
-    <link href="css/style.css" rel="stylesheet" type="text/css"/>
-    <link href="css/select.css" rel="stylesheet" type="text/css"/>
+    <link href="../css/style.css" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" href="../amazeui/css/amazeui.min.css" />
+    <link rel="stylesheet" href="../css/admin.css">
+    <link rel="stylesheet" href="../css/app.css">
+    <link href="../css/select.css" rel="stylesheet" type="text/css"/>
 
-    <script language="JavaScript" src="js/jquery.js"></script>
-    <script language="JavaScript" src="common/common.js"></script>
-    <script type="text/javascript" src="js/jquery.idTabs.min.js"></script>
-    <script type="text/javascript" src="js/select-ui.min.js"></script>
-    <script type="text/javascript" src="editor/kindeditor.js"></script>
-    <script type="text/javascript" src="js/page/selectThesisDetail.js"></script>
+    <script language="JavaScript" src="../js/jquery.js"></script>
+    <script language="JavaScript" src="../common/common.js"></script>
+    <script type="text/javascript" src="../js/jquery.idTabs.min.js"></script>
+    <script type="text/javascript" src="../js/select-ui.min.js"></script>
+    <script type="text/javascript" src="../editor/kindeditor.js"></script>
+    <script type="text/javascript" src="js/selectThesisDetail.js"></script>
     <script type="text/javascript">
         $('.tablelist tbody tr:odd').addClass('odd');
     </script>
 </head>
 <body>
+<div class="tpl-content-page-title" style="margin-bottom: 10px;">
+    内容概要</div>
+<ol class="am-breadcrumb">
+    <li><a href="../content.html" class="am-icon-home">首页</a></li>
+    <li class="am-active">上传任务</li>
+</ol>
+<div class="am-panel am-panel-default"
+>
+    <div class="am-panel-bd">
 
 <div style="margin-bottom: 10px;margin-top: 10px;">
     <label><strong>学生姓名</strong></label><input id="studentName" name="" type="text" class="dfinput" style="width: 145px"/>
@@ -38,7 +50,11 @@
     <label>&nbsp;</label><input id="queryBtn" name="" type="button" class="btn" value="查询"/>
 </div>
 
-<table class="tablelist">
+        <div class="am-panel am-panel-default">
+            <div class="am-panel-bd am-scrollable-horizontal">
+
+                <div class="am-u-sm-12">
+                    <table class="am-table am-table-centered am-table-striped am-table-hover table-main" >
     <thead>
     <tr>
         <th>编号</th>
@@ -62,7 +78,9 @@
 
     </tbody>
 </table>
-
+                </div>
+            </div>
+        </div>
 <div class="pagin">
     <div class="message">共<i id="totalData" class="blue"></i>条记录，当前显示第&nbsp;<i id="currentPage" class="blue"></i>&nbsp;页
     </div>
@@ -78,7 +96,8 @@
 <script type="text/javascript">
     $('.tablelist tbody tr:odd').addClass('odd');
 </script>
-
+</div>
+</body>
 </body>
 
 </html>

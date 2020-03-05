@@ -11,7 +11,7 @@ $(function () {
     var thesisNo = theRequest.thesisNo;
 
     $("#returnBtn").click(function () {
-        location.href = "../teacherSelectStudent.html";
+        location.href = "./teacherSelectStudent.html";
     });
 
     $("#addBtn").click(function () {
@@ -28,12 +28,12 @@ $(function () {
             url: "/thesis/studentTeacherRelation/operateStudent?" + $.param(data),
             success: function (data) {
                 $.MsgBox.Alert("提示", data.msg, function () {
-                    location.href = "../teacherSelectStudent.html";
+                    location.href = "./teacherSelectStudent.html";
                 })
             },
             error: function () {
                 $.MsgBox.Alert("错误", "操作失败！",function () {
-                    location.href = "../teacherSelectStudent.html";
+                    location.href = "./teacherSelectStudent.html";
                 });
             }
         })

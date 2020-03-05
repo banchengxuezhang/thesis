@@ -35,7 +35,7 @@ $(function () {
                 async: false,
                 success: function (data) {
                     $.MsgBox.Alert("提示", data.msg, function () {
-                        location.href = "../studentSelectThesis.html";
+                        location.href = "./studentSelectThesis.html";
                     });
                 },
                 error: function () {

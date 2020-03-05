@@ -12,7 +12,7 @@ $(function () {
             $("#modifyBtn").show();
         } else {
             // 不选中，修改无效，重新刷新页面
-            location.href = "../personInfo.html";
+            location.href = "./personInfo.html";
         }
     });
 
@@ -40,7 +40,7 @@ function commitInfo() {
         url: "/thesis/user/updateInfo?" + $.param(data),
         success: function (data) {
             $.MsgBox.Alert(data.code == 1 ? "提示" : "错误", data.msg, function () {
-                location.href = "personInfo.html";
+                location.href = "./personInfo.html";
             });
         },
         error: function () {

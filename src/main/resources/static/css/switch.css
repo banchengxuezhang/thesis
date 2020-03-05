@@ -27,8 +27,8 @@
     content: 'ON';
     font-size: 12px;
     position: absolute;
-    left:-4px;
-    top: -4px;
+    left:6px;
+    top: 0px;
     color: #FFFFFF;
 }
 .switchOn.switchOff{
@@ -44,7 +44,7 @@
     content: 'OFF';
     font-size: 12px;
     position: absolute;
-    right:5px;
-    top: -4px;
+    right:7px;
+    top: 0px;
     color: #FFFFFF;
 }

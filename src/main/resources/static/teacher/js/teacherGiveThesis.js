@@ -10,7 +10,7 @@ $(function () {
             url:"/thesis/getPowerGiveThesis",
             success:function(data){
                 if(data.code==1){
-                    location.href = "../addThesis.html";
+                    location.href = "./addThesis.html";
                 }else {
                     $.MsgBox.Alert("提示", data.msg);
                 }
@@ -33,7 +33,7 @@ $(function () {
             return;
         }
         let thesisId = $(checkedObj[0]).val();
-        location.href = "/thesis/modifyThesis.html?thesisId=" + thesisId;
+        location.href = "/thesis/teacher/modifyThesis.html?thesisId=" + thesisId;
     });
 
     $("#deleteBtn").click(function () {
@@ -52,7 +52,7 @@ $(function () {
                 url: "/thesis/deleteThesisInfoByThesisIds?thesisIds=" + thesisIds,
                 success: function (data) {
                     $.MsgBox.Alert("提示", data.msg,function () {
-                        location.href="../teacherGiveThesis.html";
+                        location.href="./teacherGiveThesis.html";
                     });
                 },
                 error: function () {

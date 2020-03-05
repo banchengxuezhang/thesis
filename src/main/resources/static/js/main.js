@@ -1,4 +1,23 @@
 $(function () {
+    $("#loginOut").click(function () {
+        $.ajax({
+            type: 'post',
+            url:"/thesis/loginOut",
+            success:function (data) {
+            }
+        })
+
+    })
+    $("#loginOut1").click(function () {
+        $.ajax({
+            type: 'post',
+            url:"/thesis/loginOut",
+            success:function (data) {
+            }
+        })
+
+    })
+
     $.ajax({
         type: 'get',
         url: "/thesis/menu/getMenuByMenuBelong",

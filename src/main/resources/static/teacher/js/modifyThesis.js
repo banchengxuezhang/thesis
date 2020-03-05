@@ -17,7 +17,7 @@ $(function () {
         modify(thesisId);
     })
     $("#returnBtn").click(function () {
-        location.href = "../teacherGiveThesis.html";
+        location.href = "./teacherGiveThesis.html";
     })
 })
 
@@ -56,7 +56,7 @@ function modify(thesisId) {
             url: "/thesis/updateThesis?" + $.param(data),
             success: function (data) {
                 $.MsgBox.Alert("提示", data.msg, function () {
-                    location.href = "../teacherGiveThesis.html";
+                    location.href = "./teacherGiveThesis.html";
                 });
             },
             error: function () {

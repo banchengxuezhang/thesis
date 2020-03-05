@@ -28,24 +28,24 @@ public class WebMvcConfig implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         // excludePathPatterns("/login") 表示除了登陆与注册之外，因为登陆注册不需要登陆也可以访问
-//        registry.addInterceptor(commonIntercepter).addPathPatterns("/**")
-//                .excludePathPatterns("/doc.html")
-//                .excludePathPatterns("/classpath:/META-INF/resources/")
-//                .excludePathPatterns("/webjars/**")
-//                .excludePathPatterns("/classpath:/META-INF/resources/webjars/")
-//                .excludePathPatterns("/v2/api-docs", "/swagger-resources", "/v2/api-docs-ext")
-//                .excludePathPatterns("/login.html")
-//                .excludePathPatterns("/error.html")
-//                .excludePathPatterns("/logincode")
-//                .excludePathPatterns("/druid/*")
-//                .excludePathPatterns("/forgetPassword")
-//                .excludePathPatterns("/login")
-//                .excludePathPatterns("/loginOut")
-//                .excludePathPatterns("/common/*.js")
-//                .excludePathPatterns("/js/*.js")
-//                .excludePathPatterns("/js/page/*.js")
-//                .excludePathPatterns("/css/**")
-//                .excludePathPatterns("/images/*.png")
-//                .excludePathPatterns("/images/*.jpg");
+        registry.addInterceptor(commonIntercepter).addPathPatterns("/**")
+                .excludePathPatterns("/doc.html")
+                .excludePathPatterns("/classpath:/META-INF/resources/")
+                .excludePathPatterns("/webjars/**")
+                .excludePathPatterns("/classpath:/META-INF/resources/webjars/")
+                .excludePathPatterns("/v2/api-docs", "/swagger-resources", "/v2/api-docs-ext")
+                .excludePathPatterns("/login.html")
+                .excludePathPatterns("/error.html")
+                .excludePathPatterns("/logincode")
+                .excludePathPatterns("/druid/*")
+                .excludePathPatterns("/forgetPassword")
+                .excludePathPatterns("/login")
+                .excludePathPatterns("/loginOut")
+                .excludePathPatterns("/common/*.js")
+                .excludePathPatterns("/js/*.js")
+                .excludePathPatterns("/js/page/*.js")
+                .excludePathPatterns("/css/**")
+                .excludePathPatterns("/images/*.png")
+                .excludePathPatterns("/images/*.jpg");
     }
 }

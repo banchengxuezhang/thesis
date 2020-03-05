@@ -27,7 +27,7 @@ $(function () {
                 success:function (data) {
                     if (data.code == 1){
                         $.MsgBox.Alert("提示",data.msg,function () {
-                            location.href = "../teacher/modifyPwd.html";
+                            location.href = "./modifyPwd.html";
                         });
                     }
                 },

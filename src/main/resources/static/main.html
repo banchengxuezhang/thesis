@@ -60,11 +60,11 @@
 					<ul class="am-dropdown-content">
 						<li><a href="#" id="userInfo_a" style="outline: none;"><span class="am-icon-user"></span> 信息</a></li>
 						<li><a href="#" id="update_password" style="outline: none;"><span class="am-icon-edit"></span> 修改密码</a></li>
-						<li><a href="/graduation/userController/logout" style="outline: none;"><span class="am-icon-power-off"></span>
+						<li><a id="loginOut"  href="login.html" style="outline: none;"><span class="am-icon-power-off"></span>
 								退出</a></li>
 					</ul>
 				</li>
-				<li><a href="/graduation/userController/logout" class="tpl-header-list-link"><span
+				<li><a id="loginOut1" href="login.html" class="tpl-header-list-link"><span
 						class="am-icon-sign-out tpl-header-list-ico-out-size"></span></a></li>
 			</ul>
 		</div>
@@ -250,7 +250,6 @@
 	<script src="amazeui/js/app.js"></script>
 	<script type="text/javascript">
 		$(function() {
-			
 			//得到用户信息
 			getUserInfo();
 			function getUserInfo(){
@@ -416,9 +415,9 @@
 			
 			
 			//网页刷新回到首页
-			$(window).on('unload',function(){
-				window.location.href='main.html';
-			});
+			// $(window).on('unload',function(){
+			// 	window.location.href='main.html';
+			// });
 			
   			$('#iframepage').on('load',function(){
 				  //"ref_page"为引用页面DIV的ID，获取DIV的外部宽度、外部高度。
