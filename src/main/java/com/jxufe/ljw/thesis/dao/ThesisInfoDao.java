@@ -27,4 +27,5 @@ public interface ThesisInfoDao {
 
     ThesisInfo getThesisByThesisId(String thesisId);
     int getThesisNum(int selectNum);
+    int deleteThesisByAccount(String userAccount);
 }

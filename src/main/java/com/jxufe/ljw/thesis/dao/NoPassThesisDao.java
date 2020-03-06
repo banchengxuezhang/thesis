@@ -21,4 +21,5 @@ public interface NoPassThesisDao {
     List<StudentTeacherRelation> getSelectAll(@Param("relation") StudentTeacherRelation studentTeacherRelation);
 
     int getNoPassNum();
+    int deleteNoPassByStudentNoOrTeacherNo(String userAccount);
 }

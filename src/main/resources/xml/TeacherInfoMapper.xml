@@ -11,6 +11,17 @@
         teacher_phone=#{phone},teacher_email=#{email}
         where user_id=#{userId}
     </update>
+    <update id="updateTeacherInfoByTeacher">
+        update t_teacher_info
+        set
+        teacher_no=#{teacherNo},teacher_name=#{teacherName},teacher_title=#{teacherTitle},teacher_education=#{teacherEducation},teacher_phone=#{teacherPhone},
+        teacher_email=#{teacherEmail}
+        where user_id=#{userId}
+    </update>
+    <delete id="deleteTeacherById">
+        delete from t_teacher_info
+        where user_id=#{userId}
+    </delete>
     <select id="getTeacherInfo" resultType="com.jxufe.ljw.thesis.bean.TeacherInfo">
         select  * from t_teacher_info
         where user_id=#{userId}
@@ -18,5 +29,16 @@
     <select id="getTeacherInfoByTeacherNo" resultType="com.jxufe.ljw.thesis.bean.TeacherInfo">
         select * from t_teacher_info
         where teacher_no=#{teacherNo}
+    </select>
+    <select id="getTeacherListByDetail" resultType="com.jxufe.ljw.thesis.vo.UserInfoDetail">
+        select * from t_teacher_info
+        <where>
+            <if test="userAccount!=null and userAccount!=''">
+                teacher_no  like CONCAT(#{userAccount},"%")
+            </if>
+            <if test="userName!=null and userName!=''">
+                and teacher_name like CONCAT(#{userName},"%")
+            </if>
+        </where>
     </select>
 </mapper>

@@ -1,14 +1,10 @@
 package com.jxufe.ljw.thesis.controller;
 
 import com.google.common.collect.Maps;
-import com.jxufe.ljw.thesis.bean.StudentInfo;
-import com.jxufe.ljw.thesis.bean.TeacherInfo;
-import com.jxufe.ljw.thesis.bean.User;
+import com.jxufe.ljw.thesis.bean.*;
 import com.jxufe.ljw.thesis.enumeration.PublicData;
 import com.jxufe.ljw.thesis.enumeration.UserType;
-import com.jxufe.ljw.thesis.service.StudentService;
-import com.jxufe.ljw.thesis.service.TeacherService;
-import com.jxufe.ljw.thesis.service.UserService;
+import com.jxufe.ljw.thesis.service.*;
 import com.jxufe.ljw.thesis.util.Md5Tools;
 import com.jxufe.ljw.thesis.vo.ResultUtil;
 import com.jxufe.ljw.thesis.vo.UserInfoDetail;
@@ -17,13 +13,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.EmptyStackException;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
@@ -42,6 +37,14 @@ public class UserController {
     private StudentService studentService;
     @Autowired
     private TeacherService teacherService;
+    @Autowired
+    private StudentTeacherRelationService relationService;
+    @Autowired
+    private  NoPassThesisService noPassThesisService;
+    @Autowired
+    private ThesisInfoService thesisInfoService;
+    @Autowired
+    private IMailService iMailService;
 
     /**
      * 管理员添加学生
@@ -195,5 +198,80 @@ public class UserController {
         }
         return ResultUtil.success("修改密码成功！！！");
     }
+    /**
+     * 管理员获取所有用户列表
+     *
+     */
+   @GetMapping("/getUserList")
+    public Object getUserList(int page,int rows,UserInfoDetail userInfoDetail){
+       return userService.getUserList(page,rows,userInfoDetail);
+   }
+   @GetMapping("/getUserDetailInfoById")
+    public Object getUserDetailInfoById(String userId){
+       User user=userService.getUserById(userId);
+       Map<String,Object> map=new HashMap<>();
+       if(user.getUserType()==UserType.STUDENT.getType()){
+           map.put("type","3");
+           map.put("student",studentService.getStudentInfo(userId));
+           return map;
+       }else {
+           map.put("type","2");
+           map.put("teacher",teacherService.getTeacherInfo(userId));
+           return map;
+       }
+   }
+   @PostMapping("/updateTeacherInfo")
+    public Object updateTeacherInfo(TeacherInfo teacherInfo){
+      logger.info("查看修改教师信息："+teacherInfo);
+       teacherService.updateTeacherInfoByTeacher(teacherInfo);
+       return ResultUtil.success("修改成功！");
+   }
+    @PostMapping("/updateStudentInfo")
+    public Object updateStudentInfo(StudentInfo studentInfo){
+       logger.info("查看修改学生信息："+studentInfo);
+       studentService.updateStudentInfoByStudent(studentInfo);
+       return ResultUtil.success("修改成功！");
+    }
+    @DeleteMapping("/deleteUsersByIds")
+    @Transactional
+    public Object deleteUsersByIds(String[] userIds){
+        logger.info("查看userIds"+userIds);
+        for (String userId:userIds
+             ) {
+            User user=userService.getUserById(userId);
+            noPassThesisService.deleteNoPassByStudentNoOrTeacherNo(user.getUserAccount());
+            userService.deleteUserById(userId);
+            if(user.getUserType()==UserType.STUDENT.getType()){
+                StudentInfo studentInfo=studentService.getStudentInfo(userId);
+                if(studentInfo.getStudentEmail()!=""&&studentInfo.getStudentEmail()!=null){
+                    iMailService.sendSimpleMail(studentInfo.getStudentEmail(),"很抱歉！您已被管理员删除！",studentInfo.getStudentName()+
+                            "同学你好！很抱歉，您已被毕业论文管理系统管理员删除！\n您的论文信息都将被清空！\n如有疑问，请及时联系学院管理员！！！");
+                }
+                studentService.deleteStudentById(userId);
+                List<StudentTeacherRelation> studentTeacherRelations=relationService.getStudentTeacherRelationByStudentNo(user.getUserAccount());
+                if(studentTeacherRelations.size()>0){
+                    for (StudentTeacherRelation studentTeacherRelation:studentTeacherRelations){
+                        ThesisInfo thesisInfo=new ThesisInfo();
+                        thesisInfo.setSelectNum(0);
+                        thesisInfo.setThesisId(studentTeacherRelation.getThesisNo());
+                        thesisInfoService.updateThesis(thesisInfo);
+                    }
+                }
+            }
+            if(user.getUserType()==UserType.TEACHER.getType()){
+                TeacherInfo teacherInfo=teacherService.getTeacherInfo(userId);
+                logger.info("查看userId"+userId);
+                logger.info("查看teacher"+teacherInfo);
+                if(teacherInfo.getTeacherEmail()!=null&&teacherInfo.getTeacherEmail()!=""){
+                    iMailService.sendSimpleMail(teacherInfo.getTeacherEmail(),"很抱歉！您已被管理员删除！",teacherInfo.getTeacherName()+
+                            "教师您好！很抱歉，您已被毕业论文管理系统管理员删除!\n您的论文课题,学员信息都将被清空！\n如有疑问，请及时联系管理员！！！");
+                }
+                teacherService.deleteTeacherById(userId);
+                thesisInfoService.deleteThesisByAccount(user.getUserAccount());
+            }
+            relationService.deleteRelationByAccount(user.getUserAccount());
 
+        }
+      return ResultUtil.success("删除成功！！！");
+    }
 }

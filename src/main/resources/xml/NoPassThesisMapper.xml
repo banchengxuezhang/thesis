@@ -5,6 +5,10 @@
         insert  into t_no_pass_thesis(no_pass_id,student_no,student_name,student_class,teacher_no,teacher_name,thesis_no,thesis_title,teacher_opinion)
         values (#{noPassId},#{studentNo},#{studentName},#{studentClass},#{teacherNo},#{teacherName},#{thesisNo},#{thesisTitle},#{teacherOpinion})
     </insert>
+    <delete id="deleteNoPassByStudentNoOrTeacherNo">
+        delete from  t_no_pass_thesis
+        where student_no=#{userAccount} or teacher_no=#{userAccount}
+    </delete>
     <select id="getNoPassThesisByStudentNo" resultType="com.jxufe.ljw.thesis.bean.NoPassThesis">
         select * from t_no_pass_thesis
         where student_no=#{studentNo}

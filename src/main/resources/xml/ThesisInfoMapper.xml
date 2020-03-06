@@ -7,15 +7,27 @@
     </insert>
     <update id="updateThesis">
         update t_thesis_info
-        set
-        thesis_title=#{thesisTitle},notice_info=#{noticeInfo}
-        <if test="selectNum!=null">,select_num=#{selectNum}</if>
+        <set>
+            <if test="thesisTitle!=null and thesisTitle!=''">
+                thesis_title=#{thesisTitle},
+            </if>
+            <if test="noticeInfo!=null and noticeInfo !=''">
+                notice_info=#{noticeInfo},
+            </if>
+            <if test="selectNum!=null">
+            select_num=#{selectNum},
+            </if>
+        </set>
         where thesis_id=#{thesisId}
     </update>
 
     <delete id="deleteThesis">
     delete  from t_thesis_info
     where thesis_id=#{thesisId}
+    </delete>
+    <delete id="deleteThesisByAccount">
+        delete from t_thesis_info
+        where teacher_no=#{userAccount}
     </delete>
     <select id="getThesisInfo" resultType="com.jxufe.ljw.thesis.bean.ThesisInfo">
         select

@@ -18,8 +18,6 @@
 
 
 <body>
-<div class="tpl-content-page-title" style="margin-bottom: 10px;">
-    内容概要</div>
 <ol class="am-breadcrumb">
     <li><a href="../content.html" class="am-icon-home">首页</a></li>
     <li class="am-active">上传任务</li>
@@ -33,7 +31,7 @@
         <div class="am-panel-bd am-scrollable-horizontal">
 
             <div class="am-u-sm-12">
-                <table class="am-table am-table-centered am-table-striped am-table-hover table-main" >
+                <table class="am-table am-table-bordered am-table-radius am-table-striped" >
         <thead>
         <tr>
             <th>序号</th>
@@ -59,11 +57,11 @@
     <div class="pagin">
         <div class="message">共<i id="totalData" class="blue"></i>条记录，当前显示第&nbsp;<i id="currentPage" class="blue"></i>&nbsp;页
         </div>
-        <ul class="paginList">
-            <li id="firstPage" class="paginItem"><a href="javascript:;">首页</a></li>
-            <li id="prePage" class="paginItem"><a href="javascript:;">上一页</a></li>
-            <li id="nextPage" class="paginItem"><a href="javascript:;">下一页</a></li>
-            <li id="lastPage" class="paginItem"><a href="javascript:;">尾页</a></li>
+        <ul class="am-pagination am-pagination-right">
+            <li id="firstPage" class="am-active"><a href="#">首页</a></li>
+            <li  id="prePage"><a href="#">上一页</a></li>
+            <li  id="nextPage"><a href="#">下一页</a></li>
+            <li  id="lastPage"><a href="#">尾页</a></li>
         </ul>
     </div>
 </div>

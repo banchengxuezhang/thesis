@@ -75,4 +75,9 @@ public class ThesisInfoServiceImpl implements ThesisInfoService {
         return thesisInfoDao.getThesisNum(selectNum);
     }
 
+    @Override
+    public int deleteThesisByAccount(String userAccount) {
+        return thesisInfoDao.deleteThesisByAccount(userAccount);
+    }
+
 }

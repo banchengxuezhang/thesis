@@ -37,4 +37,5 @@ public interface StudentTeacherRelationDao {
     List<StudentTeacherRelation> getAllStudentTeacherDetail(@Param("relation") StudentTeacherRelation studentTeacherRelation);
 
     int getAllDealNum(int opinionFlag);
+    int deleteRelationByAccount(String userAccount);
 }

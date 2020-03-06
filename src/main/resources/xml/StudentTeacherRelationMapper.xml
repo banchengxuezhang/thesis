@@ -24,6 +24,10 @@
         delete from  t_student_teacher_relation
         where thesis_no=#{thesisNo}
     </delete>
+    <delete id="deleteRelationByAccount">
+        delete from t_student_teacher_relation
+        where teacher_no=#{userAccount} or student_no=#{userAccount}
+    </delete>
     <select id="getStudentTeacherRelationByStudentNo" resultType="com.jxufe.ljw.thesis.bean.StudentTeacherRelation">
         select * from t_student_teacher_relation
         where student_no=#{studentNo}

@@ -5,6 +5,8 @@ import org.springframework.stereotype.Component;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @Classname ClassUtil
@@ -13,6 +15,7 @@ import java.lang.reflect.Method;
  */
 @Component
 public class ClassUtil {
+    //去除null
     public static Object checkNull(Object obj) {
         Class<? extends Object> clazz = obj.getClass();
         // 获取实体类的所有属性，返回Field数组
@@ -45,5 +48,31 @@ public class ClassUtil {
             }
         }
         return obj;
+    }
+    //硬核分页
+    public static Object getObject(int page, int rows, Map<String, Object> map, List filterList, List subList) {
+        int totalcount = filterList.size();
+        int pagecount = 0;
+        int m = totalcount % rows;
+        if (m > 0) {
+            pagecount = totalcount / rows + 1;
+        } else {
+            pagecount = totalcount / rows;
+        }
+
+        if (m == 0) {
+            if (filterList.size() != 0 && filterList != null) {
+                subList = filterList.subList((page - 1) * rows, rows * (page));
+            }
+        } else {
+            if (page == pagecount) {
+                subList = filterList.subList((page - 1) * rows, totalcount);
+            } else {
+                subList = filterList.subList((page - 1) * rows, rows * (page));
+            }
+        }
+        map.put("total", filterList.size());
+        map.put("rows", subList);
+        return map;
     }
 }

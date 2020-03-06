@@ -36,4 +36,5 @@ public interface StudentTeacherRelationService {
     Object getAllStudentTeacherDetail(int page, int rows, StudentTeacherRelation studentTeacherRelation);
 
     int getAllDealNum(int opinionFlag);
+    int deleteRelationByAccount(String userAccount);
 }

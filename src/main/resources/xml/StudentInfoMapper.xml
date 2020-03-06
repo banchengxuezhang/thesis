@@ -10,18 +10,28 @@
         t_student_info
         <set>
             <if test="phone!=null and phone!=''">
-                student_phone = #{phone}
+                student_phone = #{phone},
             </if>
             <if test="email!=null and email!=''">
-                student_email = #{email}
+                student_email = #{email},
             </if>
             <if test="stage!=null and stage!=''">
-                student_stage=#{stage}
+                student_stage=#{stage},
             </if>
         </set>
       where
         student_no = #{studentNo}
     </update>
+    <update id="updateStudentInfoByStudent">
+        update t_student_info
+        set student_no=#{studentNo},student_name=#{studentName},student_major=#{studentMajor},student_instructor=#{studentInstructor},student_class=#{studentClass},student_phone=#{studentPhone},
+        student_email=#{studentEmail}
+        where user_id=#{userId}
+    </update>
+    <delete id="deleteStudentByUserId">
+        delete from t_student_info
+        where user_id=#{userId}
+    </delete>
     <select id="getStudentInfo" resultType="com.jxufe.ljw.thesis.bean.StudentInfo">
         select * from t_student_info
         where user_id=#{userId}
@@ -29,5 +39,22 @@
     <select id="getStudentInfoByStudentNo" resultType="com.jxufe.ljw.thesis.bean.StudentInfo">
          select * from t_student_info
         where student_no=#{studentNo}
+    </select>
+    <select id="getStudentListByDetail" resultType="com.jxufe.ljw.thesis.vo.UserInfoDetail">
+        select * from t_student_info
+        <where>
+            <if test="userAccount!=null and userAccount!=''">
+                student_no like CONCAT(#{userAccount},"%")
+            </if>
+            <if test="userName!=null and userName!=''">
+                and student_name like CONCAT(#{userName},"%")
+            </if>
+            <if test="studentClass!=null and studentClass!=''">
+             and student_class like CONCAT(#{studentClass},"%")
+            </if>
+            <if test="studentMajor!=null and studentMajor!=''">
+                and student_major like CONCAT(#{studentMajor},"%")
+            </if>
+        </where>
     </select>
 </mapper>

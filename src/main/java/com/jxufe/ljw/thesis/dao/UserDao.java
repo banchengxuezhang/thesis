@@ -16,8 +16,8 @@ import java.util.List;
 @Mapper
 public interface UserDao extends BaseMapper<User> {
     List<User> getUserByAccountAndType(String userAccount, int userType);
-
+    User getUserById(String userId);
     int addUser(User user);
-
     int updateUserPassword(UserInfoDetail userInfoDetail);
+    int deleteUserById(String userId);
 }

@@ -4,7 +4,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>无标题文档</title>
-    <link href="css/style.css" rel="stylesheet" type="text/css"/>
+<!--    <link href="css/style.css" rel="stylesheet" type="text/css"/>-->
     <link rel="stylesheet" href="amazeui/css/amazeui.min.css" />
     <link rel="stylesheet" href="amazeui/css/admin.css">
     <link rel="stylesheet" href="css/app.css">
@@ -14,8 +14,6 @@
 </head>
 <body>
 
-<div class="tpl-content-page-title" style="margin-bottom: 10px;">
-    内容概要</div>
 <ol class="am-breadcrumb">
     <li><a href="content.html" class="am-icon-home">首页</a></li>
     <li class="am-active">查看信息</li>
@@ -24,13 +22,30 @@
 <div class="am-panel am-panel-default"
      >
     <div class="am-panel-bd">
+<!--    <li><div class="am-checkbox">-->
+<!--        <label>-->
+<!--            <input   id="modifyInfo"  type="checkbox"> 修改基本信息-->
+<!--        </label>-->
+<!--    </div></li>-->
+        <form class="am-form am-form-horizontal" style="width: 700px">
+            <div class="am-form-group">
+                <div class="am-u-sm-offset-2 am-u-sm-10">
+                    <div class="checkbox">
+                        <label>
+                            <input  id="modifyInfo" type="checkbox"> 修改基本信息
+                        </label>
+                    </div>
+                </div>
+            </div>
+           <div id="forminfo">
+           </div>
 
-    <div class="formtitle"><span>基本信息</span></div>
-
-    <li style="margin-bottom: 20px"><cite><input name="" id="modifyInfo" type="checkbox" value=""/>修改基本信息</cite></li>
-    <ul class="forminfo" id="forminfo">
-    </ul>
-    <li><label>&nbsp;</label><input id="modifyBtn" name="" type="button" class="btn" value="确认保存"/></li>
+            <div class="am-form-group">
+                <div class="am-u-sm-10 am-u-sm-offset-2">
+                    <input  id="modifyBtn" type="button"  value="确认保存" class="am-btn am-btn-default"/>
+                </div>
+            </div>
+        </form>
 </div>
     </div>
 

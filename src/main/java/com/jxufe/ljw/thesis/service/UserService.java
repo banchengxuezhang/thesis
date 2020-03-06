@@ -3,7 +3,9 @@ package com.jxufe.ljw.thesis.service;
 import com.jxufe.ljw.thesis.bean.User;
 import com.jxufe.ljw.thesis.vo.UserInfoDetail;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Classname UserService
@@ -16,4 +18,7 @@ public interface UserService {
     int addUser(User user);
 
     int updateUserPassword(UserInfoDetail userInfoDetail);
+    Object getUserList(int page, int rows, UserInfoDetail userInfoDetail);
+    User getUserById(String userId);
+    int deleteUserById(String userId);
 }

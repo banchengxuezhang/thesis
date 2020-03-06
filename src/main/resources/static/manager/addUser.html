@@ -15,7 +15,7 @@
     <script type="text/javascript" src="../js/jquery.idTabs.min.js"></script>
     <script type="text/javascript" src="../js/select-ui.min.js"></script>
     <script type="text/javascript" src="../editor/kindeditor.js"></script>
-    <script type="text/javascript" src="js/managerAddUser.js"></script>
+    <script type="text/javascript" src="js/addUser.js"></script>
     <script type="text/javascript">
         $("#usual1 ul").idTabs();
     </script>
@@ -29,14 +29,13 @@
     内容概要</div>
 <ol class="am-breadcrumb">
     <li><a href="../content.html" class="am-icon-home">首页</a></li>
-    <li class="am-active">上传任务</li>
+    <li class="am-active">添加用户</li>
 </ol>
-<div class="am-panel am-panel-default"
->
+<div class="am-panel am-panel-default">
     <div class="am-panel-bd">
 
 <div id="tab1" class="tabson">
-    <ul class="forminfo">
+    <ul class="forminfo" style="margin-left: 200px">
         <li><label>用户角色<b>*</b></label>
             <div class="vocation">
                 <select id="role" class="select1" onchange="roleChange()">
@@ -51,9 +50,10 @@
             <li><label>专业<b>*</b></label><input id="studentMajor" name="" type="text" class="dfinput" value="" style="width:345px;"/></li>
             <li><label>辅导员<b>*</b></label><input id="studentInstructor" name="" type="text" class="dfinput" value="" style="width:345px;"/></li>
             <li><label>班级<b>*</b></label><input id="studentClass" name="" type="text" class="dfinput" value="" style="width:345px;"/></li>
+            <li><label>邮箱<b>*</b></label><input name="" id="studentEmail" type="text" class="dfinput" value="" style="width:345px;"/></li>
             <li><label>电话</label><input name="" id="studentPhone" type="text" class="dfinput" value="" style="width:345px;"/></li>
-            <li><label>邮箱</label><input name="" id="studentEmail" type="text" class="dfinput" value="" style="width:345px;"/></li>
-            <li><label>&nbsp;</label><input name="" id="submitStudentInfo" type="button" class="btn" value="提交"/></li>
+            <li><label>&nbsp;</label><input id="submitStudentInfo" name="" type="button" class="btn" value="提交" style="margin-left: -95px"/><label></label><input
+                    id="returnStudent" name="" type="button" class="btn" value="返回" style="margin-left: 72px"/></li>
         </div>
 
         <div id="teacherInfo" style="display: none">
@@ -61,9 +61,10 @@
             <li><label>教师姓名<b>*</b></label><input name="" id="teacherName" type="text" class="dfinput" value="" style="width:345px;"/></li>
             <li><label>职称<b>*</b></label><input name="" id="teacherTitle" type="text" class="dfinput" value="" style="width:345px;"/></li>
             <li><label>学历<b>*</b></label><input name="" id="teacherEducation" type="text" class="dfinput" value="" style="width:345px;"/></li>
+            <li><label>邮箱<b>*</b></label><input name="" id="teacherEmail" type="text" class="dfinput" value="" style="width:345px;"/></li>
             <li><label>电话</label><input name="" id="teacherPhone" type="text" class="dfinput" value="" style="width:345px;"/></li>
-            <li><label>邮箱</label><input name="" id="teacherEmail" type="text" class="dfinput" value="" style="width:345px;"/></li>
-            <li><label>&nbsp;</label><input name="" id="submitTeacherInfo" type="button" class="btn" value="提交"/></li>
+            <li><label>&nbsp;</label><input id="submitTeacherInfo" name="" type="button" class="btn" value="提交" style="margin-left: -95px" /><label></label><input
+                    id="returnTeacher" name="" type="button" class="btn" value="返回" style="margin-left: 72px"/></li>
         </div>
     </ul>
 </div>

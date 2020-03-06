@@ -17,7 +17,7 @@
 <body>
 
 <div class="tpl-content-page-title" style="margin-bottom: 10px;">
-    内容概要</div>
+    选择课题</div>
 <ol class="am-breadcrumb">
     <li><a href="content.html" class="am-icon-home">首页</a></li>
     <li class="am-active">查看信息</li>
@@ -30,11 +30,11 @@
 
     <div class="tools">
         <ul class="toolbar">
-            <li id="selectBtn"><span><img src="../images/t01.png"/></span>选择</li>
+            <li id="selectBtn" style="margin-left: 26px;"><span><img src="../images/t01.png"/></span>选择</li>
         </ul>
     </div>
-    <div style="margin-bottom: 10px;margin-top: 10px;">
-        <label><strong>论文题目</strong></label><input id="thesisTitle" name="" type="text" class="dfinput" style="width: 145px"/>
+    <div style="margin-bottom: 10px;margin-top: 10px">
+        <label style="margin-left: 26px;"><strong>论文题目</strong></label><input id="thesisTitle" name="" type="text" class="dfinput" style="width: 145px"/>
         <label><strong>教师姓名</strong></label><input id="teacherName" name="" type="text" class="dfinput" style="width: 145px"/>
         <label><strong>教师工号</strong></label><input id="teacherNo" name="" type="text" class="dfinput" style="width: 145px"/>
         <label><strong>状态</strong></label>
@@ -49,7 +49,7 @@
         <div class="am-panel am-panel-default">
             <div class="am-panel-bd am-scrollable-horizontal">
                 <div class="am-u-sm-12">
-                    <table class="am-table am-table-centered am-table-striped am-table-hover table-main" >
+                    <table class="am-table am-table-bordered am-table-radius am-table-striped" >
         <thead>
         <tr>
             <th>选择</th>
@@ -72,16 +72,16 @@
             </div>
         </div>
 
-    <div class="pagin">
-        <div class="message">共<i id="totalData" class="blue"></i>条记录，当前显示第&nbsp;<i id="currentPage" class="blue"></i>&nbsp;页
+        <div class="pagin">
+            <div class="message">共<i id="totalData" class="blue"></i>条记录，当前显示第&nbsp;<i id="currentPage" class="blue"></i>&nbsp;页
+            </div>
+            <ul class="am-pagination am-pagination-right">
+                <li id="firstPage" class="am-active"><a href="#">首页</a></li>
+                <li  id="prePage"><a href="#">上一页</a></li>
+                <li  id="nextPage"><a href="#">下一页</a></li>
+                <li  id="lastPage"><a href="#">尾页</a></li>
+            </ul>
         </div>
-        <ul class="paginList">
-            <li id="firstPage" class="paginItem"><a href="javascript:;">首页</a></li>
-            <li id="prePage" class="paginItem"><a href="javascript:;">上一页</a></li>
-            <li id="nextPage" class="paginItem"><a href="javascript:;">下一页</a></li>
-            <li id="lastPage" class="paginItem"><a href="javascript:;">尾页</a></li>
-        </ul>
-    </div>
 </div>
 
 <script type="text/javascript">

@@ -175,36 +175,20 @@ public class StudentTeacherRelationServiceImpl implements StudentTeacherRelation
         } else {
             filterList = thesisInfoList;
         }
-        // list假分页
-        int totalcount = filterList.size();
-        int pagecount = 0;
-        int m = totalcount % rows;
-        if (m > 0) {
-            pagecount = totalcount / rows + 1;
-        } else {
-            pagecount = totalcount / rows;
-        }
         List<StudentTeacherRelation> subList = Lists.newArrayList();
-
-        if (m == 0) {
-            if (filterList.size() != 0 && filterList != null) {
-                subList = filterList.subList((page - 1) * rows, rows * (page));
-            }
-        } else {
-            if (page == pagecount) {
-                subList = filterList.subList((page - 1) * rows, totalcount);
-            } else {
-                subList = filterList.subList((page - 1) * rows, rows * (page));
-            }
-        }
-        map.put("total", filterList.size());
-        map.put("rows", subList);
-        return map;
+        // list假分页
+        return ClassUtil.getObject(page, rows, map, filterList, subList);
     }
+
 
     @Override
     public int getAllDealNum(int opinionFlag) {
         return studentTeacherRelationDao.getAllDealNum(opinionFlag);
+    }
+
+    @Override
+    public int deleteRelationByAccount(String userAccount) {
+        return studentTeacherRelationDao.deleteRelationByAccount(userAccount);
     }
 
 

@@ -21,7 +21,7 @@ spring:
   profiles:
     active: dev
   datasource:
-    url: jdbc:mysql://127.0.0.1:3306/thesis?serverTimezone=UTC&useUnicode=true&characterEncoding=UTF-8 #配置url地址 加上Serxxx防止报错
+    url: jdbc:mysql://127.0.0.1:3306/rjxy_thesis?serverTimezone=UTC&useUnicode=true&characterEncoding=UTF-8 #配置url地址 加上Serxxx防止报错
     username: root
     password: 123456
     driverClassName: com.mysql.cj.jdbc.Driver

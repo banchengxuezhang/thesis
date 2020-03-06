@@ -16,12 +16,9 @@
 
 <body>
 
-
-<div class="tpl-content-page-title" style="margin-bottom: 10px;">
-    内容概要</div>
 <ol class="am-breadcrumb">
     <li><a href="../content.html" class="am-icon-home">首页</a></li>
-    <li class="am-active">查看信息</li>
+    <li class="am-active">教师出题</li>
 </ol>
 <div class="am-panel am-panel-default"
 >
@@ -30,7 +27,7 @@
 <div class="rightinfo">
     <div class="tools">
 
-        <ul class="toolbar">
+        <ul class="toolbar" style="margin-left: 30px">
             <li id="addBtn"><span><img src="../images/t01.png" /></span>添加</li>
             <li id="modifyBtn"><span><img src="../images/t02.png" /></span>修改</li>
             <li id="deleteBtn"> <span><img src="../images/t03.png" /></span>删除</li>
@@ -39,7 +36,7 @@
     <div class="am-panel am-panel-default">
         <div class="am-panel-bd am-scrollable-horizontal">
             <div class="am-u-sm-12">
-                <table class="am-table am-table-centered am-table-striped am-table-hover table-main" >
+                <table  class="am-table am-table-bordered am-table-radius am-table-striped">
         <thead>
         <tr>
             <th>选择</th>
@@ -58,11 +55,11 @@
     <div class="pagin">
         <div class="message">共<i id="totalData" class="blue"></i>条记录，当前显示第&nbsp;<i id="currentPage" class="blue"></i>&nbsp;页
         </div>
-        <ul class="paginList">
-            <li id="firstPage" class="paginItem"><a href="javascript:;">首页</a></li>
-            <li id="prePage" class="paginItem"><a href="javascript:;">上一页</a></li>
-            <li id="nextPage" class="paginItem"><a href="javascript:;">下一页</a></li>
-            <li id="lastPage" class="paginItem"><a href="javascript:;">尾页</a></li>
+        <ul class="am-pagination am-pagination-right">
+            <li id="firstPage" class="am-active"><a href="#">首页</a></li>
+            <li  id="prePage"><a href="#">上一页</a></li>
+            <li  id="nextPage"><a href="#">下一页</a></li>
+            <li  id="lastPage"><a href="#">尾页</a></li>
         </ul>
     </div>
 </div>

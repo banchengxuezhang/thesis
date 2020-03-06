@@ -9,9 +9,8 @@ import lombok.Data;
  */
 @Data
 public class TeacherInfo {
-
-    private String teacherId;
     private String userId;
+    private String teacherId;
     private String teacherNo ;
 
     private String teacherName ;

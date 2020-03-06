@@ -1,7 +1,10 @@
 package com.jxufe.ljw.thesis.dao;
 
 import com.jxufe.ljw.thesis.bean.TeacherInfo;
+import com.jxufe.ljw.thesis.vo.UserInfoDetail;
 import org.apache.ibatis.annotations.Mapper;
+
+import java.util.List;
 
 /**
  * @Classname TeacherInfoDao
@@ -17,4 +20,7 @@ public interface TeacherInfoDao {
     int updateTeacherInfo(String userId, String phone, String email);
 
     TeacherInfo getTeacherInfoByTeacherNo(String teacherNo);
+    List<UserInfoDetail> getTeacherListByDetail(UserInfoDetail userInfoDetail);
+    int updateTeacherInfoByTeacher(TeacherInfo teacherInfo);
+    int deleteTeacherById(String userId);
 }

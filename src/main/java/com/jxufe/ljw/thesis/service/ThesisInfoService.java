@@ -24,4 +24,5 @@ public interface ThesisInfoService {
 
     ThesisInfo getThesisByThesisId(String thesisId);
     int getThesisNum(int selectNum);
+    int deleteThesisByAccount(String userAccount);
 }

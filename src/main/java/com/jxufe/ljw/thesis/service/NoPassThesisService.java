@@ -16,4 +16,5 @@ public interface NoPassThesisService {
     List<NoPassThesis> getNoPassThesisByStudentNo(String studentNo);
 
     int getNoPassNum();
+    int deleteNoPassByStudentNoOrTeacherNo(String userAccount);
 }

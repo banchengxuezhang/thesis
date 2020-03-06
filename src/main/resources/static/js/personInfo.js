@@ -12,7 +12,7 @@ $(function () {
             $("#modifyBtn").show();
         } else {
             // 不选中，修改无效，重新刷新页面
-            location.href = "./personInfo.html";
+          location.href = "./personInfo.html";
         }
     });
 
@@ -40,7 +40,7 @@ function commitInfo() {
         url: "/thesis/user/updateInfo?" + $.param(data),
         success: function (data) {
             $.MsgBox.Alert(data.code == 1 ? "提示" : "错误", data.msg, function () {
-                location.href = "./personInfo.html";
+               location.href = "./personInfo.html";
             });
         },
         error: function () {
@@ -67,26 +67,27 @@ function loadPersonInfo() {
                 let studentPhone = data.data.personInfo.studentPhone == null ? '' : data.data.personInfo.studentPhone;
                 let studentEmail = data.data.personInfo.studentEmail == null ? '' : data.data.personInfo.studentEmail;
                 $("#forminfo").html(`
-                     <li><label>姓名</label><input name="" type="text" readonly="readonly" value="${data.data.personInfo.studentName}" class="dfinput"/></li>
-                     <li><label>学号</label><input name="" type="text" readonly="readonly" value="${data.data.personInfo.studentNo}"class="dfinput" /></li>
-                     <li><label>专业</label><input name="" type="text" readonly="readonly" value="${data.data.personInfo.studentMajor}"class="dfinput" /></li>
-                     <li><label>班级</label><input name="" type="text" readonly="readonly" value="${data.data.personInfo.studentClass}"class="dfinput" /></li>
-                     <li><label>辅导员</label><input name="" type="text" readonly="readonly" value="${data.data.personInfo.studentInstructor}"class="dfinput" /></li>
-                     <li><label>电话</label><input id="phone" name="" type="text" readonly="readonly" value="${studentPhone}"class="dfinput" /></li>
-                     <li><label>邮箱</label><input id="email" name="" type="text" readonly="readonly" value="${studentEmail}"class="dfinput" /></li>
-                `)
+                    <div class="am-form-group"> <label for="doc-ipt-3" class="am-u-sm-2 am-form-label">姓名</label> <div class="am-u-sm-10"><input  readonly="readonly" type="text" id="doc-ipt-3"value="${data.data.personInfo.studentName}"></div></div>
+                    <div class="am-form-group"> <label for="doc-ipt-3" class="am-u-sm-2 am-form-label">学号</label> <div class="am-u-sm-10"><input readonly="readonly" type="text" id="doc-ipt-3"value="${data.data.personInfo.studentNo}"></div></div>
+                    <div class="am-form-group"> <label for="doc-ipt-3" class="am-u-sm-2 am-form-label">专业</label> <div class="am-u-sm-10"><input readonly="readonly" type="text" id="doc-ipt-3"value="${data.data.personInfo.studentMajor}"></div></div>
+                    <div class="am-form-group"> <label for="doc-ipt-3" class="am-u-sm-2 am-form-label">班级</label> <div class="am-u-sm-10"><input readonly="readonly" type="text" id="doc-ipt-3"value="${data.data.personInfo.studentClass}"></div></div>
+                    <div class="am-form-group"> <label for="doc-ipt-3" class="am-u-sm-2 am-form-label">辅导员</label> <div class="am-u-sm-10"><input readonly="readonly" type="text" id="doc-ipt-3"value="${data.data.personInfo.studentInstructor}"></div></div>
+                    <div class="am-form-group"> <label for="phone" class="am-u-sm-2 am-form-label">电话</label> <div class="am-u-sm-10"><input readonly="readonly" type="text" id="phone"value="${studentPhone}"></div></div>
+                    <div class="am-form-group"> <label for="email" class="am-u-sm-2 am-form-label">邮箱</label> <div class="am-u-sm-10"><input readonly="readonly" type="text"id="email" value="${studentEmail}"></div></div>
+               
+               `)
             } else {
                 let teacherPhone = data.data.personInfo.teacherPhone == null ? '' : data.data.personInfo.teacherPhone;
                 let teacherEmail = data.data.personInfo.teacherEmail == null ? '' : data.data.personInfo.teacherEmail;
                 // 如果是老师信息或管理员信息
                 $("#forminfo").html(`
-                     <li><label>姓名</label><input name="" type="text" readonly="readonly" value="${data.data.personInfo.teacherName}" class="dfinput"/></li>
-                     <li><label>教师编号</label><input name="" type="text" readonly="readonly" value="${data.data.personInfo.teacherNo}" class="dfinput" /></li>
-                     <li><label>职称</label><input name="" type="text" readonly="readonly" value="${data.data.personInfo.teacherTitle}" class="dfinput" /></li>
-                     <li><label>学历</label><input name="" type="text" readonly="readonly" value="${data.data.personInfo.teacherEducation}" class="dfinput" /></li>
-                     <li><label>电话</label><input id="phone" name="" type="text" readonly="readonly" value="${teacherPhone}" class="dfinput" /></li>
-                     <li><label>邮箱</label><input id="email" name="" type="text" readonly="readonly" value="${teacherEmail}" class="dfinput" /></li>
-                `)
+                    <div class="am-form-group"> <label for="doc-ipt-3" class="am-u-sm-2 am-form-label">姓名</label> <div class="am-u-sm-10"><input readonly="readonly" type="text"id="doc-ipt-3" value="${data.data.personInfo.teacherName}"></div></div>
+                    <div class="am-form-group"> <label for="doc-ipt-3" class="am-u-sm-2 am-form-label">教师编号</label> <div class="am-u-sm-10"><input readonly="readonly" type="text" id="doc-ipt-3" value="${data.data.personInfo.teacherNo}" ></div></div>
+                    <div class="am-form-group"> <label for="doc-ipt-3" class="am-u-sm-2 am-form-label">职称</label> <div class="am-u-sm-10"><input readonly="readonly" type="text"id="doc-ipt-3" value="${data.data.personInfo.teacherTitle}"></div></div>
+                    <div class="am-form-group"> <label for="doc-ipt-3" class="am-u-sm-2 am-form-label">学历</label> <div class="am-u-sm-10"><input  readonly="readonly" type="text" id="doc-ipt-3"value="${data.data.personInfo.teacherEducation}" ></div></div>
+                    <div class="am-form-group"> <label for="phone" class="am-u-sm-2 am-form-label">电话</label> <div class="am-u-sm-10"><input  readonly="readonly" type="text" id="phone" value="${teacherPhone}" ></div></div>
+                    <div class="am-form-group"> <label for="email" class="am-u-sm-2 am-form-label">邮箱</label> <div class="am-u-sm-10"><input readonly="readonly" type="text" id="email" value="${teacherEmail}"></div></div>
+                   `)
             }
         },
         error: function () {

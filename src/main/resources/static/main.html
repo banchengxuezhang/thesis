@@ -4,8 +4,8 @@
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<title>教师界面</title>
-<meta name="description" content="这是教师主页">
+<title>主界面</title>
+<meta name="description" content="这是主页">
 <meta name="keywords" content="index">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="renderer" content="webkit">
@@ -108,7 +108,7 @@
 					</ul></li>
 					<li id="systemManager" style="display: none" class="tpl-left-nav-item"><a href="javascript:;"
 													 class="nav-link tpl-left-nav-link-list left-nav-link"> <i
-							class="am-icon-wpforms"></i> <span>系统管理</span> <i
+							class="am-icon-cogs"></i> <span>系统管理</span> <i
 							class="am-icon-angle-right tpl-left-nav-more-ico am-fr am-margin-right"></i>
 					</a>
 						<ul  class="tpl-left-nav-sub-menu">
@@ -258,7 +258,7 @@
 						var userAgent = navigator.userAgent; //取得浏览器的userAgent字符串
 						//判断是否Firefox浏览器
 						if (userAgent.indexOf("Firefox") > -1) {
-							window.open('../login.html'); 
+							window.open('../login.html');
 						 }else{
 							window.location.href='../login.html';
 						 }
@@ -280,16 +280,16 @@
 					});
 					$('#updateInfo_btn').append($('<input>').attr({'type':'hidden','name':'teacherId'}).val(data.teacherId));
 					$('#updateInfo_btn').append($('<input>').attr({'type':'hidden','name':'userId'}).val(data.userId));
-				}); 
+				});
 			}
-			
+
 			$('#userInfo_a').click(function(){
 					$('#userInfo-modal').modal('open');
 			});
-			
+
 			//修改用户信息
 			$('#updateInfo_btn').click(function(){
-				
+
 				var formData = new FormData();
  				formData.append("portrait",$("#portrait")[0].files[0]);
 				formData.append("teacherId",$('input[name=teacherId]').val());
@@ -298,12 +298,12 @@
 				formData.append("teacherDescribe",$('#describe').val());
 				formData.append("user.userTel",$('#tel').val());
 				formData.append("user.userGender",$('input[name=radio11]:checked').val());
-				$.ajax({ 
-					url : '/graduation/teacherController/updateTeacherInfo', 
-					type : 'post', 
-					data : formData, 
+				$.ajax({
+					url : '/graduation/teacherController/updateTeacherInfo',
+					type : 'post',
+					data : formData,
 					// 告诉jQuery不要去处理发送的数据
-					processData : false, 
+					processData : false,
 					// 告诉jQuery不要去设置Content-Type请求头
 					contentType : false,
 					beforeSend:function(){
@@ -318,7 +318,7 @@
 							}
 						}
 					},
-					success : function(responseStr) { 
+					success : function(responseStr) {
 						if(responseStr){
 							$('#userInfo-modal').modal('close');
 							getUserInfo();
@@ -328,25 +328,25 @@
 			           	 		$('#updateInfo_btn').text('再次修改');
 			           	 	},'3000');
 						}
-					}, 
-					error : function(responseStr) { 
+					},
+					error : function(responseStr) {
 						$('#updateInfo_btn').text('失败');
 						setTimeout(function(){
 		           	 		$('#updateInfo_btn').text('再次修改');
 		           	 	},'3000');
-					} 
+					}
 				});
 				return false;
 			});
-			
+
 			var bool=false;
 			$('#password').blur(function(){
-				
+
 				var password=$('#password').val();
 				if(isNull(password)){
 					return false;
 				}
-				
+
 				$.post('/graduation/userController/ispassword',{
 					password:password
 				},function(data){
@@ -361,16 +361,16 @@
 					}
 				});
 			});
-			
+
 			var bool2=false;
 			$('#newPassword2').blur(function(){
 				var newPassword=$('#newPassword').val();
 				var newPassword2=$('#newPassword2').val();
-				
+
 				if(isNull(newPassword)||isNull(newPassword2)){
 					return false;
 				}
-				
+
 				if(newPassword===newPassword2){
 					$('#newPassword2_label').css('color','#5eb95e');
 					$('#newPassword2').css('border-color','#5eb95e');
@@ -381,7 +381,7 @@
 					bool2=false;
 				}
 			});
-			
+
 			//修改密码
 			$('#update_password').click(function(){
 				$('#password-modal').modal('open');
@@ -390,11 +390,11 @@
 				var password=$('#password').val();
 				var newPassword=$('#newPassword').val();
 				var newPassword2=$('#newPassword2').val();
-				
+
 				if(password===newPassword2){
 					return false;
 				}
-				
+
 				if(isNull(newPassword)||isNull(newPassword2)){
 					return false;
 				}
@@ -412,13 +412,13 @@
 				}
 				return false;
 			});
-			
-			
+
+
 			//网页刷新回到首页
 			// $(window).on('unload',function(){
 			// 	window.location.href='main.html';
 			// });
-			
+
   			$('#iframepage').on('load',function(){
 				  //"ref_page"为引用页面DIV的ID，获取DIV的外部宽度、外部高度。
 				  var height = $(this).contents().find('#ref_page').outerHeight();
@@ -428,9 +428,9 @@
 				  }else{
 					  height+=30;
 				  }
-				  $(this).height(height); 
-			});   
-			
+				  $(this).height(height);
+			});
+
 			//知道点击的是那个选项
 			$('.link_a').click(function() {
 				$('.link_a').each(function() {
@@ -438,7 +438,7 @@
 				});
 				$(this).addClass('active');
 			});
-			
+
 			//左侧选项收缩与展开
 	 		$('.left-nav-link').click(function() {
 			 	$('.tpl-left-nav-sub-menu').each(function() {
@@ -452,8 +452,8 @@
 			 			$(this).parent().children('a').children('i').eq(1).removeClass('tpl-left-nav-more-ico-rotate');
 			 		}
 				});
-			}); 
-			
+			});
+
 		});
 	</script>
 </body>

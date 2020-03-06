@@ -32,4 +32,9 @@ public class NoPassThesisServiceImpl implements NoPassThesisService {
     public int getNoPassNum() {
         return noPassThesisDao.getNoPassNum();
     }
+
+    @Override
+    public int deleteNoPassByStudentNoOrTeacherNo(String userAccount) {
+        return noPassThesisDao.deleteNoPassByStudentNoOrTeacherNo(userAccount);
+    }
 }

@@ -26,6 +26,10 @@ public class UserInfoDetail {
      */
     private int userType;
     /**
+     *用户姓名
+     */
+    private String userName;
+    /**
      * 登录验证码
      */
     private String loginCode;
@@ -49,4 +53,32 @@ public class UserInfoDetail {
      * 确认新密码
      */
     private String sureNewPwd;
+    private String studentId;
+
+    private String studentNo;
+
+    private String studentName ;
+
+    private String studentMajor;
+
+    private String studentInstructor;
+
+    private String studentClass;
+
+    private String studentPhone;
+
+    private String studentEmail ;
+
+    private String studentStage;
+    private String teacherId;
+    private String teacherNo ;
+
+    private String teacherName ;
+
+    private String teacherTitle ;
+    private String teacherEducation;
+    private String teacherPhone;
+
+    private String teacherEmail ;
+    private String typeFlag;
 }

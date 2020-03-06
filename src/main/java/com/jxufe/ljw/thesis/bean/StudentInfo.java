@@ -10,10 +10,8 @@ import lombok.Data;
  */
 @Data
 public class StudentInfo {
-
-    private String studentId;
-
     private String userId;
+    private String studentId;
 
     private String studentNo;
 

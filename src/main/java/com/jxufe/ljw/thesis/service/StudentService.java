@@ -15,4 +15,7 @@ public interface StudentService {
     StudentInfo getStudentInfoByStudentNo(String studentNo);
 
     int updateStudentInfo(String studentNo, String telephone, String email,String stage);
+    int updateStudentInfoByStudent(StudentInfo studentInfo);
+    int deleteStudentById(String userId);
+
 }
