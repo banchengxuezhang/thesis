@@ -115,7 +115,7 @@
             });
         });
         var _widht = document.documentElement.clientWidth; //屏幕宽
-        var _height = document.documentElement.clientHeight; //屏幕高
+        var _height = document.documentElement.clientHeight/2; //屏幕高
         var boxWidth = $("#mb_con").width();
         var boxHeight = $("#mb_con").height();
         //让提示框居中
