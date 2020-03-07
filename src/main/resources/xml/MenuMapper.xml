@@ -25,6 +25,7 @@
         <if test="menuStatus != null and menuStatus != ''">
             and menu_status = #{menuStatus}
         </if>
+        ORDER BY menu_weight
     </select>
     <select id="getMenyBymenuBelong" resultType="com.jxufe.ljw.thesis.bean.Menu">
          select
@@ -34,6 +35,7 @@
         where
           menu_belong = #{menuBelong}
         and menu_status = 1
+        ORDER BY menu_weight
     </select>
     <select id="getMenuByStatus" resultType="com.jxufe.ljw.thesis.bean.Menu">
          select
@@ -42,5 +44,6 @@
           T_MENU
         where
           menu_status = #{menuStatus}
+          ORDER BY menu_weight
     </select>
 </mapper>

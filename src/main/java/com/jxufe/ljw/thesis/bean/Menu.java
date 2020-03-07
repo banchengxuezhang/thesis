@@ -20,4 +20,5 @@ public class Menu {
     private String menuIcon;
 
     private String menuUrl;
+    private double menuWeight;
 }

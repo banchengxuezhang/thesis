@@ -20,7 +20,7 @@
     var GenerateHtml = function (type, title, msg) {
         var _html = "";
         _html += '<div id="mb_box"></div><div id="mb_con"><span id="mb_tit">' + title + '</span>';
-        _html += '<a id="mb_ico">x</a><div id="mb_msg">' + msg + '</div><div id="mb_btnbox">';
+        _html += '<a  class="am-close am-close-alt am-close-spin am-icon-times" id="mb_ico"></a><div id="mb_msg">' + msg + '</div><div id="mb_btnbox">';
         if (type == "alert") {
             _html += '<input id="mb_btn_ok" type="button" value="确定" />';
         }
@@ -68,7 +68,6 @@
         $("#mb_msg").css({
             padding: '20px',
             lineHeight: '20px',
-            borderBottom: '1px dashed #DDD',
             fontSize: '13px'
         });
         $("#mb_ico").css({
@@ -77,8 +76,8 @@
             right: '10px',
             top: '9px',
             border: '1px solid Gray',
-            width: '18px',
-            height: '18px',
+            width: '20px',
+            height: '20px',
             textAlign: 'center',
             lineHeight: '16px',
             cursor: 'pointer',
@@ -101,18 +100,6 @@
         $("#mb_btn_no").css({
             backgroundColor: 'gray',
             marginLeft: '20px'
-        });
-        //右上角关闭按钮hover样式
-        $("#mb_ico").hover(function () {
-            $(this).css({
-                backgroundColor: 'Red',
-                color: 'White'
-            });
-        }, function () {
-            $(this).css({
-                backgroundColor: '#DDD',
-                color: 'black'
-            });
         });
         var _widht = document.documentElement.clientWidth; //屏幕宽
         var _height = document.documentElement.clientHeight/2; //屏幕高

@@ -9,6 +9,7 @@ import com.jxufe.ljw.thesis.service.StudentService;
 import com.jxufe.ljw.thesis.service.StudentTeacherRelationService;
 import com.jxufe.ljw.thesis.service.TeacherService;
 import com.jxufe.ljw.thesis.vo.ResultUtil;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,6 +23,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.net.URLEncoder;
+import java.util.List;
 
 /**
  * @Classname UploadFileController
@@ -52,21 +54,24 @@ public class FileController {
     @PostMapping("/uploadTask")
     public Object uploadTask(@RequestParam("file") MultipartFile multipartFile, HttpServletRequest request) {
         try {
-            if (multipartFile.isEmpty()) {
-                return ResultUtil.success("上传失败，请选择文件后上传！");
-            }
-            logger.info("==================开始上传单个文件==================");
-            // 获得原始后缀
+            String path="\\TaskBook";
             String thesisNo = request.getParameter("thesisNo");
             String thesisTitle = request.getParameter("thesisTitle");
             StudentTeacherRelation studentTeacherRelation = relationService.getStudentTeacherRelationByThesisNo(thesisNo);
-            String sysPath = PublicData.path + "\\" + relationService.getStudentTeacherRelationByThesisNo(thesisNo).getStudentNo() + "\\TaskBook";
-            if (studentTeacherRelation.getTaskStatus() != 2) {
-                File file = new File(sysPath, studentTeacherRelation.getTaskUrl());
-                file.renameTo(new File(sysPath, studentTeacherRelation.getTaskUrl() + ".bak"));
-
+            String sysPath = PublicData.path + "\\" + relationService.getStudentTeacherRelationByThesisNo(thesisNo).getStudentNo() +path ;
+            String taskUrl=studentTeacherRelation.getTaskUrl();
+            String studentNo=studentTeacherRelation.getStudentNo();
+            String studentName=studentTeacherRelation.getStudentName();
+            if (multipartFile.isEmpty()) {
+                return ResultUtil.success("上传失败，请选择文件后上传！");
             }
-            String fileName = studentTeacherRelation.getStudentNo() + "-" + studentTeacherRelation.getStudentName() + "-" + multipartFile.getOriginalFilename();
+            if ((!StringUtils.isEmpty(taskUrl))&&taskUrl!="") {
+                File file = new File(sysPath, taskUrl);
+                file.renameTo(new File(sysPath, taskUrl + ".bak"));
+            }
+            logger.info("==================开始上传单个文件==================");
+            // 获得原始后缀
+            String fileName = studentNo + "-" + studentName + "-" + multipartFile.getOriginalFilename();
             try {
                 File filePath = new File(sysPath, fileName);
                 if (!filePath.getParentFile().exists()) {
@@ -77,20 +82,20 @@ public class FileController {
                 out.write(multipartFile.getBytes());
                 out.flush();
                 out.close();
-                relationService.updateTaskUrlByThesisNo(fileName, thesisNo);
-                if ((!studentTeacherRelation.getStudentEmail().isEmpty()) && studentTeacherRelation.getStudentEmail() != "") {
-                    iMailService.sendAttachmentsMail(studentTeacherRelation.getStudentEmail(), "论文导师发布课题任务书！请查看详情！", studentTeacherRelation.getStudentName() + "同学您好！\n您选择的论文课题《" + thesisTitle + "》有了新的动态,教师已下达新的任务书，请前往查看或下载附件！", sysPath, fileName);
-                }
-                File file = new File(sysPath, studentTeacherRelation.getTaskUrl() + ".bak");
+                File file = new File(sysPath, taskUrl + ".bak");
                 if (file.exists()) {
                     file.delete();
                 }
-                return ResultUtil.success("任务书上传成功！");
             } catch (FileNotFoundException e) {
                 logger.info("==================文件上传异常，e={}==================", e);
                 File file = new File(sysPath, studentTeacherRelation.getTaskUrl() + ".bak");
                 file.renameTo(new File(sysPath, studentTeacherRelation.getTaskUrl()));
             }
+            if ((!studentTeacherRelation.getStudentEmail().isEmpty()) && studentTeacherRelation.getStudentEmail() != "") {
+                iMailService.sendAttachmentsMail(studentTeacherRelation.getStudentEmail(), "论文导师发布课题任务书！请查看详情！", studentTeacherRelation.getStudentName() + "同学您好！\n您选择的论文课题《" + thesisTitle + "》有了新的动态,教师已下达新的任务书，请前往查看或下载附件！", sysPath, fileName);
+            }
+                relationService.updateTaskUrlByThesisNo(fileName, thesisNo);
+                return ResultUtil.success("任务书上传成功！");
 
         } catch (Exception e) {
             logger.info("==================文件上传异常，e={}==================", e);
@@ -108,7 +113,12 @@ public class FileController {
      * @param response
      */
     @GetMapping("/downloadTask")
-    public void downloadTask(String thesisNo, HttpServletResponse response) {
+    public void downloadTask(String thesisNo,HttpServletRequest request, HttpServletResponse response) {
+        if(StringUtils.isEmpty(thesisNo)){
+            User user= (User) request.getSession().getAttribute("user");
+            List<StudentTeacherRelation> studentTeacherRelations=relationService.getStudentTeacherRelationByStudentNo(user.getUserAccount());
+            thesisNo=studentTeacherRelations.get(0).getThesisNo();
+        }
         StudentTeacherRelation studentTeacherRelation = relationService.getStudentTeacherRelationByThesisNo(thesisNo);
         String path = PublicData.path + "\\" + studentTeacherRelation.getStudentNo() + "\\TaskBook";
         String filename = studentTeacherRelation.getTaskUrl();
@@ -209,6 +219,13 @@ public class FileController {
         } catch (Exception e) {
             logger.info("------无法下载学生论文-------");
         }
+    }
+    /**
+     * 上传开题报告
+     */
+    @PostMapping("/uploadOpenReport")
+    public Object uploadOpenReport(@RequestParam("file") MultipartFile multipartFile, HttpServletRequest request){
+        return null;
     }
 }
 

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="../css/style.css" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" href="../amazeui/css/amazeui.min.css" />
+    <link rel="stylesheet" href="../css/admin.css">
+    <link rel="stylesheet" href="../css/app.css">
+    <script type="text/javascript" src="../js/jquery.js"></script>
+    <script type="text/javascript" src="../common/common.js"></script>
+    <script type="text/javascript" src=""></script>
+</head>
+<body style="margin-left: 10px;overflow:hidden;">
+<div id="ref_page" class="am-g">
+
+    <div class="tpl-content-page-title" style="margin-bottom: 10px;">填写文献综述</div>
+
+    <div class="am-panel am-panel-default">
+                <header class="am-panel-hd">
+                    <h2 class="am-panel-title">你的论文题目为：基于SSM的毕业设计管理系统</h2>
+                </header>
+                <div class="am-panel-bd">
+                    <div class="am-form-group">
+                        <textarea class=""  style="width: 100%;height:435px" placeholder="请在此处填写你的文献综诉！"></textarea>
+                    </div>
+                </div>
+        <footer class="am-panel-footer" style="height: 100px">
+            <div class="am-form-group am-form-file">
+                <button type="button" class="am-btn am-btn-default am-btn-sm">
+                    <i class="am-icon-cloud-upload"></i> 选择要上传的文件</button>
+                <input id="file" type="file" multiple>
+            </div>
+            <div id="file-list"></div>
+            <script>
+                $(function() {
+                    $('#file').on('change', function() {
+                        var fileNames = '';
+                        $.each(this.files, function() {
+                            fileNames += '<span class="am-badge"  style="float: left">' + this.name + '</span> ';
+                        });
+                        $('#file-list').html(fileNames);
+                    });
+                });
+            </script>
+          <button type="submit" class="am-btn am-btn-primary am-align-right">提交</button>
+
+        </footer>
+
+    </div>
+</div>
+</body>
+</html>
