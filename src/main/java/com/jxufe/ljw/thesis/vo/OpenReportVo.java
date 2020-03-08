@@ -1,15 +1,16 @@
-package com.jxufe.ljw.thesis.bean;
+package com.jxufe.ljw.thesis.vo;
 
 import lombok.Data;
-import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
- * @Classname Ktbg
+ * @Classname OpenReportVo
  * @Author: LeJunWen
- * @Date: 2020/3/8 00:12
+ * @Date: 2020/3/8 16:50
  */
 @Data
-public class OpenReport {
+public class OpenReportVo{
+    private MultipartFile file;
     private  String openReportId;
     private  String thesisNo;
     private  String openReportSummary;
@@ -19,4 +20,5 @@ public class OpenReport {
     private String reviewContent;
     private String inspectionPass;
     private String inspectionNoPass;
+
 }

@@ -12,12 +12,6 @@
     <script type="text/javascript" src="common/common.js"></script>
 
     <script language="javascript">
-        $(function () {
-            $('.loginbox').css({'position': 'absolute', 'left': ($(window).width() - 692) / 2});
-            $(window).resize(function () {
-                $('.loginbox').css({'position': 'absolute', 'left': ($(window).width() - 692) / 2});
-            })
-        });
         //刷新验证码
         $('#imgValidate').css('src',"/thesis/logincode?"+new Date());
         function refresh(){

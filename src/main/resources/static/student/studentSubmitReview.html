@@ -9,20 +9,20 @@
     <link rel="stylesheet" href="../css/app.css">
     <script type="text/javascript" src="../js/jquery.js"></script>
     <script type="text/javascript" src="../common/common.js"></script>
-    <script type="text/javascript" src=""></script>
+    <script type="text/javascript" src="js/studentSubmitReview.js"></script>
 </head>
-<body style="margin-left: 10px;overflow:hidden;">
+<body style="margin-left: 10px;">
 <div id="ref_page" class="am-g">
 
     <div class="tpl-content-page-title" style="margin-bottom: 10px;">填写文献综述</div>
 
     <div class="am-panel am-panel-default">
                 <header class="am-panel-hd">
-                    <h2 class="am-panel-title">你的论文题目为：基于SSM的毕业设计管理系统</h2>
+                    <h2 class="am-panel-title" id="thesisTitle"></h2>
                 </header>
                 <div class="am-panel-bd">
                     <div class="am-form-group">
-                        <textarea class=""  style="width: 100%;height:435px" placeholder="请在此处填写你的文献综诉！"></textarea>
+                        <textarea id="reviewContent"  style="width: 100%;height:435px" placeholder="请在此处填写你的文献综诉！"></textarea>
                     </div>
                 </div>
         <footer class="am-panel-footer" style="height: 100px">
@@ -43,7 +43,7 @@
                     });
                 });
             </script>
-          <button type="submit" class="am-btn am-btn-primary am-align-right">提交</button>
+          <button id="reviewBtn" type="submit" class="am-btn am-btn-primary am-align-right">提交</button>
 
         </footer>
 

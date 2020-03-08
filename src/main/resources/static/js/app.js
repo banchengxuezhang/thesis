@@ -44,26 +44,6 @@ function disableBtn(id,text){
     $('#'+id).removeClass('am-btn-primary').addClass('am-disabled am-btn-danger');
 }
 
-$(function(){
-	
-	//点击文件上传按钮出现模态框
-	$('#open_file_btn').click(function() {
-		$('#file-modal').modal('open');
-	});
-
-	//显示上传文件名
-	$('#doc-ipt-file-2').on(
-			'change',
-			function() {
-				var fileNames = '';
-				$.each(this.files, function() {
-					fileNames += '<span class="am-badge">' + this.name
-							+ '</span> ';
-				});
-				$('#file-list').html(fileNames);
-	});
-	
-});
 
 function isNull(data) {
 	if(data==null||data==''||data==' '||data=='undefined'){
@@ -73,8 +53,8 @@ function isNull(data) {
 }
 
 //正则获得url参数
-function getQueryString(name) { 
-	var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i"); 
-	var r = window.location.search.substr(1).match(reg); 
-	if (r != null) return unescape(r[2]); return null; 
-} 
+function getQueryString(name) {
+	var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+	var r = window.location.search.substr(1).match(reg);
+	if (r != null) return unescape(r[2]); return null;
+}

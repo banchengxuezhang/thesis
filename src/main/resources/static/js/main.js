@@ -5,7 +5,6 @@ $(function () {
         success: function (data) {
             if (data.userType == 3) {
                 $("#loginUser").text("学生，" + data.userAccount);
-                $("#studentDownload").show();
             }
             if (data.userType == 2) {
                 $("#loginUser").text("教师，" + data.userAccount);
@@ -50,7 +49,7 @@ $(function () {
                         $("#thesisList").append("<a href=\""+gridData.menuUrl+"\" class=\"link_a\" target=\"iframe_a\"> <i\n" +
                             "class=\"am-icon-angle-right\"></i> <span>"+gridData.menuText+"</span></a>");
                     }
-                    if(gridData.menuText=="提交免答辩申请"||gridData.menuText=="提交文献综诉"||gridData.menuText=="提交开题报告"||gridData.menuText=="查看免答辩申请"||gridData.menuText=="查看文献综诉"||gridData.menuText=="查看开题报告"||gridData.menuText=="下达任务"||gridData.menuText=="查看论文"||gridData.menuText=="答辩详情"||gridData.menuText=="系统验收"||gridData.menuText=="下载任务书"||gridData.menuText=="提交论文"||gridData.menuText=="提交中期检查"||gridData.menuText=="查看中期检查"){
+                    if(gridData.menuText=="提交免答辩申请"||gridData.menuText=="提交文献综述"||gridData.menuText=="提交开题报告"||gridData.menuText=="查看免答辩申请"||gridData.menuText=="查看文献综述"||gridData.menuText=="查看开题报告"||gridData.menuText=="下达任务"||gridData.menuText=="查看论文"||gridData.menuText=="答辩详情"||gridData.menuText=="系统验收"||gridData.menuText=="下载任务书"||gridData.menuText=="提交论文"||gridData.menuText=="提交中期检查"||gridData.menuText=="查看中期检查"){
                         $("#flowList").append("<a href=\""+gridData.menuUrl+"\" class=\"link_a\" target=\"iframe_a\"> <i\n" +
                             "class=\"am-icon-angle-right\"></i> <span>"+gridData.menuText+"</span></a>");
                     }
@@ -60,12 +59,15 @@ $(function () {
                         $("#managerList").append("<a href=\""+gridData.menuUrl+"\" class=\"link_a\" target=\"iframe_a\"> <i\n" +
                             "class=\"am-icon-angle-right\"></i> <span>"+gridData.menuText+"</span></a>");
                     }
+                    if(gridData.menuText=="学生材料下载"){
+                        $("#list").append(`<li class="tpl-left-nav-item"><a href="${gridData.menuUrl}" class="nav-link tpl-left-nav-link-list link_a" target="iframe_a"> <i class="am-icon-download"></i> <span>${gridData.menuText}</span></a></li>`);
+                    }
                 }
             }
         },
         error:function () {
             // 登录存在错误，弹出提示信息
-            $.MsgBox.Alert("错误", "登录出错！");
+         //   $.MsgBox.Alert("错误", "登录出错！");
         }
     })
 

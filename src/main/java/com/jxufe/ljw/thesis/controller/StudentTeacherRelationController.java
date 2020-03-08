@@ -251,15 +251,6 @@ public class StudentTeacherRelationController {
             return ResultUtil.error("获取信息失败！");
         }
     }
-   @GetMapping("/getThesisForOpenReport")
-   public Object getThesisRelationForKtbg(HttpServletRequest request) {
-       try {
-           User user = (User) request.getSession().getAttribute("user");
-           return relationService.getAgreeThesisByStudentNo(1,Integer.MAX_VALUE, user.getUserAccount(), 1);
-       } catch (Exception e) {
-           return ResultUtil.error("获取信息失败！");
-       }
-   }
     /**
      * 管理员获取所有情况
      *

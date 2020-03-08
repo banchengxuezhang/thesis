@@ -42,4 +42,15 @@ public class StudentTeacherRelation {
     private String thesisUrl;
 
     private String opinionFlagStr ;
+    private  String openReportSummary;
+    private String openReportWay;
+    private String openReportUrl;
+    private String reviewUrl;
+    private String reviewContent;
+    private String inspectionPass;
+    private String inspectionNoPass;
+    private String reason;
+    private String signName;
+    private String mobilePhone;
+    private int status;
 }

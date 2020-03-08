@@ -14,6 +14,9 @@
 <link rel="stylesheet" href="../amazeui/css/amazeui.min.css" />
 <link rel="stylesheet" href="css/admin.css">
 <link rel="stylesheet" href="css/app.css">
+<script type="text/javascript" src="../js/jquery.js"></script>
+<script type="text/javascript" src="js/studentDownload.js"></script>
+<script type="text/javascript" src="../common/common.js"></script>
 </head>
 
 <body style="margin-left: 10px; overflow: hidden;">
@@ -27,7 +30,7 @@
 					   <tr>
 						   <td>任务书</td>
 						   <td>
-							   <button id="rws_down" class="am-btn am-btn-primary am-btn-sm">
+							   <button  id="taskDownBtn" class="am-btn am-btn-primary am-btn-sm">
 								   下载
 								   <i class="am-icon-cloud-download"></i>
 							   </button>
@@ -36,7 +39,7 @@
 				    <tr>
 				      <td>开题报告</td>
 				      <td>
-					      <button id="ktbg_down" class="am-btn am-btn-primary am-btn-sm">
+					      <button id="openReportDownBtn" class="am-btn am-btn-primary am-btn-sm">
 								  下载
 								  <i class="am-icon-cloud-download"></i>
 						  </button>
@@ -45,7 +48,7 @@
 					   <tr>
 						   <td>文献综诉</td>
 						   <td>
-							   <button id="wxzs_down" class="am-btn am-btn-primary am-btn-sm">
+							   <button id="ReviewDownBtn" class="am-btn am-btn-primary am-btn-sm">
 								   下载
 								   <i class="am-icon-cloud-download"></i>
 							   </button>
@@ -54,7 +57,7 @@
 				    <tr>
 				      <td>中期检查反馈表</td>
 				      <td>
-					      <button id="zqjc_down" class="am-btn am-btn-primary am-btn-sm">
+					      <button id="inspectionDownBtn" class="am-btn am-btn-primary am-btn-sm">
 								  下载
 								  <i class="am-icon-cloud-download"></i>
 						  </button>
@@ -63,7 +66,7 @@
 				     <tr>
 				      <td>免答辩申请表</td>
 				      <td>
-					      <button id="mdb_down" class="am-btn am-btn-primary am-btn-sm">
+					      <button id="noReplyDownBtn" class="am-btn am-btn-primary am-btn-sm">
 								  下载
 								  <i class="am-icon-cloud-download"></i>
 						  </button>
@@ -72,7 +75,7 @@
 					   <tr>
 						   <td>毕业论文</td>
 						   <td>
-							   <button id="bylw_down" class="am-btn am-btn-primary am-btn-sm">
+							   <button id="thesisDownBtn" class="am-btn am-btn-primary am-btn-sm">
 								   下载
 								   <i class="am-icon-cloud-download"></i>
 							   </button>
@@ -83,40 +86,6 @@
 		</div>
 
 	</div>
-
-	<script src="../js/jquery.min.js"></script>
-	<script src="../amazeui/js/amazeui.min.js"></script>
-	<script src="js/app.js"></script>
-	<script type="text/javascript">
-		$(function() {
-			$("#rws_down").click(function () {
-				window.location.href ='/thesis/file/downloadTask';
-			})
-			//查数据库得出该学发是否已填写这些下载项信息,没有则下载空白表格。
-			
-			$.get('/graduation/studentController/hasChooseProject',function(data){
-					if(!isNull(data.studentId)){
-						$('#ktbg_down').click(function(){
-							window.location.href ='/graduation/studentController/downKtbg';
-						});
-						
-						$('#zqjc_down').click(function(){
-							window.location.href ='/graduation/studentController/downZqjc';
-						});
-						
-						$('#mdb_down').click(function(){
-							window.location.href ='/graduation/studentController/downMdb';
-						});
-					}else{
-						$('#ktbg_down').attr('disabled','disabled');
-						$('#zqjc_down').attr('disabled','disabled');
-						$('#mdb_down').attr('disabled','disabled');
-					}
-				},'json');
-			
-			
-		});
-	</script>
 </body>
 
 </html>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jxufe.ljw.thesis.dao.OpenReportDao">
+    <insert id="addOpenReport">
+        insert  into t_open_report(open_report_id,thesis_no,open_report_summary,open_report_way,open_report_url,review_url,
+        review_content,inspection_pass,inspection_no_pass)
+        values (#{openReportId},#{thesisNo},#{openReportSummary},#{openReportWay},#{openReportUrl},#{reviewUrl},#{reviewContent},
+        #{inspectionPass},#{inspectionNoPass})
+    </insert>
+    <update id="updateOpenReport">
+      update t_open_report
+      <set>
+          <if test="openReportSummary!=null and openReportSummary!=''">
+              open_report_summary=#{openReportSummary},
+          </if>
+          <if test="openReportWay!=null and openReportWay!=''">
+              open_report_way=#{openReportWay},
+          </if>
+          <if test="openReportUrl!=null and openReportUrl!=''">
+              open_report_url=#{openReportUrl},
+          </if>
+          <if test="reviewContent!=null and reviewContent!=''">
+              review_content=#{reviewContent},
+          </if>
+          <if test="reviewUrl!=null and reviewUrl!=''">
+              review_url=#{reviewUrl},
+          </if>
+          <if test="inspectionPass!=null and inspectionPass!=''">
+              inspection_pass=#{inspectionPass},
+          </if>
+          <if test="inspectionNoPass!=null and inspectionNoPass!=''">
+            inspection_no_pass=#{inspectionNoPass},
+          </if>
+      </set>
+      where thesis_no=#{thesisNo}
+    </update>
+    <select id="getOpenReportByThesisNo" resultType="com.jxufe.ljw.thesis.bean.OpenReport">
+        select  * from t_open_report
+        where thesis_no=#{thesisNo}
+    </select>
+</mapper>

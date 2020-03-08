@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jxufe.ljw.thesis.dao.NoReplyDao">
+    <insert id="addNoReply">
+        insert into t_no_reply(no_reply_id,reason,sign_name,thesis_no,mobile_phone,status)
+        values (#{noReplyId},#{reason},#{signName},#{thesisNo},#{mobilePhone},#{status})
+    </insert>
+    <update id="updateNoReply">
+        update t_no_reply
+        <set>
+            <if test="reason!=null and reason!=''">
+                reason=#{reason},
+            </if>
+            <if test="signName!=null and signName!=''">
+                sign_name=#{signName},
+            </if>
+            <if test="mobilePhone!=null and mobilePhone!=''">
+                mobile_phone=#{mobilePhone},
+            </if>
+            <if test="status!=0">
+                status=#{status},
+            </if>
+        </set>
+        where thesis_no=#{thesisNo}
+    </update>
+
+
+    <select id="getNoReplyByThesisNo" resultType="com.jxufe.ljw.thesis.bean.NoReply">
+        select * from t_no_reply
+        where thesis_no=#{thesisNo}
+    </select>
+</mapper>

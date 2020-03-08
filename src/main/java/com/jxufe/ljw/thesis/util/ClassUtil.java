@@ -1,10 +1,18 @@
 package com.jxufe.ljw.thesis.util;
 
+import com.jxufe.ljw.thesis.vo.ResultUtil;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.tomcat.util.http.fileupload.IOUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.*;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.net.URLEncoder;
 import java.util.List;
 import java.util.Map;
 
@@ -15,6 +23,7 @@ import java.util.Map;
  */
 @Component
 public class ClassUtil {
+    private static  final Logger logger= LoggerFactory.getLogger(ClassUtil.class);
     //去除null
     public static Object checkNull(Object obj) {
         Class<? extends Object> clazz = obj.getClass();
@@ -74,5 +83,52 @@ public class ClassUtil {
         map.put("total", filterList.size());
         map.put("rows", subList);
         return map;
+    }
+    //上传文件
+    public  static Boolean uploadFile(MultipartFile multipartFile,String url,String sysPath,String fileName){
+        if (multipartFile.isEmpty()) {
+            return false;
+        }
+        if ((!StringUtils.isEmpty(url))&&url!="") {
+            File file = new File(sysPath, url);
+            file.renameTo(new File(sysPath, url + ".bak"));
+        }
+        logger.info("==================开始上传单个文件==================");
+        // 获得原始后缀
+        try {
+            File filePath = new File(sysPath, fileName);
+            if (!filePath.getParentFile().exists()) {
+                filePath.getParentFile().mkdirs();
+            }
+            BufferedOutputStream out = new BufferedOutputStream(new FileOutputStream(filePath));
+            logger.info("文件上传路径：" + filePath);
+            out.write(multipartFile.getBytes());
+            out.flush();
+            out.close();
+            File file = new File(sysPath, url + ".bak");
+            if (file.exists()) {
+                file.delete();
+            }
+        } catch (Exception e) {
+            logger.info("==================文件上传异常，e={}==================", e);
+            File file = new File(sysPath, url + ".bak");
+            if (file.exists()) {
+                file.renameTo(new File(sysPath, url));
+            }
+            return  false;
+        }
+        return true;
+    }
+    //下载文件
+    public  static void downloadFile(HttpServletResponse response, String path, String filename, String s) {
+        try (
+                InputStream inputStream = new FileInputStream(new File(path, filename));
+                OutputStream outputStream = response.getOutputStream()) {
+            response.setContentType("application/x-download;charset=UTF-8");
+            response.addHeader("content-disposition", "attachment;filename*=UTF-8''" + URLEncoder.encode(filename, "UTF-8"));
+            IOUtils.copy(inputStream, outputStream);
+        } catch (Exception e) {
+            logger.info(s);
+        }
     }
 }

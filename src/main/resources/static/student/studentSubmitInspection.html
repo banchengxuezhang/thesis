@@ -1,0 +1,83 @@
+<!doctype html>
+<html>
+
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>学生界面</title>
+<meta name="description" content="这是学生主页">
+<meta name="keywords" content="index">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="renderer" content="webkit">
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<link rel="stylesheet" href="../amazeui/css/amazeui.min.css" />
+<link rel="stylesheet" href="css/admin.css">
+<link rel="stylesheet" href="css/app.css">
+<script type="text/javascript" src="../js/jquery.js"></script>
+<script type="text/javascript" src="js/studentSubmitInspection.js"></script>
+<script type="text/javascript" src="../common/common.js"></script>
+</head>
+
+<body style="margin-left: 10px;" >
+
+	<div id="ref_page" class="am-g">
+	
+		<div class="tpl-content-page-title" style="margin-bottom: 10px;">填写中期检查反馈表</div>
+
+		<div class="am-panel am-panel-default">
+			<div class="am-panel-bd">
+				<div class="am-scrollable-horizontal">
+					<table class="am-table am-table-bordered  am-table-centered am-text-nowrap">
+							<thead>
+								<tr>
+									<th colspan="6" class="am-text-middle">江西财经大学本科毕业论文（设计）中期检查</th>
+								</tr>
+								<tr id="tr1">
+										<td>院(系)：</td>
+										<td>软件与物联网工程学院</td>
+										<td>专业</td>
+										<td id="studentMajor"></td>
+										<td>班级</td>
+										<td id="studentClass"></td>
+								</tr>
+							</thead>
+						 	<tbody>
+								<tr id="tr2">
+									<td class="am-text-middle" colspan="2">题目</td>
+									<td id="thesisTitle" colspan="4"></td>
+								</tr>
+								<tr id="tr3">
+									<td>学号</td>
+									<td id="studentNo" colspan="2"></td>
+									<td>姓名</td>
+									<td id="studentName" colspan="2"></td>
+								</tr>
+								<tr id="tr4">
+									<td>指导老师</td>
+									<td id="teacherName" colspan="2"></td>
+									<td>职称</td>
+									<td  id="teacherTitle" colspan="2"></td>
+								</tr>
+								<tr>
+									<td colspan="6">
+										<textarea id="inspectionPass" style="width: 100%; height: 200px;" placeholder="已经完成的内容："></textarea>
+									</td>
+								</tr>
+								<tr>
+									<td colspan="6">
+										<textarea id="inspectionNoPass" style="width: 100%; height: 200px;" placeholder="未完成内容及原因："></textarea>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+						<button id="inspectionBtn" type="button" class="am-btn am-btn-primary am-radius am-fr" >提交</button>
+				</div>
+			</div>
+		</div>
+	</div>
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>

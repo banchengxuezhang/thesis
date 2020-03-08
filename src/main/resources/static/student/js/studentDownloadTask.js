@@ -94,7 +94,7 @@ function loadDataGrid() {
                         <td>${gridData.thesisTitle}</td>
                         <td style="color: red">${status}</td>
                         <!--<td><a href="ftp://ftpuser:724055@192.168.0.105/13/13.jpg" style="text-decoration: underline;cursor: pointer" download="">下载</a></td>-->
-                        <td><a style="text-decoration: underline;cursor: pointer" onclick="downloadTask('${gridData.thesisNo}')">下载</a></td>
+                        <td><a style="text-decoration: underline;cursor: pointer" onclick="downloadTask('${gridData.thesisNo}')">${gridData.taskUrl}</a></td>
                     </tr>
                 `)
             }
