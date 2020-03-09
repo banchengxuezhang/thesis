@@ -81,6 +81,10 @@ function loadDataGrid() {
             for (let i = 0; i < data.rows.length; i++) {
                 let gridData = (data.rows)[i];
                 let status = (gridData.thesisStatus == 2 ? "未上传" : "已上传");
+                let fileName=gridData.thesisUrl;
+                if(fileName==null){
+                    fileName="";
+                }
                 $("#data").append(`
                     <tr>
                         <td>${(page-1)*rows+i + 1}</td>
@@ -94,7 +98,7 @@ function loadDataGrid() {
                         <td>${gridData.thesisTitle}</td>
                         <td style="color: red">${status}</td>
                         <!--<td><a href="ftp://ftpuser:724055@192.168.0.105/13/13.jpg" style="text-decoration: underline;cursor: pointer" download="">下载</a></td>-->
-                        <td><a style="text-decoration: underline;cursor: pointer" onclick="downloadThesis('${gridData.thesisNo}')">下载</a></td>
+                        <td><a style="text-decoration: underline;cursor: pointer" onclick="downloadThesis('${gridData.thesisNo}')">${fileName}</a></td>
                     </tr>
                 `)
             }

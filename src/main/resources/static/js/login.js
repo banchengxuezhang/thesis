@@ -1,47 +1,9 @@
 $(function(){
-    $('.loginbox').css({'position':'absolute','left':($(window).width()-692)/2});
-    $(window).resize(function(){
-        $('.loginbox').css({'position':'absolute','left':($(window).width()-692)/2});
-    })
-    $('.forgetpwd').click(function () {
+    $("#loginbtn").click(function () {
         let userType = $("input[name='role']:checked").val();
-        let userAccount = $(".loginuser").val().trim();
-        if( $('.forgetpwd').text().indexOf("忘记")!=-1){
-            if(userAccount==""||userType==""){
-                $.MsgBox.Alert("提示","未输入待重置账号或未选择角色！！！")
-            }else {
-                $.MsgBox.Alert("提示","请确认您重置的账号为："+userAccount+"\n，取消请关闭！！！",function () {
-                    let param = {
-                        'userType':userType,
-                        'userAccount':userAccount,
-                    };
-                    $.ajax({
-                        type: 'post',
-                        url: '/thesis/forgetPassword',
-                        data: $.param(param),
-                        success:function (data) {
-                            if(data.code == 1){
-                                $.MsgBox.Alert("提示", data.msg);
-                            }else{
-                                $.MsgBox.Alert("提示", data.msg);
-                            }
-                        },
-                        error:function () {
-                            // 登录存在错误，弹出提示信息
-                            $.MsgBox.Alert("错误", "登录出错！");
-                        }
-                    })
-                });
-
-            }
-        }
-
-    })
-    $('.loginbtn').click(function () {
-        let userType = $("input[name='role']:checked").val();
-        let userAccount = $(".loginuser").val().trim();
-        let userPassword = $(".loginpwd").val().trim();
-        let loginCode=$(".logincode").val().trim();
+        let userAccount = $("#userName").val().trim();
+        let userPassword = $("#passWord").val().trim();
+        let loginCode=$("#loginCode").val().trim();
         //校验验证码是否输入
         if(loginCode ==""){
             $.MsgBox.Alert("提示", "请输入验证码！");

@@ -17,10 +17,10 @@
 <body>
 
 <div class="tpl-content-page-title" style="margin-bottom: 10px;">
-    查看信息</div>
+    查看消息</div>
 <ol class="am-breadcrumb">
     <li><a href="../content.html" class="am-icon-home">首页</a></li>
-    <li class="am-active">查看信息</li>
+    <li class="am-active">查看消息</li>
 </ol>
 <div class="am-panel am-panel-default">
     <div class="am-panel-bd">
@@ -28,8 +28,20 @@
 <div class="rightinfo">
     <div class="am-panel am-panel-default">
         <div class="am-panel-bd am-scrollable-horizontal">
-            <div class="am-u-sm-12">
-                <table class="am-table am-table-bordered am-table-radius am-table-striped" >
+            <div class="am-u-sm-12 am-form">
+                <div class="am-form-group" style="height:35px;width: 300px;display: inline-flex">
+                    <select id="selectType" style="color:#000;font-size:12px;font-weight:bold">
+                        <option value="1" selected="selected">选题消息</option>
+                        <option value="2">开题报告</option>
+                        <option value="3">文献综述</option>
+                        <option value="4">中期指导</option>
+                        <option value="5">免答辩消息</option>
+                        <option value="6">答辩消息</option>
+                    </select>
+                    <span class="am-form-caret"></span>
+                </div>
+
+                <table id="dataTable" class="am-table am-table-bordered am-table-radius am-table-striped" style="display:none;" >
         <thead>
         <tr>
             <th>序号</th>
@@ -47,6 +59,98 @@
 
         </tbody>
     </table>
+                <table id="openReportTable" class="am-table am-table-bordered am-table-radius am-table-striped" style="display: none" >
+                    <thead>
+                    <tr>
+                        <th>学号</th>
+                        <th>姓名</th>
+                        <th>班级</th>
+                        <th>教师编号</th>
+                        <th>教师姓名</th>
+                        <th>论文题目</th>
+                        <th>开题报告附件名</th>
+                        <th>开题报告状态</th>
+                        <th>开题报告得分</th>
+                        <th>备注</th>
+                    </tr>
+                    </thead>
+                    <tbody id="openReportData">
+
+                    </tbody>
+                </table>
+                <table id="reviewTable" class="am-table am-table-bordered am-table-radius am-table-striped" style="display: none" >
+                    <thead>
+                    <tr>
+                        <th>学号</th>
+                        <th>姓名</th>
+                        <th>班级</th>
+                        <th>教师编号</th>
+                        <th>教师姓名</th>
+                        <th>论文题目</th>
+                        <th>附件名</th>
+                        <th>文献综述状态</th>
+                        <th>备注</th>
+                    </tr>
+                    </thead>
+                    <tbody id="reviewData">
+
+                    </tbody>
+                </table>
+                <table id="inspectionTable" class="am-table am-table-bordered am-table-radius am-table-striped" style="display: none" >
+                    <thead>
+                    <tr>
+                        <th>学号</th>
+                        <th>姓名</th>
+                        <th>班级</th>
+                        <th>教师编号</th>
+                        <th>教师姓名</th>
+                        <th>论文题目</th>
+                        <th>中期检查状态</th>
+                        <th>备注</th>
+                    </tr>
+                    </thead>
+                    <tbody id="inspectionData">
+
+                    </tbody>
+                </table>
+                <table id="noReplyTable" class="am-table am-table-bordered am-table-radius am-table-striped" style="display: none" >
+                    <thead>
+                    <tr>
+                        <th>学号</th>
+                        <th>姓名</th>
+                        <th>班级</th>
+                        <th>教师编号</th>
+                        <th>教师姓名</th>
+                        <th>论文题目</th>
+                        <th>免答辩申请状态</th>
+                        <th>备注</th>
+                    </tr>
+                    </thead>
+                    <tbody id="noReplyData">
+
+                    </tbody>
+                </table>
+                <table id="replyTable" class="am-table am-table-bordered am-table-radius am-table-striped" style="display: none" >
+                    <thead>
+                    <tr>
+                        <th>学号</th>
+                        <th>姓名</th>
+                        <th>班级</th>
+                        <th>教师编号</th>
+                        <th>教师姓名</th>
+                        <th>论文题目</th>
+                        <th>答辩状态</th>
+                        <th>答辩地点</th>
+                        <th>答辩时间</th>
+                        <th>参与教师</th>
+                        <th>答辩得分</th>
+                        <th>备注</th>
+                    </tr>
+                    </thead>
+                    <tbody id="replyData">
+
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>

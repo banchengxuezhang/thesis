@@ -15,4 +15,5 @@ public class NoReply {
     private String thesisNo;
     private String mobilePhone;
     private int status;
+    private String opinion;
 }

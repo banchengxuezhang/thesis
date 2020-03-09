@@ -1,6 +1,10 @@
 var thesisNo="";
 $(function () {
     loadDataGrid();
+    $("#reviewUrl").click(function () {
+        window.location.href="/thesis/file/downloadReview?thesisNo="+thesisNo;
+        return false;
+    })
     $("#reviewBtn").click(function () {
         let  reviewContent=$("#reviewContent").val();
         if(reviewContent==null||reviewContent==""){
@@ -40,6 +44,9 @@ function  loadDataGrid(){
            $("#thesisTitle").text("你的论文题目为："+gridData.thesisTitle);
            if(gridData.reviewContent!=""){
                $("#reviewContent").text(gridData.reviewContent);
+           }
+           if(gridData.reviewUrl!=""){
+               $("#reviewUrl").text("附件："+gridData.reviewUrl);
            }
             thesisNo=gridData.thesisNo;
         },

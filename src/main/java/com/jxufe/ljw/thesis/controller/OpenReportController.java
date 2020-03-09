@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -36,7 +38,8 @@ public class OpenReportController {
     private StudentTeacherRelationService relationService;
     @Autowired
     private OpenReportService openReportService;
-
+    @Autowired
+    private ReplyScoreService replyScoreService;
     /**
      * 提交开题报告
      * @param openReportVo
@@ -105,17 +108,29 @@ public class OpenReportController {
     @PostMapping("/uploadReview")
     public Object uploadReview(OpenReportVo openReportVo){
         boolean flag=true;
+        String url="";
         String fileName="";
        String reviewContent=openReportVo.getReviewContent();
        StudentTeacherRelation studentTeacherRelation=relationService.getStudentTeacherRelationByThesisNo(openReportVo.getThesisNo());
        OpenReport openReport=openReportService.getOpenReportByThesisNo(openReportVo.getThesisNo());
        if(openReportVo.getFile()!=null){
-           String url=openReport.getReviewUrl();
+           if(openReport!=null){
+                url=openReport.getReviewUrl();
+           }
            fileName = studentTeacherRelation.getStudentNo() + "-" + studentTeacherRelation.getStudentName() + "-" +openReportVo.getFile().getOriginalFilename();
            String sysPath= PublicData.path+"\\"+studentTeacherRelation.getStudentNo()+"\\Review";
            flag=ClassUtil.uploadFile(openReportVo.getFile(),url,sysPath,fileName);
        }
        if(flag){
+           if(openReport==null){
+               openReport=new OpenReport();
+               openReport.setOpenReportId("OPENREPORT"+System.currentTimeMillis());
+               openReport.setThesisNo(openReportVo.getThesisNo());
+               openReport.setReviewContent(reviewContent);
+               openReport.setReviewUrl(fileName);
+               openReportService.addOpenReport(openReport);
+               return ResultUtil.success("提交文献综述成功！！！");
+           }
            openReport.setReviewContent(reviewContent);
            openReport.setReviewUrl(fileName);
            openReportService.updateOpenReport(openReport);
@@ -135,7 +150,9 @@ public class OpenReportController {
         try{
             OpenReport openReport=new OpenReport();
             BeanUtils.copyProperties(openReportVo,openReport);
-            openReportService.updateOpenReport(openReport);
+            if( openReportService.updateOpenReport(openReport)<1){
+                return ResultUtil.success("提交失败！请提交文献综述和开题报告后再进行此操作！");
+            }
             return ResultUtil.success("提交中期检查成功！！!");
         }catch (Exception e){
             logger.info("异常内容为："+e);
@@ -189,10 +206,57 @@ public class OpenReportController {
            }
             TeacherInfo teacherInfo=teacherService.getTeacherInfoByTeacherNo(studentTeacherRelation.getTeacherNo());
             studentTeacherRelation.setTeacherTitle(teacherInfo.getTeacherTitle());
-            StudentTeacherRelation studentTeacherRelation1= (StudentTeacherRelation) ClassUtil.checkNull(studentTeacherRelation);
-            return studentTeacherRelation1;
+            return ClassUtil.checkNull(studentTeacherRelation);
         } catch (Exception e) {
             return ResultUtil.error("获取信息失败！");
         }
+    }
+
+    /**
+     * 教师获取数据列表
+     * @param page
+     * @param rows
+     * @param request
+     * @return
+     */
+    @GetMapping("/getThesisForOpenReportAndReviewList")
+    public Object getThesisForOpenReportAndReviewList(int page,int rows,HttpServletRequest request){
+        User user= (User) request.getSession().getAttribute("user");
+       List<StudentTeacherRelation> list=new ArrayList<>();
+        Map<String,Object> map= (Map<String, Object>) relationService.getAgreeThesisByTeacherNo(page,rows,user.getUserAccount());
+        List<StudentTeacherRelation> studentTeacherRelations= (List<StudentTeacherRelation>) map.get("rows");
+        for(StudentTeacherRelation s:studentTeacherRelations){
+            String thesisNo=s.getThesisNo();
+            OpenReport openReport=openReportService.getOpenReportByThesisNo(thesisNo);
+            if(openReport!=null){
+                BeanUtils.copyProperties(openReport,s);
+            }
+            NoReply noReply=noReplyService.getNoReplyByThesisNo(thesisNo);
+            if(noReply!=null){
+                BeanUtils.copyProperties(noReply,s);
+            }
+            ReplyScore replyScore=replyScoreService.getReplyScoreByThesisNo(thesisNo);
+            if(replyScore!=null){
+                BeanUtils.copyProperties(replyScore,s);
+            }
+            StudentTeacherRelation studentTeacherRelation= (StudentTeacherRelation) ClassUtil.checkNull(s);
+            list.add(studentTeacherRelation);
+        }
+        map.put("rows",list);
+        return map;
+    }
+    @GetMapping("/getThesisOpenReportByThesisNo")
+    public Object getThesisOpenReportByThesisNo(String thesisNo){
+      try {
+          StudentTeacherRelation studentTeacherRelation=relationService.getStudentTeacherRelationByThesisNo(thesisNo);
+          OpenReport openReport=openReportService.getOpenReportByThesisNo(thesisNo);
+          if(openReport!=null){
+              BeanUtils.copyProperties(openReport,studentTeacherRelation);
+          }
+          return ClassUtil.checkNull(studentTeacherRelation);
+
+      }catch (Exception e){
+          return  ResultUtil.success("获取开题报告数据异常！");
+      }
     }
 }

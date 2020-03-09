@@ -1,0 +1,145 @@
+
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+	<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>毕业设计管理系统</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="Free HTML5 Template by FreeHTML5.co" />
+	<meta name="keywords" content="free html5, free template, free bootstrap, html5, css3, mobile first, responsive" />
+	
+
+  
+
+  	<!-- Facebook and Twitter integration -->
+	<meta property="og:title" content=""/>
+	<meta property="og:image" content=""/>
+	<meta property="og:url" content=""/>
+	<meta property="og:site_name" content=""/>
+	<meta property="og:description" content=""/>
+	<meta name="twitter:title" content="" />
+	<meta name="twitter:image" content="" />
+	<meta name="twitter:url" content="" />
+	<meta name="twitter:card" content="" />
+
+	<!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+		<link rel="shortcut icon "  href="images/school.png" type="images/png">
+
+	<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700,300' rel='stylesheet' type='text/css'>
+	
+	<link rel="stylesheet" href="login/css/bootstrap.min.css">
+	<link rel="stylesheet" href="login/css/animate.css">
+	<link rel="stylesheet" href="login/css/style.css">
+		<link rel="stylesheet" href="amazeui/css/amazeui.min.css"/>
+		<link rel="stylesheet" href="css/admin.css">
+		<link rel="stylesheet" href="css/app.css">
+		<script language="JavaScript" src="js/jquery.js"></script>
+		<script type="text/javascript" src="common/common.js"></script>
+
+	<!-- Modernizr JS -->
+	<script src="login/js/modernizr-2.6.2.min.js"></script>
+	<!-- FOR IE9 below -->
+	<!--[if lt IE 9]>
+	<script src="login/js/respond.min.js"></script>
+	<![endif]-->
+	</head>
+	<body class="style-3">
+
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12 text-center">
+					<ul class="menu">
+					</ul>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-4 col-md-push-8">
+					
+
+					<!-- Start Sign In Form -->
+					<form action="#" class="fh5co-form animate-box" data-animate-effect="fadeInRight">
+						<h2>Forgot Password</h2>
+						<div class="form-group">
+							<div class="alert alert-success" role="alert">请输入用户名进行邮件验证！</div>
+						</div>
+						<div class="form-group">
+							<label for="userName" class="sr-only">userName</label>
+							<input type="text" class="form-control" id="userName" placeholder="Account" autocomplete="off">
+						</div>
+						<div class="form-group">
+							<div class="am-form-group">
+								<label class="am-radio-inline">
+									<input type="radio"  value="3"  name="role" checked="checked"> 学生
+								</label>
+								<label class="am-radio-inline">
+									<input type="radio"  value="2"  name="role" style="margin-left: 23px;">教师
+								</label>
+								<label class="am-radio-inline">
+									<input type="radio" value="1"  name="role" style="margin-left: 23px;"> 管理员
+								</label>
+							</div>
+						</div>
+						<div class="form-group">
+							<p><a href="login.html">Sign In</a> or <a href="login.html">登录</a></p>
+						</div>
+						<div class="form-group">
+							<input readonly  value="Send Email"  id="forgetpwd" class="btn btn-primary">
+						</div>
+					</form>
+					<!-- END Sign In Form -->
+
+				</div>
+			</div>
+
+			<!-- jQuery -->
+<!--	<script src="login/js/jquery.min.js"></script>-->
+	<!-- Bootstrap -->
+	<script src="login/js/bootstrap.min.js"></script>
+	<!-- Placeholder -->
+	<script src="login/js/jquery.placeholder.min.js"></script>
+	<!-- Waypoints -->
+	<script src="login/js/jquery.waypoints.min.js"></script>
+	<!-- Main JS -->
+	<script src="login/js/main.js"></script>
+		</div>
+		<script>
+			$('#forgetpwd').click(function () {
+				let userType = $("input[name='role']:checked").val();
+				let userAccount = $("#userName").val().trim();
+				if(userAccount==""||userType==""){
+					$.MsgBox.Alert("提示","未输入待重置账号或未选择角色！！！");
+				}else {
+					$.MsgBox.Alert("提示","请确认您重置的账号为："+userAccount+"\n，取消请关闭！！！",function () {
+						let param = {
+							'userType':userType,
+							'userAccount':userAccount,
+						};
+						$.ajax({
+							type: 'post',
+							url: '/thesis/forgetPassword',
+							data: $.param(param),
+							success:function (data) {
+								if(data.code == 1){
+									$.MsgBox.Alert("提示", data.msg);
+								}else{
+									$.MsgBox.Alert("提示", data.msg);
+								}
+							},
+							error:function () {
+								// 登录存在错误，弹出提示信息
+								$.MsgBox.Alert("错误", "登录出错！");
+							}
+						})
+					});
+
+				}
+
+			})
+		</script>
+	</body>
+</html>
+

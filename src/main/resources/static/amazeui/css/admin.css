@@ -316,9 +316,9 @@ ul {
   padding: .5rem;
 }
 
-.table-main button {
+/* .table-main button {
   background: #fff;
-}
+} */
 
 .table-check {
   width: 30px;
@@ -370,4 +370,14 @@ gallery.html css
   border: none;
   width: 200px;
   margin: 0 auto;
+}
+
+.am-panel {
+	margin-bottom: 20px;
+	background-color: #fff;
+	border: 1px solid transparent;
+	border-radius: 0;
+	-webkit-box-shadow: 0 1px 1px rgba(0,0,0,.05);
+	box-shadow: 0 1px 1px rgba(0,0,0,.05);
+	border-radius: 6px;
 }

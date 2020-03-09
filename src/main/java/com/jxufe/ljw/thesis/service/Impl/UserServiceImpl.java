@@ -85,7 +85,6 @@ public class UserServiceImpl implements UserService {
             for (UserInfoDetail t:teacherList
             ) {
                 User user=userDao.getUserById(t.getUserId());
-                System.out.println("查看userId"+t.getUserId());
                 if(user.getUserType()!=UserType.MANAGE.getType()){
                     t.setUserAccount(t.getTeacherNo());
                     t.setUserName(t.getTeacherName());

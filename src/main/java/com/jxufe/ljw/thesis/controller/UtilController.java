@@ -31,7 +31,7 @@ public class UtilController {
         response.setContentType("image/png");
         try {
             OutputStream os = response.getOutputStream();
-            String text = VerifyCodeUtils.outputVerifyImage(120,38,os,4);
+            String text = VerifyCodeUtils.outputVerifyImage(130,50,os,4);
             session.setAttribute("loginCode", text);
         } catch (IOException e) {
             logger.error("响应验证码失败:" + e.getMessage());

@@ -1,0 +1,79 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>无标题文档</title>
+    <link href="../css/style.css" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" href="../amazeui/css/amazeui.min.css" />
+    <link rel="stylesheet" href="../css/admin.css">
+    <link rel="stylesheet" href="../css/app.css">
+    <script type="text/javascript" src="../js/jquery.js"></script>
+    <script type="text/javascript" src="../common/common.js"></script>
+    <script type="text/javascript" src="js/teacherCheckListForReview.js"></script>
+</head>
+
+
+<div class="tpl-content-page-title" style="margin-bottom: 10px;">
+    学生列表</div>
+<body>
+<ol class="am-breadcrumb">
+    <li><a href="../content.html" class="am-icon-home">首页</a></li>
+    <li class="am-active">文献综述</li>
+</ol>
+<div class="am-panel am-panel-default"
+>
+    <div class="am-panel-bd">
+        <div class="rightinfo">
+            <div class="tools">
+                <ul class="toolbar" style="margin-left: 30px">
+                    <button id="operateBtn" type="button" class="am-btn am-btn-default am-btn-primary am-round" style="width: 100px">审核</button>
+                </ul>
+            </div>
+            <div class="am-panel am-panel-default">
+                <div class="am-panel-bd am-scrollable-horizontal">
+
+                    <div class="am-u-sm-12">
+                        <table  id="openReportTable" class="am-table am-table-bordered am-table-radius am-table-striped">
+                            <thead>
+                            <tr>
+                                <th>选择</th>
+                                <th>序号</th>
+                                <th>学号</th>
+                                <th>学生姓名</th>
+                                <th>专业</th>
+                                <th>班级</th>
+                                <th>学生电话</th>
+                                <th>学生邮箱</th>
+                                <th>论文题目</th>
+                                <th>文献综述状态</th>
+                                <th>备注</th>
+                            </tr>
+                            </thead>
+                            <tbody id="data">
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="pagin">
+                <div class="message">共<i id="totalData" class="blue"></i>条记录，当前显示第&nbsp;<i id="currentPage" class="blue"></i>&nbsp;页
+                </div>
+                <ul class="am-pagination am-pagination-right">
+                    <li id="firstPage" class="am-active"><a href="#">首页</a></li>
+                    <li  id="prePage"><a href="#">上一页</a></li>
+                    <li  id="nextPage"><a href="#">下一页</a></li>
+                    <li  id="lastPage"><a href="#">尾页</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $('.tablelist tbody tr:odd').addClass('odd');
+</script>
+
+</body>
+
+</html>

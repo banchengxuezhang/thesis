@@ -81,6 +81,10 @@ function loadDataGrid() {
             for (let i = 0; i < data.rows.length; i++) {
                 let gridData = (data.rows)[i];
                 let status = (gridData.taskStatus == 2 ? "未给" : "已给");
+                let fileName=gridData.taskUrl;
+                if(fileName==null){
+                    fileName="";
+                }
                 $("#data").append(`
                     <tr>
                         <td>${(page-1)*rows+i + 1}</td>
@@ -93,7 +97,8 @@ function loadDataGrid() {
                         <td>${gridData.studentEmail}</td>
                         <td>${gridData.thesisTitle}</td>
                         <td style="color: red">${status}</td>
-                        <td><a style="text-decoration: underline;cursor: pointer" onclick="uploadTask('${gridData.thesisTitle}','${gridData.thesisNo}')">给任务书</a></td>       
+                        <td><a style="text-decoration: underline;cursor: pointer" onclick="uploadTask('${gridData.thesisTitle}','${gridData.thesisNo}')">给任务书</a></td>   
+                         <td style="text-decoration:underline" onclick="downloadTask('${gridData.thesisNo}')">${fileName}</td>
                     </tr>
                 `)
             }
@@ -103,7 +108,10 @@ function loadDataGrid() {
         }
     })
 }
-
+function downloadTask(thesisNo) {
+    window.location.href="/thesis/file/downloadTask?thesisNo="+thesisNo;
+    return false;
+}
 function uploadTask(thesisTitle, thesisNo) {
     Dialog.init(`<form action="/thesis/file/uploadTask" method="post" enctype="multipart/form-data">
         <input type="hidden" name="thesisNo" id="thsisNo" value="${thesisNo}"/>

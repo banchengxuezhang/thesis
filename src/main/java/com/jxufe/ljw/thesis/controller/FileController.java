@@ -9,6 +9,7 @@ import com.jxufe.ljw.thesis.service.*;
 import com.jxufe.ljw.thesis.util.ClassUtil;
 import com.jxufe.ljw.thesis.vo.ResultUtil;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.ibatis.annotations.Param;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -167,14 +168,20 @@ public class FileController {
      */
     @GetMapping("/downloadOpenReport")
     public void downloadOpenReport(String thesisNo, HttpServletResponse response) {
-        logger.info("下载开题报告查看thesisNo"+thesisNo);
+        logger.info("下载开题报告查看thesisNo" + thesisNo);
         StudentTeacherRelation studentTeacherRelation = relationService.getStudentTeacherRelationByThesisNo(thesisNo);
-        OpenReport openReport=openReportService.getOpenReportByThesisNo(thesisNo);
-        String path = PublicData.path+ "\\" + studentTeacherRelation.getStudentNo() + "\\OpenReport";
+        OpenReport openReport = openReportService.getOpenReportByThesisNo(thesisNo);
+        String path = PublicData.path + "\\" + studentTeacherRelation.getStudentNo() + "\\OpenReport";
         String filename = openReport.getOpenReportUrl();
         //下载
         ClassUtil.downloadFile(response, path, filename, "------无法下载开题报告-------");
     }
+
+    /**
+     * 下载文献综述文件
+     * @param thesisNo
+     * @param response
+     */
     @GetMapping("/downloadReview")
     public  void downloadReview(String thesisNo, HttpServletResponse response) {
         StudentTeacherRelation studentTeacherRelation = relationService.getStudentTeacherRelationByThesisNo(thesisNo);
@@ -185,5 +192,15 @@ public class FileController {
         ClassUtil.downloadFile(response, path, filename, "------无法下载文献综述-------");
     }
 
+    /**
+     * 下载公共文件
+     * @param fileName
+     * @param response
+     */
+    @GetMapping("/downloadFile")
+    public void downloadFile(@Param("path") String path,@Param("fileName") String fileName,HttpServletResponse response){
+        ClassUtil.downloadFile(response,PublicData.path+"\\"+path,fileName,"--------无法下载模板文件-------");
+
+    }
 }
 

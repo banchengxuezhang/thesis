@@ -2,8 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.jxufe.ljw.thesis.dao.NoReplyDao">
     <insert id="addNoReply">
-        insert into t_no_reply(no_reply_id,reason,sign_name,thesis_no,mobile_phone,status)
-        values (#{noReplyId},#{reason},#{signName},#{thesisNo},#{mobilePhone},#{status})
+        insert into t_no_reply(no_reply_id,reason,sign_name,thesis_no,mobile_phone,status,opinion)
+        values (#{noReplyId},#{reason},#{signName},#{thesisNo},#{mobilePhone},#{status},#{opinion})
     </insert>
     <update id="updateNoReply">
         update t_no_reply
@@ -19,6 +19,9 @@
             </if>
             <if test="status!=0">
                 status=#{status},
+            </if>
+            <if test="opinion!=null and opinion!=''">
+                opinion=#{opinion},
             </if>
         </set>
         where thesis_no=#{thesisNo}

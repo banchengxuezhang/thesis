@@ -2,6 +2,8 @@ package com.jxufe.ljw.thesis.bean;
 
 import lombok.Data;
 
+import java.util.Date;
+
 /**
  * @Classname StudentTeacherRelation
  * @Author: LeJunWen
@@ -52,5 +54,22 @@ public class StudentTeacherRelation {
     private String reason;
     private String signName;
     private String mobilePhone;
+    /**
+     * 论文答辩状态
+     */
     private int status;
+    private String opinion;
+    private String teacherList;
+    private String thesisScoreList;
+    private Date replyDate;
+    private String replyPlace;
+    private  int replyStatus;
+    private String replyOpinion;
+    private double openReportScore;
+    private  int openReportStatus;
+    private String openReportOpinion;
+    private int reviewStatus;
+    private  String reviewOpinion;
+    private int inspectionStatus;
+    private String inspectionOpinion;
 }

@@ -1,6 +1,10 @@
 var thesisNo="";
 $(function () {
    loadDataGrid();
+    $("#openReportUrl").click(function () {
+        window.location.href="/thesis/file/downloadOpenReport?thesisNo="+thesisNo;
+        return false;
+    })
    $("#openReportbtn").click(function () {
        let openReportSummary=$("#openReportSummary").val();
        let  openReportWay=$("#openReportWay").val();
@@ -46,6 +50,9 @@ function  loadDataGrid(){
             $("#thesisTitle").text(gridData.thesisTitle);
             $("#openReportSummary").text(gridData.openReportSummary);
             $("#openReportWay").text(gridData.openReportWay);
+            if(gridData.openReportUrl!=""){
+                $("#openReportUrl").text("附件："+gridData.openReportUrl);
+            }
             thesisNo=gridData.thesisNo;
         },
         error: function () {

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jxufe.ljw.thesis.dao.ReplyScoreDao">
+    <insert id="addReplyScore">
+        insert into  t_reply_score(reply_score_id,theis_no,teacher_list,thesis_score_list,reply_date,reply_place,reply_status,reply_opinion,open_report_score,open_report_status,open_report_opinion,review_status,review_opinion,
+        inspection_status,inspection_opinion)
+        values (#{replyScoreId},#{thesisNo},#{teacherList},#{thesisScoreList},#{replyDate},#{replyPlace},#{replyStatus},#{replyOpinion},#{openReportScore},#{openReportStatus},#{openReportOpinion},#{reviewStatus},#{reviewOpinion},
+        #{inspectionStatus},#{inspectionOpinion});
+    </insert>
+    <update id="updateReplyScore">
+        update from t_reply_score
+        <set>
+            <if test="teacherList!=null and teacherList!=''">
+                teacher_list=#{teacherList},
+            </if>
+            <if test="thesisScoreList!=null and thesisScoreList!=''">
+                thesis_score_list=#{thesisScoreList},
+            </if>
+            <if test="replyDate!=null and replyDate!=''">
+                reply_date=#{replyDate},
+            </if>
+            <if test="replyPlace!=null and replyPlace!=''">
+                reply_place=#{replyPlace},
+            </if>
+            <if test="replyStatus!=0">
+                reply_status=#{replyStatus},
+            </if>
+            <if test="replyOpinion!=null and replyOpinion!=''">
+                reply_opinion=#{replyOpinion},
+            </if>
+            <if test="openReportScore!=0">
+               open_report_score=#{openReportScore},
+            </if>
+            <if test="openReportStatus!=0">
+                open_score_status=#{openReportStatus},
+            </if>
+            <if test="openReportOpinion!=null and openReportOpinion!=''">
+             open_report_opinion=#{openReportOpinion},
+            </if>
+            <if test="reviewStatus!=0">
+                review_status=#{reviewStatus},
+            </if>
+            <if test="reviewOpinion!=null and reviewOpinion!=''">
+                review_opinion=#{reviewOpinion},
+            </if>
+            <if test="inspectionStatus!=0">
+                inspection_status=#{inspectionStatus},
+            </if>
+            <if test="inspectionOpinion!=null and inspectionOpinion!=''">
+                inspection_opinion=#{inspectionOpinion},
+            </if>
+        </set>
+        where thesis_no=#{thesisNo}
+    </update>
+
+
+    <select id="getReplyScoreByThesisNo" resultType="com.jxufe.ljw.thesis.bean.ReplyScore">
+        select * from t_reply_score
+        where thesis_no=#{thesisNo}
+    </select>
+</mapper>
