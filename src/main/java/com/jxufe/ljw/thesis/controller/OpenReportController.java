@@ -53,14 +53,12 @@ public class OpenReportController {
         String openReportWay=openReportVo.getOpenReportWay();
         String thesisNo=openReportVo.getThesisNo();
         String fileName="";
-        if(openReportVo.getFile()!=null){
+        MultipartFile multipartFile=openReportVo.getFile();
+        if(multipartFile!=null){
          StudentTeacherRelation studentTeacherRelation=relationService.getStudentTeacherRelationByThesisNo(thesisNo);
          Boolean flag=true;
-         MultipartFile multipartFile=openReportVo.getFile();
          String sysPath= PublicData.path+"\\"+studentTeacherRelation.getStudentNo()+"\\OpenReport";
-         if(multipartFile!=null) {
           fileName = studentTeacherRelation.getStudentNo() + "-" + studentTeacherRelation.getStudentName() + "-" + multipartFile.getOriginalFilename();
-         }
          OpenReport openReport=openReportService.getOpenReportByThesisNo(thesisNo);
          if(openReport==null){
              OpenReport openReport1=new OpenReport();
@@ -69,9 +67,7 @@ public class OpenReportController {
              openReport1.setOpenReportId("OPENREPORT"+System.currentTimeMillis());
              openReport1.setThesisNo(thesisNo);
              openReport1.setOpenReportUrl(fileName);
-             if(multipartFile!=null){
-                 flag=ClassUtil.uploadFile(multipartFile,"",sysPath,fileName);
-             }
+             flag=ClassUtil.uploadFile(multipartFile,"",sysPath,fileName);
              if(flag){
                  OpenReport openReport2= (OpenReport) ClassUtil.checkNull(openReport1);
                  openReportService.addOpenReport(openReport2);
@@ -80,9 +76,7 @@ public class OpenReportController {
          }else {
              openReport.setOpenReportSummary(openReportSummary);
              openReport.setOpenReportWay(openReportWay);
-             if(multipartFile!=null){
               flag=ClassUtil.uploadFile(multipartFile,openReport.getOpenReportUrl(),sysPath,fileName);
-             }
              openReport.setOpenReportUrl(fileName);
              if(flag){
                  openReportService.updateOpenReport(openReport);
@@ -91,8 +85,23 @@ public class OpenReportController {
 
          }
      }else {
+        OpenReport openReport=openReportService.getOpenReportByThesisNo(thesisNo);
+        if(openReport==null){
+            OpenReport openReport1=new OpenReport();
+            openReport1.setOpenReportSummary(openReportSummary);
+            openReport1.setOpenReportWay(openReportWay);
+            openReport1.setOpenReportId("OPENREPORT"+System.currentTimeMillis());
+            openReport1.setThesisNo(thesisNo);
+            openReportService.addOpenReport((OpenReport) ClassUtil.checkNull(openReport1));
+            return ResultUtil.success("提交开题报告成功！！！");
+        }else {
 
+            openReport.setOpenReportSummary(openReportSummary);
+            openReport.setOpenReportWay(openReportWay);
+            openReportService.updateOpenReport(openReport);
+            return ResultUtil.success("提交开题报告成功！！！");
 
+        }
 
 
      }
@@ -204,6 +213,10 @@ public class OpenReportController {
            if(noReply!=null){
                BeanUtils.copyProperties(noReply,studentTeacherRelation);
            }
+           ReplyScore replyScore=replyScoreService.getReplyScoreByThesisNo(studentTeacherRelation.getThesisNo());
+           if(replyScore!=null){
+               BeanUtils.copyProperties(replyScore,studentTeacherRelation);
+           }
             TeacherInfo teacherInfo=teacherService.getTeacherInfoByTeacherNo(studentTeacherRelation.getTeacherNo());
             studentTeacherRelation.setTeacherTitle(teacherInfo.getTeacherTitle());
             return ClassUtil.checkNull(studentTeacherRelation);
@@ -245,18 +258,95 @@ public class OpenReportController {
         map.put("rows",list);
         return map;
     }
-    @GetMapping("/getThesisOpenReportByThesisNo")
-    public Object getThesisOpenReportByThesisNo(String thesisNo){
+    @GetMapping("/getThesisOpenReportAndOtherByThesisNo")
+    public Object getThesisOpenReportAndOtherByThesisNo(String thesisNo){
       try {
           StudentTeacherRelation studentTeacherRelation=relationService.getStudentTeacherRelationByThesisNo(thesisNo);
           OpenReport openReport=openReportService.getOpenReportByThesisNo(thesisNo);
-          if(openReport!=null){
-              BeanUtils.copyProperties(openReport,studentTeacherRelation);
+          if(openReport!=null) {
+              BeanUtils.copyProperties(openReport, studentTeacherRelation);
+          }
+          ReplyScore replyScore=replyScoreService.getReplyScoreByThesisNo(thesisNo);
+          if(replyScore!=null){
+              BeanUtils.copyProperties(replyScore,studentTeacherRelation);
+          }
+          NoReply noReply=noReplyService.getNoReplyByThesisNo(thesisNo);
+          if(noReply!=null){
+              BeanUtils.copyProperties(noReply,studentTeacherRelation);
           }
           return ClassUtil.checkNull(studentTeacherRelation);
 
       }catch (Exception e){
           return  ResultUtil.success("获取开题报告数据异常！");
       }
+    }
+
+    @PostMapping("/teacherCheckOpenReport")
+    public Object teacherCheckOpenReport(ReplyScore replyScore){
+    ReplyScore replyScore1=replyScoreService.getReplyScoreByThesisNo(replyScore.getThesisNo());
+        replyScore.setOpenReportStatus(1);
+        if(replyScore.getOpenReportScore()<70){
+            replyScore.setOpenReportStatus(2);
+            StudentTeacherRelation studentTeacherRelation=relationService.getStudentTeacherRelationByThesisNo(replyScore.getThesisNo());
+            iMailService.sendSimpleMail(studentTeacherRelation.getStudentEmail(),"重要！开题报告未通过！",studentTeacherRelation.getStudentName()+"同学，很遗憾的告诉你，你的" +
+                    "开题报告得分只有"+replyScore.getOpenReportScore()+"分，这将影响你正常毕业，如需知道详情，请联系你的指导教师！");
+        }
+    if(replyScore1==null){
+        replyScore.setReplyScoreId("REPLYSCORE"+System.currentTimeMillis());
+        replyScoreService.addReplyScore((ReplyScore) ClassUtil.checkNull(replyScore));
+    }
+    else {
+        logger.info("查看replyScore"+replyScore);
+        replyScoreService.updateReplyScore(replyScore);
+    }
+    return ResultUtil.success("提交开题报告分数成功！");
+    }
+    @PostMapping("/teacherCheckReview")
+    public Object teacherCheckReview(ReplyScore replyScore){
+        ReplyScore replyScore1=replyScoreService.getReplyScoreByThesisNo(replyScore.getThesisNo());
+        if(replyScore1==null){
+            replyScore.setReplyScoreId("REPLYSCORE"+System.currentTimeMillis());
+            replyScoreService.addReplyScore((ReplyScore) ClassUtil.checkNull(replyScore));
+        }else {
+            replyScoreService.updateReplyScore(replyScore);
+        }
+        if(replyScore.getReviewStatus()==2){
+            StudentTeacherRelation studentTeacherRelation=relationService.getStudentTeacherRelationByThesisNo(replyScore.getThesisNo());
+            iMailService.sendSimpleMail(studentTeacherRelation.getStudentEmail(),"重要！文献综诉未通过！",studentTeacherRelation.getStudentName()+"同学，很遗憾的告诉你，你的" +
+                    "文献综述被指导教师审核为不通过！可能影响你正常毕业，如需知道详情，请联系你的指导教师！");
+
+        }
+     return  ResultUtil.success("提交文献综述审核成功！！！");
+    }
+    @PostMapping("/teacherCheckInspection")
+    public Object teacherCheckInspection(ReplyScore replyScore){
+        ReplyScore replyScore1=replyScoreService.getReplyScoreByThesisNo(replyScore.getThesisNo());
+        if(replyScore1==null){
+            replyScore.setReplyScoreId("REPLYSCORE"+System.currentTimeMillis());
+            replyScoreService.addReplyScore((ReplyScore) ClassUtil.checkNull(replyScore));
+        }else {
+            replyScoreService.updateReplyScore(replyScore);
+        }
+        if(replyScore.getReviewStatus()==2){
+            StudentTeacherRelation studentTeacherRelation=relationService.getStudentTeacherRelationByThesisNo(replyScore.getThesisNo());
+            iMailService.sendSimpleMail(studentTeacherRelation.getStudentEmail(),"重要！中期检查未通过！",studentTeacherRelation.getStudentName()+"同学，很遗憾的告诉你，你的" +
+                    "中期检查被指导教师审核为不通过！如需知道详情，请联系你的指导教师！");
+
+        }
+        return  ResultUtil.success("提交中期检查审核成功！！！");
+    }
+    @PostMapping("/teacherCheckNoReply")
+    public Object teacherCheckNoReply(NoReply noReply){
+        StudentTeacherRelation studentTeacherRelation=relationService.getStudentTeacherRelationByThesisNo(noReply.getThesisNo());
+        if(noReply.getStatus()==2){
+            iMailService.sendSimpleMail(studentTeacherRelation.getStudentEmail(),"重要！免答辩申请未通过！",studentTeacherRelation.getStudentName()+"同学，很遗憾的告诉你，你的" +
+                    "免答辩申请被指导教师审核为不通过！如需知道详情，请联系你的指导教师！");
+        }
+        if(noReply.getStatus()==1){
+            iMailService.sendSimpleMail(studentTeacherRelation.getStudentEmail(),"重要！免答辩申请已通过！",studentTeacherRelation.getStudentName()+"同学，恭喜你，你的" +
+                    "免答辩申请被指导教师审核通过！如需知道详情，请联系你的指导教师！");
+        }
+        noReplyService.updateNoReply(noReply);
+        return ResultUtil.success("免答辩申请审核成功！");
     }
 }

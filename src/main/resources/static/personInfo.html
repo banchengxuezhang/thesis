@@ -20,33 +20,29 @@
     <li class="am-active">查看信息</li>
 </ol>
 
-<div class="am-panel am-panel-default"
->
+<div class="am-panel am-panel-default">
     <div class="am-panel-bd">
-<!--    <li><div class="am-checkbox">-->
-<!--        <label>-->
-<!--            <input   id="modifyInfo"  type="checkbox"> 修改基本信息-->
-<!--        </label>-->
-<!--    </div></li>-->
-        <form class="am-form am-form-horizontal" style="width: 700px;margin-left: 200px">
-            <div class="am-form-group">
-                <div class="am-u-sm-offset-2 am-u-sm-10">
-                    <div class="checkbox">
-                        <label>
-                            <input  id="modifyInfo" type="checkbox" style="height: 12px"> 修改基本信息
-                        </label>
+<div class="am-center" style="width:700px">
+    <form class="am-form am-form-horizontal">
+        <div class="am-form-group" style="margin-left: 130px">
+                    <div class="am-input-group" style="width: 555px">
+                          <span class="am-input-group-label">
+                            <input type="checkbox"  id="modifyInfo">
+                          </span>
+                        <input type="text" readonly class="am-form-field"  value="修改基本信息请勾选">
                     </div>
-                </div>
-            </div>
-           <div id="forminfo">
-           </div>
+        </div>
+        <div id="forminfo">
+            <div class="am-form-group"> <label for="doc-ipt-3" class="am-u-sm-2 am-form-label">姓名</label> <div class="am-u-sm-10"><input  readonly="readonly" type="text" id="doc-ipt-3"value="测试"></div></div>
+        </div>
 
-            <div class="am-form-group">
-                <div class="am-u-sm-10 am-u-sm-offset-2">
-                    <input  id="modifyBtn" type="button"  value="确认保存" class="am-btn am-btn-default"/>
-                </div>
+        <div class="am-form-group">
+            <div class="am-u-sm-10 am-u-sm-offset-2">
+                <input  id="modifyBtn" type="button"  value="确认保存" class="am-btn am-btn-default"/>
             </div>
-        </form>
+        </div>
+    </form>
+</div>
 </div>
     </div>
 

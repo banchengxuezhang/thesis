@@ -1,7 +1,12 @@
 var thesisNo="";
+var inspectionStatus=0;
 $(function () {
     loadDataGrid();
     $("#inspectionBtn").click(function () {
+        if(inspectionStatus!=0){
+            $.MsgBox.Alert("提示","很抱歉，由于您的教师已经审核！您无法再修改！");
+            return;
+        }
         let inspectionPass=$("#inspectionPass").val();
         let inspectionNoPass=$("#inspectionNoPass").val();
         if(inspectionPass==null||inspectionPass==""||inspectionNoPass==null||inspectionNoPass==""){
@@ -50,6 +55,7 @@ function  loadDataGrid(){
                 $("#inspectionNoPass").text(gridData.inspectionNoPass);
             }
             thesisNo=gridData.thesisNo;
+            inspectionStatus=gridData.inspectionStatus;
         },
         error: function () {
             $.MsgBox.Alert("错误", "查询课题数据失败！");

@@ -1,4 +1,5 @@
 var thesisNo="";
+var openReportStatus=0;
 $(function () {
    loadDataGrid();
     $("#openReportUrl").click(function () {
@@ -6,6 +7,10 @@ $(function () {
         return false;
     })
    $("#openReportbtn").click(function () {
+       if(openReportStatus!=0){
+           $.MsgBox.Alert("提示","很抱歉，由于您的教师已经审核！您无法再修改！");
+           return;
+       }
        let openReportSummary=$("#openReportSummary").val();
        let  openReportWay=$("#openReportWay").val();
        if(openReportSummary==null||openReportSummary==""||openReportWay==null||openReportWay==""){
@@ -54,6 +59,7 @@ function  loadDataGrid(){
                 $("#openReportUrl").text("附件："+gridData.openReportUrl);
             }
             thesisNo=gridData.thesisNo;
+            openReportStatus=gridData.openReportStatus;
         },
         error: function () {
             $.MsgBox.Alert("错误", "查询课题数据失败！");

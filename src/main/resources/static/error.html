@@ -5,10 +5,12 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <link rel="icon" type="image/png" href="images/error.jpg">
     <link rel="shortcut icon "  href="images/school.png" type="images/png">
+    <link rel="stylesheet" href="amazeui/css/amazeui.min.css" />
     <meta content="MSHTML 6.00.2800.1458" name="GENERATOR"/>
+    <link rel="stylesheet" href="login/css/style.css">
 </head>
-<body topmargin="50" style="text-align:center" >
-<table cellspacing="0" width="600" align="center" border="0" cepadding="0">
+<body topmargin="50" style="text-align:center" class="style-2 am-animation-fade" >
+<table cellspacing="0" width="600" align="center" class="am-animation-slide-right" style="margin-top: 150px;margin-left: 830px" border="0" cepadding="0">
     <tbody>
     <tr colspan="2">
         <td>
@@ -22,45 +24,36 @@
                     </td>
                     <td>
                         <p>
-                            <img height="100" src="images/error.jpg" width="100" border="0" alt="" /></p>
+                            <img height="100" src="images/404.png" width="100" border="0" style="margin-left: -100px" alt="" /></p>
                     </td>
                 </tr>
             </table>
             <hr size="0" />
-            即将为你跳转登录页面
-            <p>
-                如果您已经在地址栏中输入该网页的地址，请确认其拼写正确。<br />
-                返回主站点登录。<br />
-            <p align="right">
-                如果您在浏览本站时，多次出现此错误，请与管理员联系</p>
-            <hr size="0" />
-            <form name="loading" id="loading" runat="server">
-                <p align="center">
-                    <font face="Arial" color="#0066ff" size="2">loading...</font>
-                    <input style="padding-right: 0px; padding-left: 0px; font-weight: bolder; padding-bottom: 0px;
-                            color: #0066ff; border-top-style: none; padding-top: 0px; font-family: Arial;
-                            border-right-style: none; border-left-style: none; background-color: white; border-bottom-style: none"
-                           size="46" name="chart" />
-                    <br />
-                    <input style="border-right: medium none; border-top: medium none; border-left: medium none;
-                            color: #0066ff; border-bottom: medium none; text-align: center" size="47" name="percent" />
+            <div style="color: black">
+                即将为你跳转登录页面
+                <p>
+                    如果您已经在地址栏中输入该网页的地址，请确认其拼写正确。<br />
+            </div>
+                <div class="am-progress am-progress-striped am-progress-sm am-active " style="width: 600px;height: 20px">
+                    <div class="am-progress-bar am-progress-bar-danger "id="chart">
+                <p><span id="span">0</span>%</p>
+                    </div>
+                </div>
 
                     <script type="text/javascript" language="javascript">
-                        var bar=0
-                        var line="││"
-                        var amount="││"
-                        count()
-                        function count(){
-                            bar=bar+2
-                            amount =amount + line
-                            document.loading.chart.value=amount
-                            document.loading.percent.value=bar+"%"
-                            if (bar < 100)
-                            {setTimeout("count()",80);}
-                            else
-                            {window.location ="/thesis/login.html";}   //也可以跳到项目中的指定页面
-                        }
+                        var i =0;
+                        var timer = setInterval(function(){
+                            i=i+5;
+                            document.getElementById("chart").style.width = i + 'px';
+                            document.getElementById("span").innerHTML = parseInt(i*100/1200);
+                            if(i > 1200){
+                                window.location ="./login.html"
+                                clearInterval(timer);
+                            }
+                        },10)
                     </script>
+
+
 
                 </p>
             </form>

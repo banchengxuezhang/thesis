@@ -1,4 +1,5 @@
 var thesisNo="";
+var reviewStatus=0;
 $(function () {
     loadDataGrid();
     $("#reviewUrl").click(function () {
@@ -6,6 +7,10 @@ $(function () {
         return false;
     })
     $("#reviewBtn").click(function () {
+        if(reviewStatus!=0){
+            $.MsgBox.Alert("提示","很抱歉，由于您的教师已经审核！您无法再修改！");
+            return;
+        }
         let  reviewContent=$("#reviewContent").val();
         if(reviewContent==null||reviewContent==""){
             $.MsgBox.Alert("错误","文献综述不能为空！！！");
@@ -49,6 +54,7 @@ function  loadDataGrid(){
                $("#reviewUrl").text("附件："+gridData.reviewUrl);
            }
             thesisNo=gridData.thesisNo;
+            reviewStatus=gridData.reviewStatus;
         },
         error: function () {
             $.MsgBox.Alert("错误", "查询课题数据失败！");

@@ -12,15 +12,10 @@ body {
   background-color: #f0f0f0;
 }
 body.style-2 {
-  background-color: #ffffff;
-  background-size: cover;
-  background-position: -30% center;
-  background-repeat: no-repeat;
-  background-image: url(../images/bg_2.jpg);
-  height: 100%;
+  background: #ffffff url(../images/404bg.png) no-repeat;
 }
 body.style-3 {
-  background: #ffffff url(../images/geometry2.png) repeat;
+  background: #ffffff url(../images/32.png) no-repeat;
 }
 
 a {

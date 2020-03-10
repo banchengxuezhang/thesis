@@ -1,8 +1,13 @@
 var thesisNo="";
 var studentName="";
+var status=0;
 $(function () {
     loadDataGrid();
     $("#noReplyBtn").click(function () {
+        if(status!=0){
+            $.MsgBox.Alert("提示","很抱歉，由于您的教师已经审核！您无法再修改！");
+            return;
+        }
         let signName=$("#signName").val();
         let mobilePhone=$("#mobilePhone").val();
         let reason=$("#reason").val();
@@ -64,6 +69,7 @@ function  loadDataGrid(){
             }
             studentName=gridData.studentName;
             thesisNo=gridData.thesisNo;
+            status=gridData.status;
         },
         error: function () {
             $.MsgBox.Alert("错误", "查询课题数据失败！");

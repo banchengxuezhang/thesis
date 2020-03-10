@@ -19,7 +19,7 @@ public class ReplyScore {
     private String replyPlace;
     private  int replyStatus;
     private String replyOpinion;
-    private double openReportScore;
+    private int openReportScore;
     private  int openReportStatus;
     private String openReportOpinion;
     private int reviewStatus;

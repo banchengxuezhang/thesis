@@ -4,11 +4,9 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>无标题文档</title>
-    <link href="css/style.css" rel="stylesheet" type="text/css"/>
     <link rel="stylesheet" href="amazeui/css/amazeui.min.css" />
     <link rel="stylesheet" href="css/admin.css">
     <link rel="stylesheet" href="css/app.css">
-    <link rel="stylesheet" href="css/style.css"/>
     <script type="text/javascript" src="js/jquery.js"></script>
     <script type="text/javascript" src="common/common.js"></script>
     <script type="text/javascript" src="js/modifyPwd.js"></script>
@@ -21,13 +19,15 @@
     <li class="am-active">修改密码</li>
 </ol>
 <div class="am-panel am-panel-default">
-    <div class="am-panel-bd" style="margin-left: 200px">
-        <ul class="forminfo" id="forminfo" style="margin-top: 30px">
-            <li><label>原密码</label><input id="prePwd" name="" type="password" class="dfinput"/></li>
-            <li><label>新密码</label><input id="newPwd" name="" type="password" class="dfinput"/></li>
-            <li><label>确认密码</label><input id="sureNewPwd" name="" type="password" class="dfinput"/></li>
-        </ul>
-        <li><input id="modifyBtn" name="" type="button" class="btn" value="确认" style="margin-left: 116px;margin-top: 10px;margin-bottom: 30px" /></li>
+    <div class="am-panel-bd">
+        <div class="am-center" style="margin-top: 30px;width: 500px;height: 300px ">
+            <ul class="am-form" id="forminfo" >
+                <li><label>原密码</label><input id="prePwd" name="" type="password" class="dfinput"/></li>
+                <li><label>新密码</label><input id="newPwd" name="" type="password" class="dfinput"/></li>
+                <li><label>确认密码</label><input id="sureNewPwd" name="" type="password" class="dfinput"/></li><br>
+                <input type="submit" id="modifyBtn" style="width: 120px" class="am-btn am-btn-default" readonly value="确认">
+            </ul>
+        </div>
     </div>
 </div>
 </body>

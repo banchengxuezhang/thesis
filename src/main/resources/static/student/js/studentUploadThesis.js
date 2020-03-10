@@ -98,7 +98,7 @@ function loadDataGrid() {
                         <td>${gridData.thesisTitle}</td>
                         <td style="color: red">${status}</td>
                         <td><a style="text-decoration: underline;cursor: pointer" onclick="uploadThesis('${gridData.thesisTitle}','${gridData.thesisNo}')">上传论文</a></td>
-                        <td style="text-decoration:underline"  onclick="downloadThesis('${gridData.thesisNo}')">${fileName}</td>
+                        <td style="text-decoration:underline" onclick="downloadThesis('${gridData.thesisNo}')">${fileName}</td>
                     </tr>
                 `)
             }

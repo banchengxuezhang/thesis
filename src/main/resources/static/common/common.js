@@ -19,14 +19,14 @@
     //生成Html
     var GenerateHtml = function (type, title, msg) {
         var _html = "";
-        _html += '<div id="mb_box"></div><div id="mb_con"><span id="mb_tit">' + title + '</span>';
-        _html += '<a  class="am-close am-close-alt am-close-spin am-icon-times" id="mb_ico"></a><div id="mb_msg">' + msg + '</div><div id="mb_btnbox">';
+        _html += '<div  class="am-panel am-panel-default" id="mb_box"></div><div id="mb_con"><span  id="mb_tit"><div class="am-animation-slide-bottom">' + title + '</div></span>';
+        _html += '<a  class="am-close am-close-alt am-close-spin am-icon-times " id="mb_ico"></a><div class="am-animation-slide-top" id="mb_msg">' + msg + '</div><div id="mb_btnbox">';
         if (type == "alert") {
-            _html += '<input id="mb_btn_ok" type="button" value="确定" />';
+            _html += '<input class="am-btn am-btn-default am-round" id="mb_btn_ok" type="button" value="确定" />';
         }
         if (type == "confirm") {
-            _html += '<input id="mb_btn_ok" type="button" value="确定" />';
-            _html += '<input id="mb_btn_no" type="button" value="取消" />';
+            _html += '<input id="mb_btn_ok" class="am-btn am-btn-default am-round" type="button" value="确定" />';
+            _html += '<input id="mb_btn_no" class="am-btn am-btn-danger am-round" type="button" value="取消" />';
         }
         _html += '</div></div>';
         //必须先将_html添加到body，再设置Css样式
@@ -53,7 +53,7 @@
             width: '400px',
             position: 'fixed',
             backgroundColor: 'White',
-            borderRadius: '15px'
+            borderRadius: '10px'
         });
         $("#mb_tit").css({
             display: 'block',
@@ -61,14 +61,14 @@
             color: '#444',
             padding: '10px 15px',
             backgroundColor: '#DDD',
-            borderRadius: '15px 15px 0 0',
-            borderBottom: '3px solid #009BFE',
+            borderRadius: '10px 10px 0 0',
+            borderBottom: '3px solid black',
             fontWeight: 'bold'
         });
         $("#mb_msg").css({
             padding: '20px',
             lineHeight: '20px',
-            fontSize: '13px'
+            fontSize: '13px',
         });
         $("#mb_ico").css({
             display: 'block',
@@ -90,15 +90,13 @@
         });
         $("#mb_btn_ok,#mb_btn_no").css({
             width: '85px',
-            height: '30px',
-            color: 'white',
-            border: 'none'
+            height: '40px',
         });
-        $("#mb_btn_ok").css({
-            backgroundColor: '#168bbb'
-        });
+        // $("#mb_btn_ok").css({
+        //     backgroundColor: '#168bbb'
+        // });
         $("#mb_btn_no").css({
-            backgroundColor: 'gray',
+           // backgroundColor: 'gray',
             marginLeft: '20px'
         });
         var _widht = document.documentElement.clientWidth; //屏幕宽
@@ -107,7 +105,7 @@
         var boxHeight = $("#mb_con").height();
         //让提示框居中
         $("#mb_con").css({
-            top: (_height - boxHeight) / 2 + "px",
+            top: (_height - boxHeight) / 2+ "px",
             left: (_widht - boxWidth) / 2 + "px"
         });
     }

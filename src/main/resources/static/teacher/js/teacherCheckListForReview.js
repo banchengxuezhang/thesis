@@ -15,7 +15,7 @@ $(function () {
             return;
         }
         let thesisNo = $(checkedObj[0]).val();
-        location.href = "./teacherOperate.html?thesisNo=" + thesisNo;
+        location.href = "./teacherCheckReview.html?thesisNo=" + thesisNo;
     });
 
     $("#firstPage").click(function () {

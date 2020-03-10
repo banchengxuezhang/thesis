@@ -10,6 +10,36 @@ $(function () {
     }
     var thesisNo = theRequest.thesisNo;
     loadInitData(thesisNo);
+    $("#openReportCheckBtn").click(function () {
+     let openReportScore=$("#openReportScore").val();
+     let openReportOpinion=$("#openReportOpinion").val();
+     if(!(/(^[1-9]\d*$)/.test(openReportScore))){
+         $.MsgBox.Alert("错误","请输入合法分数！");
+         return;
+     }
+     if(openReportScore>100||openReportScore<=0){
+         $.MsgBox.Alert("错误","请输入合法分数！");
+         return;
+     }
+
+     let params={
+         thesisNo:thesisNo,
+         openReportScore:openReportScore,
+         openReportOpinion:openReportOpinion
+     }
+        $.ajax({
+            type: "post",
+            url:"/thesis/openReport/teacherCheckOpenReport?"+$.param(params),
+            success:function (data) {
+                $.MsgBox.Alert("提示",data.msg,function () {
+                    window.location.href="./teacherCheckListForOpenReport.html";
+                });
+            },
+            error:function () {
+                $.MsgBox.Alert("错误","提交开题报告分数失败！");
+            }
+        })
+    })
     $("#openReportUrl").click(function () {
         window.location.href="/thesis/file/downloadOpenReport?thesisNo="+thesisNo;
         return false;
@@ -23,7 +53,7 @@ $(function () {
         }
         $.ajax({
             type: "get",
-            url: "/thesis/openReport/getThesisOpenReportByThesisNo?" + $.param(param),
+            url: "/thesis/openReport/getThesisOpenReportAndOtherByThesisNo?" + $.param(param),
             success: function (data) {
                 let gridData=data;
                 if(gridData.openReportSummary==""||gridData.openReportWay==""){
@@ -42,6 +72,10 @@ $(function () {
                 if(gridData.openReportUrl!=""){
                     $("#openReportUrl").text("附件："+gridData.openReportUrl);
                 }
+                if(gridData.openReportScore!=0)
+                $("#openReportScore").val(gridData.openReportScore);
+                if(gridData.openReportOpinion!="")
+                $("#openReportOpinion").text(gridData.openReportOpinion);
             },
             error: function () {
                 $.MsgBox.Alert("错误", "初始化开题报告数据失败！");

@@ -19,7 +19,7 @@
 <script type="text/javascript" src="js/main.js"></script>
 </head>
 
-<body data-type="index">
+<body data-type="index" style="overflow-x:hidden">
 
 	<header class="am-topbar am-topbar-inverse admin-header">
 		<div class="am-topbar-brand">
@@ -66,9 +66,9 @@
 
 	<div class="tpl-page-container tpl-page-header-fixed">
 
-		<div class="tpl-left-nav tpl-left-nav-hover">
-			<div class="tpl-left-nav-title">功能列表</div>
-			<div class="tpl-left-nav-list">
+		<div class="tpl-left-nav tpl-left-nav-hover am-animation-slide-left">
+			<div class="tpl-left-nav-title  am-animation-slide-left">功能列表</div>
+			<div class="tpl-left-nav-list am-animation-slide-left">
 				<ul class="tpl-left-nav-menu" id="list">
 					<li class="tpl-left-nav-item"><a href="content.html"
 						class="nav-link active link_a" target="iframe_a"> <i class="am-icon-home"></i> <span>首页</span>
@@ -117,13 +117,13 @@
 		</div>
 		<!--begin  -->
 		<div class="tpl-content-wrapper">
-		<iframe id="iframepage" name="iframe_a" src="content.html" style="width: 100%;height: 850px;" seamless></iframe>
+		<iframe id="iframepage" name="iframe_a" src="content.html" class="am-animation-slide-right" style="width: 100%;height: 850px;" seamless></iframe>
 		</div>
 		<!--end  -->
 
 	</div>
 	<div>
-		<div class="am-g" style="position: fixed; bottom: 0;">
+		<div class="am-g am-animation-slide-bottom" style="position: fixed; bottom: 0;">
 			<div class="am-u-lg-12">
 				<footer data-am-widget="footer" class="am-footer am-footer-default"
 					style="border-radius: 6px;">

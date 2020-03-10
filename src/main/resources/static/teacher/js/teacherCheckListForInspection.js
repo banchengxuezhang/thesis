@@ -4,7 +4,7 @@ var totalPage;
 $(function () {
     loadDataGrid();
 
-    $("#operateBtn").click(function () {
+    $("#operateInspectionBtn").click(function () {
         let checkedObj = $("input[name='thesis']:checked");
         if (checkedObj.length <= 0) {
             $.MsgBox.Alert("提示", "请选择一条数据进行操作！");
@@ -15,7 +15,7 @@ $(function () {
             return;
         }
         let thesisNo = $(checkedObj[0]).val();
-        location.href = "./teacherOperate.html?thesisNo=" + thesisNo;
+        location.href = "./teacherCheckInspection.html?thesisNo=" + thesisNo;
     });
 
     $("#firstPage").click(function () {
