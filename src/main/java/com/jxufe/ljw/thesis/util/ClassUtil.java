@@ -85,6 +85,15 @@ public class ClassUtil {
         return map;
     }
     //上传文件
+
+    /**
+     *
+     * @param multipartFile
+     * @param url 原先的文件 url 不存在可为""
+     * @param sysPath 文件路径
+     * @param fileName 文件名
+     * @return
+     */
     public  static Boolean uploadFile(MultipartFile multipartFile,String url,String sysPath,String fileName){
         if (multipartFile.isEmpty()) {
             return false;
@@ -119,7 +128,14 @@ public class ClassUtil {
         }
         return true;
     }
-    //下载文件
+
+    /**
+     *
+     * @param response
+     * @param path 文件路径
+     * @param filename 文件名
+     * @param s 出错日志
+     */
     public  static void downloadFile(HttpServletResponse response, String path, String filename, String s) {
         try (
                 InputStream inputStream = new FileInputStream(new File(path, filename));

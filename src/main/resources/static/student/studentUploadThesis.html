@@ -17,7 +17,7 @@
 </head>
 
 
-<body>
+<body class="am-animation-slide-right">
 
 <div class="tpl-content-page-title" style="margin-bottom: 10px;">
     上传论文</div>
@@ -68,6 +68,17 @@
     </div>
 </div>
     </div>
+    <script>
+        $(function() {
+            $('#doc-form-file').on('change', function() {
+                var fileNames = '';
+                $.each(this.files, function() {
+                    fileNames += '<span style="text-decoration: underline;font-size: 15px;font-style: italic">' + this.name + '</span> ';
+                });
+                $('#file-list').html(fileNames);
+            });
+        });
+    </script>
 </div>
 <script type="text/javascript">
     $('.tablelist tbody tr:odd').addClass('odd');

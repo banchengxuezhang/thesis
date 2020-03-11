@@ -1,10 +1,67 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.jxufe.ljw.thesis.dao.NoticeDao">
+    <insert id="addNotice">
+        insert into t_notice(notice_id,notice_title,notice_url,create_time,update_time,notice_status,notice_belong)
+        values (#{noticeId},#{noticeTitle},#{noticeUrl},#{createTime},#{updateTime},#{noticeStatus},#{noticeBelong})
+    </insert>
+    <update id="updateNotice">
+        update t_notice
+        <set>
+            <if test="noticeTitle!=null and noticeTitle!=''">
+                notice_title=#{noticeTitle},
+            </if>
+            <if test="noticeUrl!=null and noticeUrl!=''">
+                notice_url=#{noticeUrl},
+            </if>
+            <if test="noticeStatus!=0">
+                notice_status=#{noticeStatus},
+            </if>
+            <if test="noticeBelong!='' and noticeBelong!=null">
+                notice_belong=#{noticeBelong},
+            </if>
+            <if test="updateTime!=null">
+                update_time=#{updateTime},
+            </if>
+        </set>
+        where notice_id=#{noticeId}
+    </update>
+    <delete id="deleteNoticeById">
+        delete from t_notice
+        where notice_id=#{noticeId}
+    </delete>
 
 
     <select id="getAllNoticeList" resultType="com.jxufe.ljw.thesis.bean.Notice">
         select *
         from t_notice
+        <if test="updateTime!=null">
+            order by update_time DESC
+        </if>
+        <if test="updateTime==null">
+            order by create_time DESC
+        </if>
+    </select>
+    <select id="getNoticeListByUserType" resultType="com.jxufe.ljw.thesis.bean.Notice">
+        select *
+        from t_notice
+        where notice_belong=#{noticeBelong} or notice_belong='1' and notice_status=1
+        <if test="updateTime!=null">
+            order by update_time DESC
+        </if>
+        <if test="updateTime==null">
+            order by create_time DESC
+        </if>
+    </select>
+    <select id="getNoticeByNoticeId" resultType="com.jxufe.ljw.thesis.bean.Notice">
+         select *
+        from t_notice
+        where notice_id=#{noticeId}
+        <if test="updateTime!=null">
+            order by update_time DESC
+        </if>
+        <if test="updateTime==null">
+            order by create_time DESC
+        </if>
     </select>
 </mapper>

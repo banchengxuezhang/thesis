@@ -3,7 +3,8 @@
 <mapper namespace="com.jxufe.ljw.thesis.dao.InitDao">
     <update id="updateInitInfo">
         update t_init
-        set student_num=#{studentNum},teacher_num=#{teacherNum},teacher_give=#{teacherGive}
+        set student_num=#{studentNum},teacher_num=#{teacherNum},teacher_give=#{teacherGive},
+        notes_for_teacher=#{notesForTeacher},notes_for_student=#{notesForStudent},notes_for_manager=#{notesForManager}
         where init_id=#{initId}
     </update>
     <select id="getInitInfo" resultType="com.jxufe.ljw.thesis.bean.Init">

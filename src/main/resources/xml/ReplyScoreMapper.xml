@@ -16,7 +16,7 @@
             <if test="thesisScoreList!=null and thesisScoreList!=''">
                 thesis_score_list=#{thesisScoreList},
             </if>
-            <if test="replyDate!=null and replyDate!=''">
+            <if test="replyDate!=null">
                 reply_date=#{replyDate},
             </if>
             <if test="replyPlace!=null and replyPlace!=''">

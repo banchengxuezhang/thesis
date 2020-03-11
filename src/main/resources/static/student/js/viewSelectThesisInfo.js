@@ -61,6 +61,12 @@ function loadData() {
             success: function (data) {
                 for (let i = 0; i < data.data.length; i++) {
                     let gridData = (data.data)[i];
+                    let status=gridData.opinionFlagStr;
+                    if(status=="同意"){
+                        status="<td style=\"color:limegreen;\">已同意</td>";
+                    }else {
+                        status="<td style=\"color:red;\">"+status+"</td>";
+                    }
                     $("#data").append(`
                     <tr>
                         <td>${i + 1}</td>
@@ -70,7 +76,7 @@ function loadData() {
                         <td>${gridData.teacherNo}</td>
                         <td>${gridData.teacherName}</td>
                         <td>${gridData.thesisTitle}</td>
-                        <td style="color: red">${gridData.opinionFlagStr}</td>
+                        ${status}
                         <td>${gridData.teacherOpinion}</td>
                     </tr>
                 `)
@@ -106,17 +112,17 @@ function loadOpenReportData() {
                     score=gridData.openReportScore;
                 }
                 if(gridData.openReportStatus==0){
-                    status="待审核";
+                    status="<td style=\"color: red\">待审核</td>";
                 }
                 if(gridData.openReportStatus==1){
-                    status="已通过";
+                    status="<td style=\"color:limegreen;\">已通过</td>";
                 }
                 if(gridData.openReportStatus==2){
-                    status="未通过";
+                    status="<td style=\"color: red\">未通过</td>";
                 }
             if(gridData.openReportSummary==""||gridData.openReportWay=="") {
                 score = "待提交";
-                status="待提交";
+                status="<td style=\"color: red\">待提交</td>";
             }
                 $("#openReportData").append(`
                     <tr>
@@ -127,7 +133,7 @@ function loadOpenReportData() {
                         <td>${gridData.teacherName}</td>
                         <td>${gridData.thesisTitle}</td>
                         <td>${gridData.openReportUrl}</td>
-                        <td style="color: red">${status}</td>
+                        ${status}
                         <td>${score}</td>
                         <td>${gridData.openReportOpinion}</td>
                     </tr>
@@ -155,16 +161,16 @@ function loadReviewData() {
             let gridData = data;
             let status="";
             if(gridData.reviewStatus==0){
-                status="待审核";
+                status="<td style=\"color: red\">待审核</td>";
             }
             if(gridData.reviewStatus==1){
-                status="已通过";
+                status="<td style=\"color:limegreen;\">已通过</td>";
             }
             if(gridData.reviewStatus==2){
-                status="未通过";
+                status="<td style=\"color: red\">未通过</td>";
             }
             if(gridData.reviewContent==""){
-                status="待提交";
+                status="<td style=\"color: red\">待提交</td>";
             }
             $("#reviewData").append(`
                     <tr>
@@ -175,7 +181,7 @@ function loadReviewData() {
                         <td>${gridData.teacherName}</td>
                         <td>${gridData.thesisTitle}</td>
                         <td>${gridData.reviewUrl}</td>
-                        <td style="color: red">${status}</td>
+                         ${status}
                         <td>${gridData.reviewOpinion}</td>
                     </tr>
                 `)
@@ -202,16 +208,16 @@ function loadInspectionData() {
             let gridData = data;
             let status="";
             if(gridData.inspectionStatus==0){
-                status="待审核";
+                status="<td style=\"color: red\">待审核</td>";
             }
             if(gridData.inspectionStatus==1){
-                status="已通过";
+                status="<td style=\"color:limegreen;\">已通过</td>";
             }
             if(gridData.inspectionStatus==2){
-                status="未通过";
+                status="<td style=\"color: red\">未通过</td>";
             }
             if(gridData.inspectionPass==""){
-                status="待提交";
+                status="<td style=\"color: red\">待提交</td>";
             }
             $("#inspectionData").append(`
                     <tr>
@@ -221,7 +227,7 @@ function loadInspectionData() {
                         <td>${gridData.teacherNo}</td>
                         <td>${gridData.teacherName}</td>
                         <td>${gridData.thesisTitle}</td>
-                        <td style="color: red">${status}</td>
+                        ${status}
                         <td>${gridData.inspectionOpinion}</td>
                     </tr>
                 `)
@@ -248,16 +254,16 @@ function loadNoReplyData() {
             let gridData = data;
             let status=""
             if(gridData.status==0){
-                status="待审核";
+                status="<td style=\"color: red\">待审核</td>";
             }
             if(gridData.status==1){
-                status="已通过";
+                status="<td style=\"color:limegreen;\">已通过</td>";
             }
             if(gridData.status==2){
-                status="未通过";
+                status="<td style=\"color: red\">未通过</td>";
             }
             if(gridData.reason==""){
-                status="未提交申请";
+                status="<td style=\"color: red\">未提交申请</td>";
             }
             $("#noReplyData").append(`
                     <tr>
@@ -267,7 +273,7 @@ function loadNoReplyData() {
                         <td>${gridData.teacherNo}</td>
                         <td>${gridData.teacherName}</td>
                         <td>${gridData.thesisTitle}</td>
-                        <td style="color: red">${status}</td>
+                        ${status}
                         <td>${gridData.opinion}</td>
                     </tr>
                 `)
@@ -295,14 +301,14 @@ function loadReplyData() {
             let status="";
             let score=gridData.thesisScoreList;
             if(gridData.replyStatus==0){
-                status="未答辩";
+                status="<td style=\"color: red\">未答辩</td>";
                 score="未答辩"
             }
             if(gridData.replyStatus==1){
-                status="已通过";
+                status="<td style=\"color:limegreen;\">已通过</td>";
             }
             if(gridData.replyStatus==2){
-                status="未通过";
+                status="<td style=\"color: red\">未通过</td>";
             }
             let date=gridData.replyDate;
             if(gridData.replyDate==null){
@@ -316,7 +322,7 @@ function loadReplyData() {
                         <td>${gridData.teacherNo}</td>
                         <td>${gridData.teacherName}</td>
                         <td>${gridData.thesisTitle}</td>
-                        <td style="color: red">${status}</td>
+                        ${status} 
                         <td>${gridData.replyPlace}</td>
                         <td>${date}</td>
                         <td>${gridData.teacherList}</td>

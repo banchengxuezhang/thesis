@@ -1,18 +1,21 @@
 package com.jxufe.ljw.thesis.controller;
 
 import com.jxufe.ljw.thesis.bean.*;
+import com.jxufe.ljw.thesis.enumeration.PublicData;
 import com.jxufe.ljw.thesis.enumeration.UserType;
 import com.jxufe.ljw.thesis.service.*;
+import com.jxufe.ljw.thesis.util.ClassUtil;
 import com.jxufe.ljw.thesis.vo.ResultUtil;
 import org.apache.ibatis.annotations.Mapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
@@ -24,6 +27,8 @@ import java.util.*;
 @RequestMapping("/notice")
 public class NoticeController {
     private static final Logger logger= LoggerFactory.getLogger(NoticeController.class);
+    @Autowired
+    private NoticeService noticeService;
     @Autowired
     private InitService initService;
     @Autowired
@@ -99,13 +104,82 @@ public class NoticeController {
                 text2=String.valueOf(commonService.getNoStudentTeacherNum());
                 noteList= Arrays.asList(init.getNotesForManager().split("\\|\\|"));
             }
+            int belong=user.getUserType();
+            if(belong==1){
+                belong=2;
+            }
             map.put("text1",text1);
             map.put("text2",text2);
             map.put("noteList",noteList);
+            map.put("noticeList",noticeService.getNoticeListByUserType(String.valueOf(belong)));
             logger.info("查看map"+map);
             return ResultUtil.success(map);
         }catch (Exception e){
             return ResultUtil.error("加载首页信息异常！");
         }
+    }
+    @PostMapping("/publishNotice")
+    public Object publishNotice(Notice notice) {
+        try {
+            SimpleDateFormat sdf =   new SimpleDateFormat( " yyyy-MM-dd HH:mm:ss " );
+            String nowTime = sdf.format(new Date());
+            Date time = sdf.parse( nowTime );
+            notice.setCreateTime(time);
+            notice.setNoticeId("NOTICE"+System.currentTimeMillis());
+            MultipartFile file=notice.getFile();
+            String path=PublicData.path+"\\"+"notice"+"\\"+notice.getNoticeId();
+            String fileName=file.getOriginalFilename();
+            ClassUtil.uploadFile(file,"",path,fileName);
+            notice.setNoticeUrl(file.getOriginalFilename());
+            noticeService.addNotice((Notice) ClassUtil.checkNull(notice));
+            return ResultUtil.success("添加公告成功！");
+        }catch (Exception e){
+            return ResultUtil.success("添加公告失败!");
+        }
+
+    }
+    @PostMapping("/updateNotice")
+    public Object updateNotice(Notice notice) {
+        try {
+            MultipartFile file=notice.getFile();
+            if(file!=null){
+                Notice notice1=noticeService.getNoticeByNoticeId(notice.getNoticeId());
+                String url=notice1.getNoticeUrl();
+                ClassUtil.uploadFile(file,url,PublicData.path+"\\"+"notice"+"\\"+notice.getNoticeId(),file.getOriginalFilename());
+                notice.setNoticeUrl(file.getOriginalFilename());
+            }
+            SimpleDateFormat sdf =   new SimpleDateFormat( " yyyy-MM-dd HH:mm:ss " );
+            String nowTime = sdf.format(new Date());
+            Date time = sdf.parse( nowTime );
+            notice.setUpdateTime(time);
+            noticeService.updateNotice(notice);
+            return ResultUtil.success("修改公告成功！");
+        }catch (Exception e){
+            logger.info("查看修改公告失败异常:"+e);
+            return ResultUtil.success("修改公告失败！");
+        }
+
+    }
+    @GetMapping("/getNoticeByUserType")
+    public Object getNoticeByUserType(HttpServletRequest request){
+        User user= (User) request.getSession().getAttribute("user");
+        List<Notice> notices=noticeService.getNoticeListByUserType(String.valueOf(user.getUserType()));
+        return notices;
+    }
+    @GetMapping("/getAllNoticeList")
+    public Object getAllNoticeList(int page,int rows){
+        return noticeService.getAllNoticeList(page,rows);
+    }
+    @DeleteMapping("/deleteNoticesByIds")
+    public Object deleteNoticesByIds(String[] noticeIds){
+        for (String noticeId:noticeIds
+             ) {
+           noticeService.deleteNoticeById(noticeId);
+        }
+        return ResultUtil.success("删除成功！！！");
+    }
+    @GetMapping("/getNoticeByNoticeId")
+    public Object getNoticeByNoticeId(String noticeId){
+        return noticeService.getNoticeByNoticeId(noticeId);
     }
 }

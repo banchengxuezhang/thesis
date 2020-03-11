@@ -19,7 +19,7 @@ import java.util.Random;
 public class VerifyCodeUtils{
 
     //使用到Algerian字体，系统里没有的话需要安装字体，字体只显示大写，去掉了1,0,i,o几个容易混淆的字符
-    public static final String VERIFY_CODES = "23456789ABCDEFGHJKLMNPQRSTUVWXYZ";
+    public static final String VERIFY_CODES = "23456789abcdefghijkmnpqrstuvxwyzABCDEFGHJKLMNPQRSTUVWXYZ";
     private static Random random = new Random();
 
 
@@ -131,11 +131,11 @@ public class VerifyCodeUtils{
         }
         Arrays.sort(fractions);
 
-        g2.setColor(Color.GRAY);// 设置边框色
+        g2.setColor(Color.white);// 设置边框色
         g2.fillRect(0, 0, w, h);
 
         Color c = getRandColor(200, 250);
-        g2.setColor(c);// 设置背景色
+        g2.setColor(Color.white);// 设置背景色
         g2.fillRect(0, 2, w, h-4);
 
         //绘制干扰线

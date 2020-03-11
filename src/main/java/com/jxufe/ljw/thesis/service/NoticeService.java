@@ -10,5 +10,10 @@ import java.util.List;
  * @Date: 2020/3/4 22:15
  */
 public interface NoticeService {
-      List<Notice> getAllNoticeList();
+      Object getAllNoticeList(int page,int rows);
+      int addNotice(Notice notice);
+      Notice getNoticeByNoticeId(String noticeId);
+      int deleteNoticeById(String noticeId);
+      int updateNotice(Notice notice);
+      List<Notice> getNoticeListByUserType(String noticeBelong);
 }

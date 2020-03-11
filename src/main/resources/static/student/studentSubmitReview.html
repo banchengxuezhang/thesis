@@ -11,7 +11,7 @@
     <script type="text/javascript" src="../common/common.js"></script>
     <script type="text/javascript" src="js/studentSubmitReview.js"></script>
 </head>
-<body style="margin-left: 10px;">
+<body class="am-animation-slide-right" style="margin-left: 10px;margin-right: 10px">
 <div id="ref_page" class="am-g">
 
     <div class="tpl-content-page-title" style="margin-bottom: 10px;">填写文献综述</div>
@@ -25,7 +25,7 @@
                         <textarea id="reviewContent"  style="width: 100%;height:435px" placeholder="请在此处填写你的文献综诉！"></textarea>
                     </div>
                 </div>
-        <footer class="am-panel-footer" style="height: 120px">
+        <footer class="am-panel-footer am-form" style="height: 140px">
             <i id="reviewUrl" style="text-decoration:underline"></i>
             <div class="am-form-group am-form-file" style="margin-top: 10px">
                 <button type="button" class="am-btn am-btn-default am-btn-sm">
@@ -44,7 +44,9 @@
                     });
                 });
             </script>
-          <button id="reviewBtn" type="submit" class="am-btn am-btn-primary am-align-right">提交</button>
+         <div class="am-form-group">
+             <button id="reviewBtn" type="submit" class="am-btn am-btn-primary am-align-right">提交</button>
+         </div>
 
         </footer>
 

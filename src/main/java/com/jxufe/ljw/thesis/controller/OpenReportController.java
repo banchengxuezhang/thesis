@@ -137,12 +137,12 @@ public class OpenReportController {
                openReport.setThesisNo(openReportVo.getThesisNo());
                openReport.setReviewContent(reviewContent);
                openReport.setReviewUrl(fileName);
-               openReportService.addOpenReport(openReport);
+               openReportService.addOpenReport((OpenReport) ClassUtil.checkNull(openReport));
                return ResultUtil.success("提交文献综述成功！！！");
            }
            openReport.setReviewContent(reviewContent);
            openReport.setReviewUrl(fileName);
-           openReportService.updateOpenReport(openReport);
+           openReportService.addOpenReport((OpenReport) ClassUtil.checkNull(openReport));
            return ResultUtil.success("提交文献综述成功！！！");
        }
        return ResultUtil.success("提交文献综述失败！！！");

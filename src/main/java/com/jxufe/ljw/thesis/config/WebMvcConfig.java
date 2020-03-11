@@ -36,7 +36,6 @@ public class WebMvcConfig implements WebMvcConfigurer {
                 .excludePathPatterns("/v2/api-docs", "/swagger-resources", "/v2/api-docs-ext")
                 .excludePathPatterns("/login.html")
                 .excludePathPatterns("/forget.html")
-                .excludePathPatterns("/sign-up.html")
                 .excludePathPatterns("/login/**")
                 .excludePathPatterns("/amazeui/**")
                 .excludePathPatterns("/error.html")

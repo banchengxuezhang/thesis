@@ -4,7 +4,6 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>无标题文档</title>
-    <link href="../css/style.css" rel="stylesheet" type="text/css"/>
     <link rel="stylesheet" href="../amazeui/css/amazeui.min.css" />
     <link rel="stylesheet" href="../css/admin.css">
     <link rel="stylesheet" href="../css/app.css">
@@ -12,29 +11,69 @@
     <script language="JavaScript" src="../common/common.js"></script>
     <script type="text/javascript" src="js/manageSetData.js"></script>
 </head>
-<body>
+<body class="am-animation-slide-right">
 
 <div class="tpl-content-page-title" style="margin-bottom: 10px;">
-    内容概要</div>
+    设置数据</div>
 <ol class="am-breadcrumb">
     <li><a href="../content.html" class="am-icon-home">首页</a></li>
-    <li class="am-active">上传任务</li>
+    <li class="am-active">设置数据</li>
 </ol>
 <div class="am-panel am-panel-default"
 >
     <div class="am-panel-bd">
-<div class="formbody">
-
-    <div class="formtitle"><span>设置数据</span></div>
-
-    <li style="margin-bottom: 20px"><cite><input name="" id="modifyInfo" type="checkbox" value=""/>修改数据</cite></li>
-    <ul class="forminfo" id="forminfo">
-        <li><label>学生最多选题数</label><input id="studentNum" type="text" readonly="readonly" value="" class="dfinput"/></li>
-        <li><label>教师最多出题数</label><input id="teacherGive" type="text" readonly="readonly" value="" class="dfinput" /></li>
-        <li><label>教师最多带学生数</label><input id="teacherNum" type="text" readonly="readonly" value="" class="dfinput" /></li>
-    </ul>
-    <li><label>&nbsp;</label><input id="modifyBtn" name="" type="button" class="btn" value="确认保存"/></li>
-</div>
+        <div class="am-center" style="margin-top: 30px;width: 1000px">
+            <ul class="am-form am-form-horizontal" id="forminfo" >
+                <div class="am-input-group" style="width: 805px;margin-bottom: 20px;margin-left: 180px">
+                          <span class="am-input-group-label">
+                            <input type="checkbox"  id="modifyInfo">
+                          </span>
+                    <input type="text" readonly class="am-form-field"  value="修改数据请勾选">
+                </div>
+               <li> <div class="am-form-group">
+                    <label for="studentNum" class="am-u-sm-2 am-form-label">学生最多选题数</label>
+                    <div class="am-u-sm-10">
+                        <input id="studentNum" readonly="readonly"name="" type="text"/>
+                    </div>
+                </div>
+               </li>
+                <div class="am-form-group">
+                    <label for="teacherGive" class="am-u-sm-2 am-form-label">教师最多出题数</label>
+                    <div class="am-u-sm-10">
+                        <input id="teacherGive" name="" readonly="readonly"type="text"/>
+                    </div>
+                </div>
+                <div class="am-form-group">
+                    <label for="teacherNum" class="am-u-sm-2 am-form-label">教师最多学生数</label>
+                    <div class="am-u-sm-10">
+                        <input id="teacherNum" name="" readonly="readonly"type="text"/>
+                    </div>
+                </div>
+                <div class="am-form-group">
+                    <label for="teacherNotes" class="am-u-sm-2 am-form-label">教师注意事项</label>
+                    <div class="am-u-sm-10">
+                        <textarea id="teacherNotes" readonly="readonly" style="height: 146px"name="" type="text"></textarea>
+                    </div>
+                </div>
+                <div class="am-form-group">
+                    <label for="studentNotes" class="am-u-sm-2 am-form-label">学生注意事项</label>
+                    <div class="am-u-sm-10">
+                        <textarea id="studentNotes" style="height: 117px" readonly="readonly" name="" type="text"></textarea>
+                    </div>
+                </div>
+                <div class="am-form-group">
+                <label for="managerNotes" class="am-u-sm-2 am-form-label">管理员注意事项</label>
+                <div class="am-u-sm-10">
+                    <textarea id="managerNotes" readonly="readonly" name=""  type="text"></textarea>
+                </div>
+        </div>
+                <div class="am-form-group">
+                    <div class="am-u-sm-10 am-u-sm-offset-2">
+                        <input  id="modifyBtn" type="button"  value="确认保存" class="am-btn am-btn-default"/>
+                    </div>
+                </div>
+            </ul>
+        </div>
     </div>
 </div>
 </body>

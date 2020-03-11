@@ -1,30 +1,11 @@
 
 <!DOCTYPE html>
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
 	<head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>毕业论文管理系统</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta name="description" content="Free HTML5 Template by FreeHTML5.co" />
-	<meta name="keywords" content="free html5, free template, free bootstrap, html5, css3, mobile first, responsive" />
-	
 
-  
 
-  	<!-- Facebook and Twitter integration -->
-	<meta property="og:title" content=""/>
-	<meta property="og:image" content=""/>
-	<meta property="og:url" content=""/>
-	<meta property="og:site_name" content=""/>
-	<meta property="og:description" content=""/>
-	<meta name="twitter:title" content="" />
-	<meta name="twitter:image" content="" />
-	<meta name="twitter:url" content="" />
-	<meta name="twitter:card" content="" />
 
 		<!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
 		<link rel="shortcut icon "  href="images/school.png" type="images/png">
@@ -55,33 +36,33 @@
 					
 
 					<!-- Start Sign In Form -->
-					<form action="#" class="fh5co-form animate-box" data-animate-effect="fadeInRight">
+					<form action="#" class="fh5co-form animate-box" data-animate-effect="fadeInRight" >
 						<h2>找回密码</h2>
 						<div class="form-group">
-							<div class="alert alert-success" role="alert">请输入用户账号进行邮件验证！</div>
+							<div class="alert alert-success" style="font-family: normal;font-weight: 500 "role="alert">请输入用户账号进行邮件验证！</div>
 						</div>
 						<div class="form-group">
 							<label for="userName" class="sr-only">userName</label>
-							<input type="text" class="form-control" id="userName" placeholder="账号/学号/工号" autocomplete="off">
+							<input type="text" style="font-family: normal;color:black;font-weight: 500 " class="form-control" id="userName" placeholder="账号/学号/工号" autocomplete="off">
 						</div>
 						<div class="form-group">
 							<div class="am-form-group">
-								<label class="am-radio-inline">
-									<input type="radio"  value="3"  name="role" checked="checked"> 学生
+								<label class="am-radio-inline" style="font-family: normal;font-weight: 500 ">
+									<input type="radio"  value="3"  name="role" checked="checked">学生
 								</label>
-								<label class="am-radio-inline">
-									<input type="radio"  value="2"  name="role" style="margin-left: 23px;">教师
+								<label class="am-radio-inline" style="font-family: normal;font-weight: 500 ">
+									<input type="radio"  value="2"  name="role" style="margin-left: 23px;">&nbsp;&nbsp;教师
 								</label>
-								<label class="am-radio-inline">
-									<input type="radio" value="1"  name="role" style="margin-left: 23px;"> 管理员
+								<label class="am-radio-inline" style="font-family: normal;font-weight: 500 ">
+									<input type="radio" value="1"  name="role" style="margin-left: 23px;">&nbsp;&nbsp;管理员
 								</label>
 							</div>
 						</div>
 						<div class="form-group">
-							<p><a href="login.html" style="text-decoration: underline">想起密码?</a></p>
+							<p><a href="login.html" style="font-family: normal;font-weight: 600 ;text-decoration: underline">返回登录?</a></p>
 						</div>
 						<div class="form-group">
-							<input readonly  value="重置密码"  id="forgetpwd" class="btn  am-center btn-primary am-animation-scale-up">
+							<input style="font-family: normal;font-weight: 500 " readonly  value="重置密码"  id="forgetpwd" class="btn  am-center btn-primary am-animation-scale-up">
 						</div>
 					</form>
 					<!-- END Sign In Form -->
@@ -123,7 +104,7 @@
 				if(userAccount==""||userType==""){
 					$.MsgBox.Alert("提示","未输入待重置账号或未选择角色！！！");
 				}else {
-					$.MsgBox.Alert("提示","请确认您重置的账号为："+userAccount+"\n，取消请关闭！！！",function () {
+					$.MsgBox.Confirm("提示","请确认您重置的账号为："+userAccount+"\n",function () {
 						let param = {
 							'userType':userType,
 							'userAccount':userAccount,
@@ -144,7 +125,10 @@
 								$.MsgBox.Alert("错误", "登录出错！");
 							}
 						})
-					});
+					})
+					// $.MsgBox.Alert("提示","请确认您重置的账号为："+userAccount+"\n，取消请关闭！！！",function () {
+					//
+					// });
 
 				}
 
