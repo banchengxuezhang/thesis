@@ -80,5 +80,6 @@ public class UserInfoDetail {
     private String teacherPhone;
 
     private String teacherEmail ;
+    private String groupName;
     private String typeFlag;
 }

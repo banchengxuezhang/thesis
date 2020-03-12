@@ -1,6 +1,7 @@
 var page = 1;
 const rows = 5;
 var totalPage;
+var thesisIds=new Array();
 $(function () {
     loadDataGrid();
 
@@ -23,29 +24,23 @@ $(function () {
     });
 
     $("#modifyBtn").click(function () {
-        let checkedObj = $("input[name='thesis']:checked");
-        if (checkedObj.length <= 0) {
+        if (thesisIds.length <= 0) {
             $.MsgBox.Alert("提示", "请选择一条数据进行操作！");
             return;
         }
-        if (checkedObj.length > 1) {
+        if (thesisIds.length > 1) {
             $.MsgBox.Alert("提示", "只能选择一条数据进行操作！");
             return;
         }
-        let thesisId = $(checkedObj[0]).val();
+        let thesisId = thesisIds[0];
         location.href = "/thesis/teacher/modifyThesis.html?thesisId=" + thesisId;
     });
 
     $("#deleteBtn").click(function () {
-        let checkedObj = $("input[name='thesis']:checked");
-        if (checkedObj.length <= 0) {
+        if (thesisIds.length <= 0) {
             $.MsgBox.Alert("提示", "请选择至少一条数据进行操作！");
             return;
         }
-        let thesisIds = new Array();
-        checkedObj.each(function (i, item) {
-            thesisIds.push(item.value);
-        });
         $.MsgBox.Alert("提示","确定删除所选择的论文信息？",function () {
             $.ajax({
                 type: "delete",
@@ -130,14 +125,21 @@ function loadDataGrid() {
         type: "get",
         url: "/thesis/getThesisInfoByTeacherNo?" + $.param(pageInfo),
         success: function (data) {
+            let s="";
             totalPage = Math.ceil(data.total / 5);
             $("#totalData").html(data.total);
             $("#currentPage").html(page + "/" + totalPage);
             for (let i = 0; i < data.rows.length; i++) {
                 let gridData = (data.rows)[i];
+                if(thesisIds.indexOf(gridData.thesisId)!=-1){
+                    s="<td><input name=\"thesisId\" checked=\"checked\" onchange='changeIds()' type=\"checkbox\" value=\""+gridData.thesisId+"\"/></td>"
+                }
+                else {
+                    s="<td><input name=\"thesisId\" onchange='changeIds()' type=\"checkbox\" value=\""+gridData.thesisId+"\"/></td>"
+                }
                 $("#data").append(`
                     <tr>
-                        <td><input name="thesis" type="checkbox" value="${gridData.thesisId}"/></td>
+                        ${s}
                         <td>${(page-1)*rows+i + 1}</td>
                         <td>${gridData.thesisTitle}</td>
                         <td>${gridData.noticeInfo}</td>
@@ -149,4 +151,22 @@ function loadDataGrid() {
             $.MsgBox.Alert("错误", "加载论文题目信息错误！");
         }
     })
+}
+function changeIds(){
+    var oneches=document.getElementsByName("thesisId");
+    for(var i=0;i<oneches.length;i++){
+        let n=thesisIds.indexOf(oneches[i].value);
+        if(oneches[i].checked==true){
+            //避免重复累计id （不含该id时进行累加）
+            if(n==-1){
+                thesisIds.push(oneches[i].value);
+            }
+        }
+        if(oneches[i].checked==false){
+            //取消复选框时 含有该id时将id从全局变量中去除
+            if(n!=-1){
+                thesisIds.splice(n,1);
+            }
+        }
+    }
 }

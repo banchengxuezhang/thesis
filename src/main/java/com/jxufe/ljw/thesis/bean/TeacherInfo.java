@@ -20,4 +20,5 @@ public class TeacherInfo {
     private String teacherPhone;
 
     private String teacherEmail ;
+    private String groupName;
 }

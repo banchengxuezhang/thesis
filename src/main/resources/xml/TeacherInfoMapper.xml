@@ -2,8 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.jxufe.ljw.thesis.dao.TeacherInfoDao">
     <insert id="addTeacherInfo">
-        insert into t_teacher_info(teacher_id,user_id,teacher_no,teacher_name,teacher_title,teacher_education,teacher_phone,teacher_email)
-        values (#{teacherId},#{userId},#{teacherNo},#{teacherName},#{teacherTitle},#{teacherEducation},#{teacherPhone},#{teacherEmail})
+        insert into t_teacher_info(teacher_id,user_id,teacher_no,teacher_name,teacher_title,teacher_education,teacher_phone,teacher_email,group_name)
+        values (#{teacherId},#{userId},#{teacherNo},#{teacherName},#{teacherTitle},#{teacherEducation},#{teacherPhone},#{teacherEmail},#{groupName})
     </insert>
     <update id="updateTeacherInfo">
         update t_teacher_info

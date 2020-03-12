@@ -1,0 +1,138 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>无标题文档</title>
+    <link href="../css/style.css" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" href="../amazeui/css/amazeui.min.css" />
+    <link rel="stylesheet" href="../css/admin.css">
+    <link rel="stylesheet" href="../css/app.css">
+    <script type="text/javascript" src="../js/jquery.js"></script>
+    <script type="text/javascript" src="../common/common.js"></script>
+    <script type="text/javascript" src="js/manageReplyGroup..js"></script>
+</head>
+
+
+<body class="am-animation-slide-right">
+<div class="tpl-content-page-title" style="margin-bottom: 10px;">
+    答辩管理</div>
+<ol class="am-breadcrumb">
+    <li><a href="../content.html" class="am-icon-home">首页</a></li>
+    <li class="am-active">分组管理</li>
+</ol>
+<div class="am-panel am-panel-default"
+>
+    <div class="am-panel-bd">
+
+        <div class="rightinfo">
+            <div class="tools">
+
+                <ul class="toolbar" style="margin-left: 25px;margin-top: -5px">
+                    <button id="deleteGroupBtn" type="button" class="am-btn am-btn-danger am-round am-animation-scale-up" style="width: 120px">删除分组</button>
+                    <button id="addGroupBtn" type="button" class="am-btn am-btn-primary  am-round am-animation-scale-up" style="display:none;width: 120px">创建分组</button>
+                    <button id="randomGroupBtn" type="button" class="am-btn am-btn-secondary am-round am-animation-scale-up" style="display:none;width: 120px;margin-left: 10px">随机分组</button>
+                    <button id="viewGroupBtn" type="button" class="am-btn am-btn-success am-round am-animation-scale-up" style="display:none;width: 120px;margin-left: 10px">查看分组</button>
+                    <button id="teacherListBtn" type="button" class="am-btn am-btn-secondary  am-round am-animation-scale-up" style="width: 120px;margin-left: 10px">教师名单</button>
+                </ul>
+            </div>
+          <div id="teacherSelect" class="am-animation-scale-up" style="display:none;">
+              <label style="margin-left: 26px;"><strong>人员编号</strong></label><input id="userAccount" name="" type="text" class="dfinput" style="width: 145px"/>
+              <label><strong>人员姓名</strong></label><input id="userName" name="" type="text" class="dfinput" style="width: 145px"/>
+              <label><strong>分组</strong></label>
+              <div style="display: inline-flex">
+                  <select id="userGroup" class="dfinput" style="width: 150px;text-indent:0px;">
+                      <option value="0" selected="selected">全部小组</option>
+                      <option value="2">答辩一组</option>
+                      <option value="3">答辩二组</option>
+                      <option value="3">答辩三组</option>
+                  </select>
+                  <input id="queryBtn" name="" type="button" class="btn" value="查询" style="margin-left: 20px;margin-bottom: 10px;margin-top: -3px"/>
+              </div>
+          </div>
+            <div class="am-panel am-panel-default">
+                <div class="am-panel-bd am-scrollable-horizontal">
+                    <div class="am-u-sm-12">
+                        <table id="teacherTable" style="display:none;" class="am-animation-scale-up am-table am-table-bordered am-table-radius am-table-striped">
+                            <thead>
+                            <tr>
+                                <th>选择</th>
+                                <th>序号</th>
+                                <th>编号</th>
+                                <th>姓名</th>
+                                <th>类型</th>
+                                <th>职称</th>
+                                <th>学历</th>
+                                <th>电话</th>
+                                <th>邮箱</th>
+                                <th>所属分组</th>
+                                <th>所带学生</th>
+                            </tr>
+                            </thead>
+                            <tbody id="data">
+
+                            </tbody>
+                        </table>
+                        <table id="groupTable" class="am-animation-scale-up am-table am-table-bordered am-table-radius am-table-striped">
+                            <thead>
+                            <tr>
+                                <th>选择</th>
+                                <th>序号</th>
+                                <th>编号</th>
+                                <th>组名</th>
+                                <th>组长</th>
+                                <th>教师名单</th>
+                                <th>学生名单</th>
+                                <th>答辩时间</th>
+                                <th>答辩地点</th>
+                            </tr>
+                            </thead>
+                            <tbody id="dataGroup">
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pagin">
+                <div class="message">共<i id="totalData" class="blue"></i>条记录，当前显示第&nbsp;<i id="currentPage" class="blue"></i>&nbsp;页
+                </div>
+                <ul class="am-pagination am-pagination-right">
+                    <li id="firstPage" class="am-active"><a href="#">首页</a></li>
+                    <li  id="prePage"><a href="#">上一页</a></li>
+                    <li  id="nextPage"><a href="#">下一页</a></li>
+                    <li  id="lastPage"><a href="#">尾页</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        $('.tablelist tbody tr:odd').addClass('odd');
+        $("#teacherListBtn").click(function () {
+            $("#addGroupBtn").show();
+            $("#teacherSelect").show();
+            $("#randomGroupBtn").show();
+            $("#teacherTable").show();
+            $("#viewGroupBtn").show();
+            $("#deleteGroupBtn").hide();
+            $("#groupTable").hide();
+            $("#teacherListBtn").hide();
+
+        })
+        $("#viewGroupBtn").click(function () {
+            $("#deleteGroupBtn").show();
+            $("#groupTable").show();
+            $("#teacherListBtn").show();
+            $("#addGroupBtn").hide();
+            $("#teacherSelect").hide();
+            $("#randomGroupBtn").hide();
+            $("#teacherTable").hide();
+            $("#viewGroupBtn").hide();
+
+        })
+    </script>
+</div>
+</body>
+
+</html>

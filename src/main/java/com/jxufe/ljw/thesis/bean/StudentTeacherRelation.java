@@ -27,6 +27,7 @@ public class StudentTeacherRelation {
     private String teacherTitle ;
     private String teacherEmail;
     private String teacherPhone;
+    private String groupName;
 
     private String thesisNo ;
 

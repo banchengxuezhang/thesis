@@ -1,0 +1,53 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>无标题文档</title>
+    <link rel="stylesheet" href="../amazeui/css/amazeui.min.css" />
+    <link rel="stylesheet" href="../css/admin.css">
+    <link rel="stylesheet" href="../css/app.css">
+    <script type="text/javascript" src="../amazeui/js/amazeui.min.js"></script>
+    <script language="JavaScript" src="../js/jquery.js"></script>
+    <script language="JavaScript" src="../common/common.js"></script>
+    <script type="text/javascript" src="js/addNotice.js"></script>
+</head>
+<body class="am-animation-slide-right">
+<div class="tpl-content-page-title" style="margin-bottom: 10px;">
+    分组管理</div>
+<ol class="am-breadcrumb">
+    <li><a href="../content.html" class="am-icon-home">首页</a></li>
+    <li class="am-active">随机分组</li>
+</ol>
+<div class="am-panel am-panel-default">
+    <div class="am-panel-bd">
+        <form class="am-form am-center"  style="width: 500px" data-am-validator>
+            <div class="am-form-group">
+                <label for="num">个数</label>
+                <input type="text" class="" id="num" placeholder="输入小组个数">
+            </div>
+            <div class="am-form-group">
+                <label for="teacherNos">组长编号</label>
+                <input type="text" class="" id="teacherNos" placeholder="输入组长教师编号，空格隔开，同小组个数">
+            </div>
+            <div class="am-form-group">
+                <label for="noTeacherNos">排除教师编号</label>
+                <input type="text" class="" id="noTeacherNos" placeholder="输入排除教师编号/不参与答辩分组，空格隔开">
+            </div>
+            <div class="am-form-group">
+                <label for="replyPlaces">答辩地点</label>
+                <input type="text" class="" id="replyPlaces" placeholder="输入答辩地点，空格隔开，同小组个数">
+            </div>
+            <div class="am-form-group">
+                <label for="replyDates">答辩日期</label>
+                <input type="text" class="" id="replyDates" placeholder="输入答辩日期，如：20200234，空格隔开，同小组个数">
+            </div>
+            <div class="am-form-group">
+                <p><b id="addNoticeBtn" style="margin-top: 10px" class="am-btn am-btn-default">提交</b>
+                    <b  id="returnNoticeBtn" style="margin-top: 10px;margin-left: 20px" class="am-btn am-btn-danger">返回</b></p>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>

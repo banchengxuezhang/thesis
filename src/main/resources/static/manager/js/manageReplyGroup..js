@@ -129,9 +129,9 @@ function loadDataGrid() {
                 let gridData = (data.rows)[i];
                 var type=""
                 if(gridData.userType<=2){
-                  type="教师";
+                    type="教师";
                 }else {
-                  type="学生";
+                    type="学生";
                 }
                 if(userIds.indexOf(gridData.userId)!=-1){
                     s="<td><input name=\"userId\" checked=\"checked\" onchange='changeIds()' type=\"checkbox\" value=\""+gridData.userId+"\"/></td>"

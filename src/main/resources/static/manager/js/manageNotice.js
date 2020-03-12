@@ -1,41 +1,35 @@
 var page = 1;
 const rows = 5;
 var totalPage;
+var noticeIds=new Array();
 $(function () {
     loadDataGrid();
-
     $("#addBtn").click(function () {
         location.href="./addNotice.html"
     });
 
     $("#modifyBtn").click(function () {
-        let checkedObj = $("input[name='noticeId']:checked");
-        if (checkedObj.length <= 0) {
-            $.MsgBox.Alert("提示", "请选择一条数据进行操作！");
-            return;
-        }
-        if (checkedObj.length > 1) {
+        if(noticeIds.length>1){
             $.MsgBox.Alert("提示", "只能选择一条数据进行操作！");
             return;
         }
-        let noticeId = $(checkedObj[0]).val();
+        if(noticeIds.length<=0){
+            $.MsgBox.Alert("提示", "请选择一条数据进行操作！");
+            return;
+        }
+        let noticeId = noticeIds[0];
         location.href = "/thesis/manager/modifyNotice.html?noticeId=" + noticeId;
     });
 
     $("#deleteBtn").click(function () {
-        let checkedObj = $("input[name='noticeId']:checked");
-        if (checkedObj.length <= 0) {
+        if (noticeIds.length <= 0) {
             $.MsgBox.Alert("提示", "请选择至少一条数据进行操作！");
             return;
         }
-        let noticeIds = new Array();
-        checkedObj.each(function (i, item) {
-            noticeIds.push(item.value);
-        });
         $.MsgBox.Alert("提示","确定删除所选择的公告？",function () {
             $.ajax({
                 type: "delete",
-                url: "/thesis/notice/deleteNoticesByIds?noticeIds=" + noticeIds,
+                url: "/thesis/notice/deleteNoticesByIds?noticeIds=" +noticeIds,
                 success: function (data) {
                     $.MsgBox.Alert("提示", data.msg,function () {
                         location.href="./manageNotice.html";
@@ -116,6 +110,7 @@ function loadDataGrid() {
         type: "get",
         url: "/thesis/notice/getAllNoticeList?" + $.param(pageInfo),
         success: function (data) {
+            let s="";
             totalPage = Math.ceil(data.total / rows);
             $("#totalData").html(data.total);
             $("#currentPage").html(page + "/" + totalPage);
@@ -141,9 +136,15 @@ function loadDataGrid() {
                 }else {
                     status="<td style=\"color:red;\">隐藏</td>";
                 }
+                if(noticeIds.indexOf(gridData.noticeId)!=-1){
+                   s="<td><input name=\"noticeId\" checked=\"checked\" onchange='changeIds()' type=\"checkbox\" value=\""+gridData.noticeId+"\"/></td>"
+                }
+                else {
+                   s="<td><input name=\"noticeId\" onchange='changeIds()' type=\"checkbox\" value=\""+gridData.noticeId+"\"/></td>"
+                }
                 $("#data").append(`
                     <tr>
-                        <td><input name="noticeId" type="checkbox" value="${gridData.noticeId}"/></td>
+                        ${s}
                         <td>${(page-1)*rows+i + 1}</td>
                          <td>${gridData.noticeId}</td>
                          <td>${gridData.noticeTitle}</td>
@@ -165,3 +166,23 @@ function  downloadNoticeFile(noticeId,fileName){
    window.location.href="/thesis/file/downloadFile?fileName="+fileName+"&path=notice/"+noticeId;
    return false;
 }
+
+function changeIds(){
+    var oneches=document.getElementsByName("noticeId");
+    for(var i=0;i<oneches.length;i++){
+        let n=noticeIds.indexOf(oneches[i].value);
+        if(oneches[i].checked==true){
+            //避免重复累计id （不含该id时进行累加）
+            if(n==-1){
+               noticeIds.push(oneches[i].value);
+            }
+        }
+        if(oneches[i].checked==false){
+            //取消复选框时 含有该id时将id从全局变量中去除
+            if(n!=-1){
+                noticeIds.splice(n,1);
+            }
+        }
+    }
+}
+

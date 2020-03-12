@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jxufe.ljw.thesis.dao.GroupDao">
+    <insert id="addGroup">
+        insert into t_group(group_id,group_name,grouper_no,grouper_name,reply_place,reply_date)
+        values (#{groupId},#{groupName},#{grouperNo},#{grouperName},#{replyPlace},#{replyDate})
+    </insert>
+
+
+    <select id="getAllGroup" resultType="com.jxufe.ljw.thesis.bean.Group">
+        select * from t_group
+    </select>
+    <select id="getGroupByGroupName" resultType="com.jxufe.ljw.thesis.bean.Group">
+        select * from t_group
+        where group_name=#{groupName}
+    </select>
+</mapper>
