@@ -6,6 +6,7 @@ import com.jxufe.ljw.thesis.service.*;
 import com.jxufe.ljw.thesis.util.ClassUtil;
 import com.jxufe.ljw.thesis.vo.OpenReportVo;
 import com.jxufe.ljw.thesis.vo.ResultUtil;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
@@ -28,6 +29,8 @@ import java.util.Map;
 @RequestMapping("/openReport")
 public class OpenReportController {
     private static final Logger logger= LoggerFactory.getLogger(OpenReport.class);
+    @Autowired
+    private GroupService groupService;
     @Autowired
     private IMailService iMailService;
     @Autowired
@@ -219,6 +222,7 @@ public class OpenReportController {
            }
             TeacherInfo teacherInfo=teacherService.getTeacherInfoByTeacherNo(studentTeacherRelation.getTeacherNo());
             studentTeacherRelation.setTeacherTitle(teacherInfo.getTeacherTitle());
+            logger.info("查看学生获取的详情！"+studentTeacherRelation);
             return ClassUtil.checkNull(studentTeacherRelation);
         } catch (Exception e) {
             return ResultUtil.error("获取信息失败！");
@@ -235,9 +239,14 @@ public class OpenReportController {
     @GetMapping("/getThesisForOpenReportAndReviewList")
     public Object getThesisForOpenReportAndReviewList(int page,int rows,HttpServletRequest request){
         User user= (User) request.getSession().getAttribute("user");
+        Group group=null;
        List<StudentTeacherRelation> list=new ArrayList<>();
         Map<String,Object> map= (Map<String, Object>) relationService.getAgreeThesisByTeacherNo(page,rows,user.getUserAccount());
         List<StudentTeacherRelation> studentTeacherRelations= (List<StudentTeacherRelation>) map.get("rows");
+        TeacherInfo teacherInfo=teacherService.getTeacherInfoByTeacherNo(user.getUserAccount());
+        if(teacherInfo.getGroupName()!=""&&!StringUtils.isEmpty(teacherInfo.getGroupName())){
+           group=groupService.getGroupByGroupName(teacherInfo.getGroupName());
+        }
         for(StudentTeacherRelation s:studentTeacherRelations){
             String thesisNo=s.getThesisNo();
             OpenReport openReport=openReportService.getOpenReportByThesisNo(thesisNo);
@@ -251,6 +260,9 @@ public class OpenReportController {
             ReplyScore replyScore=replyScoreService.getReplyScoreByThesisNo(thesisNo);
             if(replyScore!=null){
                 BeanUtils.copyProperties(replyScore,s);
+            }
+            if(group!=null&&group.getGroupStatus()==1){
+                BeanUtils.copyProperties(group,s);
             }
             StudentTeacherRelation studentTeacherRelation= (StudentTeacherRelation) ClassUtil.checkNull(s);
             list.add(studentTeacherRelation);

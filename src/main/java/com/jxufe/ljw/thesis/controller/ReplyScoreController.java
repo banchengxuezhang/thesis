@@ -1,12 +1,10 @@
 package com.jxufe.ljw.thesis.controller;
 
 import com.jxufe.ljw.thesis.bean.*;
-import com.jxufe.ljw.thesis.service.NoReplyService;
-import com.jxufe.ljw.thesis.service.OpenReportService;
-import com.jxufe.ljw.thesis.service.ReplyScoreService;
-import com.jxufe.ljw.thesis.service.StudentTeacherRelationService;
+import com.jxufe.ljw.thesis.service.*;
 import com.jxufe.ljw.thesis.util.ClassUtil;
 import com.jxufe.ljw.thesis.vo.ResultUtil;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
@@ -27,6 +25,10 @@ import java.util.List;
 @RestController
 public class ReplyScoreController {
     private  static final Logger logger=LoggerFactory.getLogger(ReplyScoreController.class);
+    @Autowired
+    private TeacherService teacherService;
+    @Autowired
+    private GroupService groupService;
     @Autowired
     private OpenReportService openReportService;
     @Autowired
@@ -57,6 +59,14 @@ public class ReplyScoreController {
             } else {
                 BeanUtils.copyProperties(replyScore, studentTeacherRelation);
             }
+            TeacherInfo teacherInfo=teacherService.getTeacherInfoByTeacherNo(studentTeacherRelation.getTeacherNo());
+            if(teacherInfo.getGroupName()!=""&&!StringUtils.isEmpty(teacherInfo.getGroupName())){
+                Group group=groupService.getGroupByGroupName(teacherInfo.getGroupName());
+                if(group.getGroupStatus()==1){
+                    BeanUtils.copyProperties(group,studentTeacherRelation);
+                }
+            }
+
             return ClassUtil.checkNull(studentTeacherRelation);
         }catch (Exception e){
             return ResultUtil.success("并无相关信息！");

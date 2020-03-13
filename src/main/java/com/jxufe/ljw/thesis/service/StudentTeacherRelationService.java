@@ -26,7 +26,7 @@ public interface StudentTeacherRelationService {
     StudentTeacherRelation getStudentTeacherRelationByThesisNo(String thesisNo);
 
     Object getAgreeThesisByTeacherNo(int page, int rows, String teacherNo);
-
+    List<StudentTeacherRelation> getStudentAgreeByTeacherNo(String teacherNo);
     int updateTaskUrlByThesisNo(String taskUrl, String thesisNo);
 
     int updateThesisUrlByThesisNo(String thesisUrl, String thesisNo);

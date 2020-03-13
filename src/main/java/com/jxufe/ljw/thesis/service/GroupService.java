@@ -14,4 +14,9 @@ public interface GroupService {
     int addGroup(Group group);
     Object getAllGroup(int page,int rows);
     Group getGroupByGroupName(String groupName);
+    int updateGroupByGroupName(Group group);
+    List<Group> getGroupNames();
+    int cleanGroup();
+    int deleteGroupById(String groupId);
+    Group getGroupById(String groupId);
 }

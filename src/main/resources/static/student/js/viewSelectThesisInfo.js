@@ -313,6 +313,8 @@ function loadReplyData() {
             let date=gridData.replyDate;
             if(gridData.replyDate==null){
                 date="暂无安排！";
+            }else {
+                date=gridData.replyDate.split(" ")[0];
             }
             $("#replyData").append(`
                     <tr>
@@ -325,7 +327,8 @@ function loadReplyData() {
                         ${status} 
                         <td>${gridData.replyPlace}</td>
                         <td>${date}</td>
-                        <td>${gridData.teacherList}</td>
+                        <td>${gridData.groupName}</td>
+                          <td>${gridData.grouperName}</td>
                          <td>${score}</td>
                         <td>${gridData.replyOpinion}</td>
                     </tr>

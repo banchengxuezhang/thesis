@@ -17,6 +17,7 @@ public class TeacherGroupVo {
     private String grouperName;
     private String replyPlace;
     private Date replyDate;
+    private int groupStatus;
     private String userId;
     private String teacherId;
     private String teacherNo ;

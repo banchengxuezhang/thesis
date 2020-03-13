@@ -134,5 +134,11 @@
       <if test="opinionFlag!=null"></if>
       opinion_flag=#{opinionFlag}
     </select>
+    <select id="getStudentAgreeByTeacherNo" resultType="com.jxufe.ljw.thesis.bean.StudentTeacherRelation">
+        SELECT *
+        from t_student_teacher_relation
+        WHERE
+        teacher_no=#{teacherNo} and opinion_flag=1
+    </select>
 
 </mapper>

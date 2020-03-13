@@ -40,4 +40,29 @@ public class GroupServiceImpl implements GroupService {
     public Group getGroupByGroupName(String groupName) {
         return groupDao.getGroupByGroupName(groupName);
     }
+
+    @Override
+    public int updateGroupByGroupName(Group group) {
+        return groupDao.updateGroupByGroupName(group);
+    }
+
+    @Override
+    public List<Group> getGroupNames() {
+        return groupDao.getGroupNames();
+    }
+
+    @Override
+    public int cleanGroup() {
+        return groupDao.cleanGroup();
+    }
+
+    @Override
+    public int deleteGroupById(String groupId) {
+        return groupDao.deleteGroupById(groupId);
+    }
+
+    @Override
+    public Group getGroupById(String groupId) {
+        return groupDao.getGroupById(groupId);
+    }
 }

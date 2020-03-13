@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="../css/admin.css">
     <link rel="stylesheet" href="../css/app.css">
     <script type="text/javascript" src="../js/jquery.js"></script>
+    <script type="text/javascript" src="../amazeui/js/amazeui.min.js"></script>
     <script type="text/javascript" src="../common/common.js"></script>
     <script type="text/javascript" src="js/manageReplyGroup..js"></script>
 </head>
@@ -25,27 +26,25 @@
 >
     <div class="am-panel-bd">
 
+
         <div class="rightinfo">
             <div class="tools">
 
                 <ul class="toolbar" style="margin-left: 25px;margin-top: -5px">
-                    <button id="deleteGroupBtn" type="button" class="am-btn am-btn-danger am-round am-animation-scale-up" style="width: 120px">删除分组</button>
-                    <button id="addGroupBtn" type="button" class="am-btn am-btn-primary  am-round am-animation-scale-up" style="display:none;width: 120px">创建分组</button>
-                    <button id="randomGroupBtn" type="button" class="am-btn am-btn-secondary am-round am-animation-scale-up" style="display:none;width: 120px;margin-left: 10px">随机分组</button>
-                    <button id="viewGroupBtn" type="button" class="am-btn am-btn-success am-round am-animation-scale-up" style="display:none;width: 120px;margin-left: 10px">查看分组</button>
-                    <button id="teacherListBtn" type="button" class="am-btn am-btn-secondary  am-round am-animation-scale-up" style="width: 120px;margin-left: 10px">教师名单</button>
+                    <button id="deleteGroupBtn" type="button" class="am-btn am-btn-danger am-round am-animation-scale-up" style="display:none;width: 120px">删除分组</button>
+                    <button id="modifyGroupBtn" type="button" class="am-btn am-btn-success am-round am-animation-scale-up" style="display:none;width: 120px;margin-left: 10px">修改分组</button>
+                    <button id="addGroupBtn" type="button" class="am-btn am-btn-primary  am-round am-animation-scale-up" style="width: 120px">创建分组</button>
+                    <button id="randomGroupBtn" type="button" class="am-btn am-btn-secondary am-round am-animation-scale-up" style="width: 120px;margin-left: 10px">随机分组</button>
+                    <button id="viewGroupBtn" type="button" class="am-btn am-btn-success am-round am-animation-scale-up" style="width: 120px;margin-left: 10px">查看分组</button>
+                    <button id="teacherListBtn" type="button" class="am-btn am-btn-secondary  am-round am-animation-scale-up" style="display:none;width: 120px;margin-left: 10px">教师名单</button>
                 </ul>
             </div>
-          <div id="teacherSelect" class="am-animation-scale-up" style="display:none;">
-              <label style="margin-left: 26px;"><strong>人员编号</strong></label><input id="userAccount" name="" type="text" class="dfinput" style="width: 145px"/>
-              <label><strong>人员姓名</strong></label><input id="userName" name="" type="text" class="dfinput" style="width: 145px"/>
+          <div id="teacherSelect" class="am-animation-scale-up">
+              <label style="margin-left: 26px;"><strong>教师编号</strong></label><input id="teacherNo" name="" type="text" class="dfinput" style="width: 145px"/>
+              <label><strong>教师姓名</strong></label><input id="teacherName" name="" type="text" class="dfinput" style="width: 145px"/>
               <label><strong>分组</strong></label>
               <div style="display: inline-flex">
-                  <select id="userGroup" class="dfinput" style="width: 150px;text-indent:0px;">
-                      <option value="0" selected="selected">全部小组</option>
-                      <option value="2">答辩一组</option>
-                      <option value="3">答辩二组</option>
-                      <option value="3">答辩三组</option>
+                  <select id="groupName" class="dfinput" style="width: 150px;text-indent:0px;">
                   </select>
                   <input id="queryBtn" name="" type="button" class="btn" value="查询" style="margin-left: 20px;margin-bottom: 10px;margin-top: -3px"/>
               </div>
@@ -53,7 +52,7 @@
             <div class="am-panel am-panel-default">
                 <div class="am-panel-bd am-scrollable-horizontal">
                     <div class="am-u-sm-12">
-                        <table id="teacherTable" style="display:none;" class="am-animation-scale-up am-table am-table-bordered am-table-radius am-table-striped">
+                        <table id="teacherTable"class="am-animation-scale-up am-table am-table-bordered am-table-radius am-table-striped">
                             <thead>
                             <tr>
                                 <th>选择</th>
@@ -73,18 +72,18 @@
 
                             </tbody>
                         </table>
-                        <table id="groupTable" class="am-animation-scale-up am-table am-table-bordered am-table-radius am-table-striped">
+                        <table id="groupTable" style="display:none;"  class="am-animation-scale-up am-table am-table-bordered am-table-radius am-table-striped">
                             <thead>
                             <tr>
                                 <th>选择</th>
                                 <th>序号</th>
-                                <th>编号</th>
                                 <th>组名</th>
                                 <th>组长</th>
-                                <th>教师名单</th>
-                                <th>学生名单</th>
                                 <th>答辩时间</th>
                                 <th>答辩地点</th>
+                                <th>分组状态</th>
+                                <th>教师名单</th>
+                                <th>学生名单</th>
                             </tr>
                             </thead>
                             <tbody id="dataGroup">
@@ -107,6 +106,19 @@
             </div>
         </div>
     </div>
+    <div class="am-modal am-modal-prompt" tabindex="-1" id="my-prompt">
+        <div class="am-modal-dialog">
+            <div class="am-modal-hd">随机分组</div>
+            <div class="am-modal-bd">
+                请输入你想要分的组数！请注意，这将清除之前的分组记录！
+                <input type="text" class="am-modal-prompt-input">
+            </div>
+            <div class="am-modal-footer">
+                <span class="am-modal-btn" data-am-modal-cancel>取消</span>
+                <span class="am-modal-btn" data-am-modal-confirm>提交</span>
+            </div>
+        </div>
+    </div>
     <script type="text/javascript">
         $('.tablelist tbody tr:odd').addClass('odd');
         $("#teacherListBtn").click(function () {
@@ -116,12 +128,14 @@
             $("#teacherTable").show();
             $("#viewGroupBtn").show();
             $("#deleteGroupBtn").hide();
+            $("#modifyGroupBtn").hide();
             $("#groupTable").hide();
             $("#teacherListBtn").hide();
 
         })
         $("#viewGroupBtn").click(function () {
             $("#deleteGroupBtn").show();
+            $("#modifyGroupBtn").show();
             $("#groupTable").show();
             $("#teacherListBtn").show();
             $("#addGroupBtn").hide();

@@ -5,6 +5,7 @@ import com.jxufe.ljw.thesis.bean.*;
 import com.jxufe.ljw.thesis.enumeration.PublicData;
 import com.jxufe.ljw.thesis.enumeration.UserType;
 import com.jxufe.ljw.thesis.service.*;
+import com.jxufe.ljw.thesis.util.ClassUtil;
 import com.jxufe.ljw.thesis.util.Md5Tools;
 import com.jxufe.ljw.thesis.vo.ResultUtil;
 import com.jxufe.ljw.thesis.vo.UserInfoDetail;
@@ -16,10 +17,7 @@ import org.springframework.transaction.interceptor.TransactionAspectSupport;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.EmptyStackException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 
 /**
@@ -45,7 +43,8 @@ public class UserController {
     private ThesisInfoService thesisInfoService;
     @Autowired
     private IMailService iMailService;
-
+   @Autowired
+   private GroupService groupService;
     /**
      * 管理员添加学生
      *
@@ -75,7 +74,7 @@ public class UserController {
         studentInfo.setStudentStage(PublicData.waitSelectThesis);
         try {
             userService.addUser(user);
-            studentService.addStudentInfo(studentInfo);
+            studentService.addStudentInfo((StudentInfo) ClassUtil.checkNull(studentInfo));
             logger.info("==================添加用户信息完成==================");
             return ResultUtil.success("添加成功！！！");
         } catch (Exception e) {
@@ -112,7 +111,7 @@ public class UserController {
         teacherInfo.setTeacherId(tea_id);
         try {
             userService.addUser(user);
-            teacherService.addTeacherInfo(teacherInfo);
+            teacherService.addTeacherInfo((TeacherInfo) ClassUtil.checkNull(teacherInfo));
             return ResultUtil.success("添加成功！！！");
         } catch (EmptyStackException e) {
             TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
@@ -273,5 +272,28 @@ public class UserController {
 
         }
       return ResultUtil.success("删除成功！！！");
+    }
+    @GetMapping("/getTeacherListForManager")
+    public Object getTeacherListForManager(int page,int rows,TeacherInfo teacherInfo){
+      List<Group> groups=groupService.getGroupNames();
+      List<String> groupNames=new ArrayList<>();
+        for (Group g:groups
+             ) {
+            groupNames.add(g.getGroupName());
+        }
+        Map<String,Object> map= (Map<String, Object>) teacherService.getTeacherInfoForManager(page,rows,teacherInfo);
+        List<TeacherInfo> list= (List<TeacherInfo>) map.get("rows");
+        for (TeacherInfo t :list
+                ) {
+            List<StudentTeacherRelation> studentTeacherRelations=relationService.getStudentAgreeByTeacherNo(t.getTeacherNo());
+            String students="";
+            for (StudentTeacherRelation s:studentTeacherRelations
+                 ) {
+                students+=s.getStudentNo()+"-"+s.getStudentName()+" ";
+            }
+            map.put(t.getTeacherNo(),students);
+        }
+        map.put("groupNames",groupNames);
+        return map;
     }
 }

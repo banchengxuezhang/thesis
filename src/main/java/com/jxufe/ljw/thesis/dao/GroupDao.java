@@ -15,5 +15,10 @@ import java.util.List;
 public interface GroupDao {
     int addGroup(Group group);
  List<Group> getAllGroup(Pagination pagination);
+ List<Group> getGroupNames();
  Group getGroupByGroupName(String groupName);
+ Group getGroupById(String groupId);
+ int updateGroupByGroupName(Group group);
+ int cleanGroup();
+ int deleteGroupById(String groupId);
 }

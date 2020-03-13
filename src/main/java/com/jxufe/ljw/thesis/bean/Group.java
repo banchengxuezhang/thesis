@@ -17,4 +17,5 @@ public class Group {
     private String grouperName;
     private String replyPlace;
     private Date replyDate;
+    private int groupStatus;
 }

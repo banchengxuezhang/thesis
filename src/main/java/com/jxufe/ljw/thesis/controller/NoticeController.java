@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.File;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -174,6 +175,9 @@ public class NoticeController {
     public Object deleteNoticesByIds(String[] noticeIds){
         for (String noticeId:noticeIds
              ) {
+            Notice notice=noticeService.getNoticeByNoticeId(noticeId);
+            File file = new File(PublicData.path+"\\notice"+"\\"+notice.getNoticeId());
+            ClassUtil.delFile(file);
            noticeService.deleteNoticeById(noticeId);
         }
         return ResultUtil.success("删除成功！！！");

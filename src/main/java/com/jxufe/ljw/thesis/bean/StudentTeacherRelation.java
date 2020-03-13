@@ -73,4 +73,7 @@ public class StudentTeacherRelation {
     private  String reviewOpinion;
     private int inspectionStatus;
     private String inspectionOpinion;
+    private String grouperNo;
+    private String grouperName;
+    private int groupStatus;
 }

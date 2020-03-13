@@ -23,6 +23,7 @@ public interface StudentTeacherRelationDao {
     List<StudentTeacherRelation> getStudentSelectThesisByTeacherNo(Pagination pagination, String teacherNo, int opinionFlag);
 
     int getStudentSelectThesisAgreeNumByTeacherNo(String teacherNo, int opinionFlag);
+    List<StudentTeacherRelation> getStudentAgreeByTeacherNo(String teacherNo);
 
     int operateStudent(StudentTeacherRelation studentTeacherRelation);
 

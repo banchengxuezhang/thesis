@@ -8,23 +8,23 @@
     <link rel="stylesheet" href="../css/admin.css">
     <link rel="stylesheet" href="../css/app.css">
     <script type="text/javascript" src="../amazeui/js/amazeui.min.js"></script>
-    <script type="text/javascript" src="../js/jquery.js"></script>
+    <script language="JavaScript" src="../js/jquery.js"></script>
     <script language="JavaScript" src="../common/common.js"></script>
-    <script type="text/javascript" src="js/addGroup.js"></script>
+    <script type="text/javascript" src="js/modifyGroup.js"></script>
 </head>
 <body class="am-animation-slide-right">
 <div class="tpl-content-page-title" style="margin-bottom: 10px;">
     分组管理</div>
 <ol class="am-breadcrumb">
     <li><a href="../content.html" class="am-icon-home">首页</a></li>
-    <li class="am-active">添加小组</li>
+    <li class="am-active">修改小组</li>
 </ol>
 <div class="am-panel am-panel-default">
     <div class="am-panel-bd">
         <form class="am-form am-center"  style="width: 500px" data-am-validator>
             <div class="am-form-group">
                 <label for="groupName">组名</label>
-                <input type="text" class="" id="groupName" placeholder="输入小组标题（如：答辩一组）">
+                <input type="text" class="" readonly id="groupName" placeholder="输入小组标题（如：答辩一组）">
             </div>
             <div class="am-form-group">
                 <label for="grouperNo">组长编号</label>
@@ -32,7 +32,7 @@
             </div>
             <div class="am-form-group">
                 <label for="grouperName">组长姓名</label>
-                <input type="text" class="" id="grouperName" placeholder="选填/输入组长教师姓名">
+                <input type="text" class="" id="grouperName"  readonly placeholder="无需填写！！！">
             </div>
             <div class="am-form-group">
                 <label for="groupStatus">分组信息状态</label>
@@ -52,7 +52,7 @@
                 <input type="date" id="replyDate" class="am-form-field am-input-sm" style="height: 37px" placeholder="日期">
             </div>
             <div class="am-form-group">
-                <p><b id="addGroupBtn" style="margin-top: 10px" class="am-btn am-btn-default">提交</b>
+                <p><b id="modifyGroupBtn" style="margin-top: 10px" class="am-btn am-btn-default">提交</b>
                     <b  id="returnGroupBtn" style="margin-top: 10px;margin-left: 20px" class="am-btn am-btn-danger">返回</b></p>
             </div>
         </form>

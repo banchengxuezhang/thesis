@@ -2,9 +2,37 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.jxufe.ljw.thesis.dao.GroupDao">
     <insert id="addGroup">
-        insert into t_group(group_id,group_name,grouper_no,grouper_name,reply_place,reply_date)
-        values (#{groupId},#{groupName},#{grouperNo},#{grouperName},#{replyPlace},#{replyDate})
+        insert into t_group(group_id,group_name,grouper_no,grouper_name,reply_place,reply_date,group_status)
+        values (#{groupId},#{groupName},#{grouperNo},#{grouperName},#{replyPlace},#{replyDate},#{groupStatus})
     </insert>
+    <update id="updateGroupByGroupName">
+        update t_group
+        <set>
+            <if test="grouperNo!=null and grouperNo!=''">
+                grouper_no=#{grouperNo},
+            </if>
+            <if test="grouperName!=null and grouperName!=''">
+                grouper_name=#{grouperName},
+            </if>
+            <if test="replyDate!=null">
+                reply_date=#{replyDate},
+            </if>
+            <if test="replyPlace!=null and replyPlace!=''">
+                reply_place=#{replyPlace},
+            </if>
+            <if test="groupStatus!=0">
+             group_status=#{groupStatus},
+             </if>
+        </set>
+         where group_name=#{groupName}
+    </update>
+    <update id="cleanGroup">
+        truncate table t_group;
+    </update>
+    <delete id="deleteGroupById">
+        delete from t_group
+        where  group_id=#{groupId}
+    </delete>
 
 
     <select id="getAllGroup" resultType="com.jxufe.ljw.thesis.bean.Group">
@@ -13,5 +41,13 @@
     <select id="getGroupByGroupName" resultType="com.jxufe.ljw.thesis.bean.Group">
         select * from t_group
         where group_name=#{groupName}
+    </select>
+    <select id="getGroupNames" resultType="com.jxufe.ljw.thesis.bean.Group">
+        select *
+         from t_group
+    </select>
+    <select id="getGroupById" resultType="com.jxufe.ljw.thesis.bean.Group">
+        select * from t_group
+        where group_id=#{groupId}
     </select>
 </mapper>

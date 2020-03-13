@@ -18,6 +18,16 @@
         teacher_email=#{teacherEmail}
         where user_id=#{userId}
     </update>
+    <update id="updateTeacherGroupName">
+         update t_teacher_info
+        set group_name=#{groupName}
+        where user_id=#{userId}
+    </update>
+    <update id="updateGroupNameByGroupName">
+        UPDATE t_teacher_info
+        set group_name=""
+        WHERE group_name=#{groupName}
+    </update>
     <delete id="deleteTeacherById">
         delete from t_teacher_info
         where user_id=#{userId}
@@ -40,5 +50,29 @@
                 and teacher_name like CONCAT(#{userName},"%")
             </if>
         </where>
+    </select>
+    <select id="getTeacherInfoForManager" resultType="com.jxufe.ljw.thesis.bean.TeacherInfo">
+        select * from t_teacher_info
+        <where>
+            <if test="teacherNo!=null and teacherNo!=''">
+                teacher_no  like CONCAT(#{teacherNo},"%")
+            </if>
+            <if test="teacherName!=null and teacherName!=''">
+                and teacher_name like CONCAT(#{teacherName},"%")
+            </if>
+            <if test="groupName!=null and groupName!=''and groupName!='-1'">
+                and group_name= #{groupName}
+            </if>
+            <if test="groupName=='-1'">
+                and group_name is null or group_name=''
+            </if>
+        </where>
+    </select>
+    <select id="getTeacherByGroupName" resultType="com.jxufe.ljw.thesis.bean.TeacherInfo">
+        select * from t_teacher_info
+        where group_name=#{groupName}
+    </select>
+    <select id="getAllTeachers" resultType="com.jxufe.ljw.thesis.bean.TeacherInfo">
+        select * from t_teacher_info
     </select>
 </mapper>

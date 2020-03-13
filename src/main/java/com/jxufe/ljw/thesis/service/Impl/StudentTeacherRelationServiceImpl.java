@@ -101,6 +101,11 @@ public class StudentTeacherRelationServiceImpl implements StudentTeacherRelation
     }
 
     @Override
+    public List<StudentTeacherRelation> getStudentAgreeByTeacherNo(String teacherNo) {
+        return studentTeacherRelationDao.getStudentAgreeByTeacherNo(teacherNo);
+    }
+
+    @Override
     public int updateTaskUrlByThesisNo(String taskUrl, String thesisNo) {
         return studentTeacherRelationDao.updateTaskUrlByThesisNo(taskUrl, thesisNo);
     }
