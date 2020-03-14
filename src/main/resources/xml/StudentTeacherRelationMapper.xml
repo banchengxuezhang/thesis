@@ -135,10 +135,17 @@
       opinion_flag=#{opinionFlag}
     </select>
     <select id="getStudentAgreeByTeacherNo" resultType="com.jxufe.ljw.thesis.bean.StudentTeacherRelation">
-        SELECT *
-        from t_student_teacher_relation
+        select
+        relation.*,
+        student.student_major,
+        student.student_instructor,
+        student.student_phone,
+        student.student_email
+        from t_student_teacher_relation relation
+        left join t_student_info student
+        on relation.student_no=student.student_no
         WHERE
-        teacher_no=#{teacherNo} and opinion_flag=1
+        relation.teacher_no=#{teacherNo} and relation.opinion_flag=1
     </select>
 
 </mapper>

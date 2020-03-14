@@ -46,12 +46,6 @@ function loadInitData(thesisNo) {
         url: "/thesis/openReport/getThesisOpenReportAndOtherByThesisNo?" + $.param(param),
         success: function (data) {
             let gridData=data;
-            if(gridData.reviewContent==""){
-                $.MsgBox.Alert("提示","该生未提交免答辩申请！无法查看！",function () {
-                    location.href = "./teacherCheckListForNoReply.html";
-                });
-                return;
-            }
             $("#studentMajor").text(gridData.studentMajor);
             $("#studentClass").text(gridData.studentClass);
             $("#thesisTitle").text(gridData.thesisTitle);

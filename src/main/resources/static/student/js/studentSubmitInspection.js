@@ -1,9 +1,14 @@
 var thesisNo="";
 var inspectionStatus=0;
+var checkStatus;
 $(function () {
     loadDataGrid();
     $("#inspectionBtn").click(function () {
         if(inspectionStatus!=0){
+            if(checkStatus==1){
+                $.MsgBox.Alert("提示","很抱歉，由于您的教师已经提交系统验收！您无法再修改！");
+                return;
+            }
             $.MsgBox.Alert("提示","很抱歉，由于您的教师已经审核！您无法再修改！");
             return;
         }
@@ -56,6 +61,7 @@ function  loadDataGrid(){
             }
             thesisNo=gridData.thesisNo;
             inspectionStatus=gridData.inspectionStatus;
+            checkStatus=gridData.checkStatus;
         },
         error: function () {
             $.MsgBox.Alert("错误", "查询课题数据失败！");

@@ -80,7 +80,7 @@ function loadDataGrid() {
             $("#currentPage").html(page + "/" + totalPage);
             for (let i = 0; i < data.rows.length; i++) {
                 let gridData = (data.rows)[i];
-                let status = (gridData.thesisStatus == 2 ? "未上传" : "已上传");
+                let status = (gridData.thesisStatus == 2 ?  `<td style="color: red">未上传</td>` :`<td style=\"color:limegreen;\">已上传</td>`);
                 let fileName=gridData.thesisUrl;
                 if(gridData.thesisUrl==null){
                     fileName="";

@@ -80,7 +80,7 @@ function loadDataGrid() {
             $("#currentPage").html(page + "/" + totalPage);
             for (let i = 0; i < data.rows.length; i++) {
                 let gridData = (data.rows)[i];
-                let status = (gridData.thesisStatus == 2 ? "未上传" : "已上传");
+                let status = (gridData.thesisStatus == 2 ? `<td style="color: red">未上传</td>` :`<td style=\"color:limegreen;\">已上传</td>`);
                 let fileName=gridData.thesisUrl;
                 if(fileName==null){
                     fileName="";
@@ -96,7 +96,7 @@ function loadDataGrid() {
                         <td>${gridData.studentPhone}</td>
                         <td>${gridData.studentEmail}</td>
                         <td>${gridData.thesisTitle}</td>
-                        <td style="color: red">${status}</td>
+                         ${status}
                         <!--<td><a href="ftp://ftpuser:724055@192.168.0.105/13/13.jpg" style="text-decoration: underline;cursor: pointer" download="">下载</a></td>-->
                         <td><a style="text-decoration: underline;cursor: pointer" onclick="downloadThesis('${gridData.thesisNo}')">${fileName}</a></td>
                     </tr>

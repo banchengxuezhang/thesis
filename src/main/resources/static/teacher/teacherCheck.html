@@ -10,16 +10,16 @@
     <link rel="stylesheet" href="../css/app.css">
     <script type="text/javascript" src="../js/jquery.js"></script>
     <script type="text/javascript" src="../common/common.js"></script>
-    <script type="text/javascript" src="js/teacherCheckListForReview.js"></script>
+    <script type="text/javascript" src="js/teacherCheck.js"></script>
 </head>
 
-<body class="am-animation-slide-right">
 
 <div class="tpl-content-page-title" style="margin-bottom: 10px;">
-    学生列表</div>
+   系统验收</div>
+<body class="am-animation-slide-right">
 <ol class="am-breadcrumb">
     <li><a href="../content.html" class="am-icon-home">首页</a></li>
-    <li class="am-active">文献综述</li>
+    <li class="am-active">验收详情</li>
 </ol>
 <div class="am-panel am-panel-default"
 >
@@ -27,7 +27,7 @@
         <div class="rightinfo">
             <div class="tools">
                 <ul class="toolbar" style="margin-left: 30px">
-                    <button id="operateBtn" type="button" class="am-btn am-btn-default am-btn-primary am-round" style="width: 100px">审核</button>
+                    <button id="operateBtn" type="button" class="am-btn am-btn-default am-btn-danger am-round" style="width: 100px">验收</button>
                 </ul>
             </div>
             <div class="am-panel am-panel-default">
@@ -43,11 +43,13 @@
                                 <th>学生姓名</th>
                                 <th>专业</th>
                                 <th>班级</th>
-                                <th>学生电话</th>
-                                <th>学生邮箱</th>
                                 <th>论文题目</th>
+                                <th>开题报告得分</th>
                                 <th>文献综述状态</th>
-                                <th>备注</th>
+                                <th>中期指导状态</th>
+                                <th>是否通过免答辩申请</th>
+                                <th>最终得分</th>
+                                <th>验收状态</th>
                             </tr>
                             </thead>
                             <tbody id="data">

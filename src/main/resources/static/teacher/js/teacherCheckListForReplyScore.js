@@ -14,8 +14,26 @@ $(function () {
             $.MsgBox.Alert("提示", "只能选择一条数据进行操作！");
             return;
         }
+        let flag=$(checkedObj[0]).attr("flag");
+        //判断是否为日期
+        if(flag.length<10) {
+            $.MsgBox.Alert("提示", "答辩尚未安排，您无法进行该操作！！！");
+            return;
+        }
+        console.log("查看当前时间:"+getNowFormatDate()+"答辩时间:"+flag.split(" ")[0]);
+        console.log("查看比较结果:"+compareDate(getNowFormatDate(),flag.split(" ")[0]))
+        console.log("查看比较结果1:"+compareDate(flag.split(" ")[0],getNowFormatDate()))
+        if(compareDate(getNowFormatDate(),flag.split(" ")[0])){
+            $.MsgBox.Alert("提示","答辩时间尚未开始，您无法进行该操作！！！");
+            return;
+        }
+        let checkStatus=$(checkedObj[0]).attr("checkStatus");
+        if(checkStatus==1){
+            $.MsgBox.Alert("提示","该生已经被系统验收，您无法进行该操作！！！");
+            return;
+        }
         let thesisNo = $(checkedObj[0]).val();
-        location.href = "./teacherCheckReplyScore.html?thesisNo=" + thesisNo;
+        location.href = "./teacherGiveScore.html?thesisNo=" + thesisNo;
     });
 
     $("#firstPage").click(function () {
@@ -90,10 +108,20 @@ function loadDataGrid() {
             for (let i = 0; i < data.rows.length; i++) {
                 let gridData = (data.rows)[i];
                 let status="";
-                let score=gridData.thesisScoreList;
+                let score="";
+                if(gridData.thesisScoreList!=""&&gridData.thesisScoreList!=null){
+                    score=`  <td>${gridData.thesisScoreList.split(" ")[0]}</td>
+                        <td>${gridData.thesisScoreList.split(" ")[1]}</td>
+                        <td>${gridData.thesisScoreList.split(" ")[2]}</td>
+                        <td style="color: red">${gridData.thesisScoreList.split(" ")[3]}</td>
+`;
+                }else {
+                    score=`<td></td><td></td><td></td><td></td>
+                    
+                    `
+                }
                 if(gridData.replyStatus==0){
                     status="<td>未答辩</td>";
-                    score="未答辩"
                 }
                 if(gridData.replyStatus==1){
                     status="<td style=\"color:limegreen;\">已通过</td>";
@@ -109,7 +137,7 @@ function loadDataGrid() {
                 }
                 $("#data").append(`
                     <tr>
-                        <td><input name="thesis" type="checkbox" value="${gridData.thesisNo}"/></td>
+                        <td><input name="thesis"  checkStatus="${gridData.checkStatus}" flag="${gridData.replyDate}" type="checkbox" value="${gridData.thesisNo}"/></td>
                         <td>${(page-1)*rows+i + 1}</td>
                         <td>${gridData.studentNo}</td>
                         <td>${gridData.studentName}</td>
@@ -121,7 +149,7 @@ function loadDataGrid() {
                         <td>${gridData.replyPlace}</td>
                         <td>${gridData.groupName}</td>
                         <td>${gridData.grouperName}</td>
-                        <td>${score}</td>
+                        ${score}
                         <td>${gridData.replyOpinion}</td>
                     </tr>
                 `)
@@ -131,4 +159,34 @@ function loadDataGrid() {
             $.MsgBox.Alert("错误", "加载信息错误！");
         }
     })
+}
+function compareDate(a, b) {
+    var arr = a.split("-");
+    var starttime = new Date(arr[0], arr[1], arr[2]);
+    var starttimes = starttime.getTime();
+    var arrs = b.split("-");
+    var endTime = new Date(arrs[0], arrs[1], arrs[2]);
+    var endTimes = endTime.getTime();
+    // 进行日期比较
+    if (endTimes > starttimes) {
+        return true;
+    }else{
+
+        return false;
+    }
+}
+function getNowFormatDate() {
+    var date = new Date();
+    var seperator1 = "-";
+    var year = date.getFullYear();
+    var month = date.getMonth() + 1;
+    var strDate = date.getDate();
+    if (month >= 1 && month <= 9) {
+        month = "0" + month;
+    }
+    if (strDate >= 0 && strDate <= 9) {
+        strDate = "0" + strDate;
+    }
+    var currentdate = year + seperator1 + month + seperator1 + strDate;
+    return currentdate;
 }

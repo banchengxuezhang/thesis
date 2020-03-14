@@ -80,7 +80,7 @@ function loadDataGrid() {
             $("#currentPage").html(page + "/" + totalPage);
             for (let i = 0; i < data.rows.length; i++) {
                 let gridData = (data.rows)[i];
-                let status = (gridData.taskStatus == 2 ? "未给" : "已给");
+                let status = (gridData.taskStatus == 2 ?  `<td style="color: red">未给</td>` :`<td style=\"color:limegreen;\">已给</td>`);
                 let fileName=gridData.taskUrl;
                 if(fileName==null){
                     fileName="";

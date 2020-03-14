@@ -51,7 +51,6 @@ public class OpenReportController {
 
     @PostMapping("/uploadOpenReport")
     public Object uploadOpenReport(OpenReportVo openReportVo){
-        logger.info("查看data"+openReportVo);
         String openReportSummary=openReportVo.getOpenReportSummary();
         String openReportWay=openReportVo.getOpenReportWay();
         String thesisNo=openReportVo.getThesisNo();
@@ -180,7 +179,6 @@ public class OpenReportController {
      */
     @PostMapping("/uploadNoReply")
     public  Object uploadNoReply(NoReply noReply){
-        logger.info("查看noReply:"+noReply);
        NoReply noReply1=noReplyService.getNoReplyByThesisNo(noReply.getThesisNo());
      StudentTeacherRelation studentTeacherRelation=relationService.getStudentTeacherRelationByThesisNo(noReply.getThesisNo());
      TeacherInfo teacherInfo=teacherService.getTeacherInfoByTeacherNo(studentTeacherRelation.getTeacherNo());
@@ -222,7 +220,6 @@ public class OpenReportController {
            }
             TeacherInfo teacherInfo=teacherService.getTeacherInfoByTeacherNo(studentTeacherRelation.getTeacherNo());
             studentTeacherRelation.setTeacherTitle(teacherInfo.getTeacherTitle());
-            logger.info("查看学生获取的详情！"+studentTeacherRelation);
             return ClassUtil.checkNull(studentTeacherRelation);
         } catch (Exception e) {
             return ResultUtil.error("获取信息失败！");
@@ -308,7 +305,6 @@ public class OpenReportController {
         replyScoreService.addReplyScore((ReplyScore) ClassUtil.checkNull(replyScore));
     }
     else {
-        logger.info("查看replyScore"+replyScore);
         replyScoreService.updateReplyScore(replyScore);
     }
     return ResultUtil.success("提交开题报告分数成功！");

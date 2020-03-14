@@ -2,10 +2,10 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.jxufe.ljw.thesis.dao.ReplyScoreDao">
     <insert id="addReplyScore">
-        insert into  t_reply_score(reply_score_id,thesis_no,teacher_list,thesis_score_list,reply_date,reply_place,reply_status,reply_opinion,open_report_score,open_report_status,open_report_opinion,review_status,review_opinion,
-        inspection_status,inspection_opinion)
-        values (#{replyScoreId},#{thesisNo},#{teacherList},#{thesisScoreList},#{replyDate},#{replyPlace},#{replyStatus},#{replyOpinion},#{openReportScore},#{openReportStatus},#{openReportOpinion},#{reviewStatus},#{reviewOpinion},
-        #{inspectionStatus},#{inspectionOpinion});
+        insert into  t_reply_score(reply_score_id,thesis_no,teacher_list,thesis_score_list,reply_status,reply_opinion,open_report_score,open_report_status,open_report_opinion,review_status,review_opinion,
+        inspection_status,inspection_opinion,check_status)
+        values (#{replyScoreId},#{thesisNo},#{teacherList},#{thesisScoreList},#{replyStatus},#{replyOpinion},#{openReportScore},#{openReportStatus},#{openReportOpinion},#{reviewStatus},#{reviewOpinion},
+        #{inspectionStatus},#{inspectionOpinion},#{checkStatus});
     </insert>
     <update id="updateReplyScore">
         update t_reply_score
@@ -15,12 +15,6 @@
             </if>
             <if test="thesisScoreList!=null and thesisScoreList!=''">
                 thesis_score_list=#{thesisScoreList},
-            </if>
-            <if test="replyDate!=null">
-                reply_date=#{replyDate},
-            </if>
-            <if test="replyPlace!=null and replyPlace!=''">
-                reply_place=#{replyPlace},
             </if>
             <if test="replyStatus!=0">
                 reply_status=#{replyStatus},
@@ -48,6 +42,9 @@
             </if>
             <if test="inspectionOpinion!=null and inspectionOpinion!=''">
                 inspection_opinion=#{inspectionOpinion},
+            </if>
+            <if test="checkStatus!=0">
+                check_status=#{checkStatus},
             </if>
         </set>
         where thesis_no=#{thesisNo}

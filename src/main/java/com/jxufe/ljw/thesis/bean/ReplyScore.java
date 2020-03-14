@@ -15,8 +15,6 @@ public class ReplyScore {
     private String thesisNo;
     private String teacherList;
     private String thesisScoreList;
-    private Date replyDate;
-    private String replyPlace;
     private  int replyStatus;
     private String replyOpinion;
     private int openReportScore;
@@ -26,4 +24,5 @@ public class ReplyScore {
     private  String reviewOpinion;
     private int inspectionStatus;
     private String inspectionOpinion;
+    private int checkStatus;
 }

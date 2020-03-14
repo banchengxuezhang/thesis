@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -71,5 +72,28 @@ public class ReplyScoreController {
         }catch (Exception e){
             return ResultUtil.success("并无相关信息！");
         }
+    }
+    @GetMapping("/getReplyScore")
+    public Object getReplyScore(String thesisNo){
+        ReplyScore replyScore=replyScoreService.getReplyScoreByThesisNo(thesisNo);
+            return replyScore;
+    }
+    @PostMapping("/updateScoreList")
+    public Object updateScoreList(ReplyScore replyScore){
+        logger.info("查看分数信息！！！"+replyScore);
+        replyScoreService.updateReplyScore(replyScore);
+        return ResultUtil.success("提交分数信息成功！！！");
+    }
+    @PostMapping("/updateCheckStatus")
+    public Object updateCheckStatus(String thesisNo){
+      ReplyScore replyScore=new ReplyScore();
+      replyScore.setThesisNo(thesisNo);
+      replyScore.setCheckStatus(1);
+     int flag= replyScoreService.updateReplyScore(replyScore);
+      if(flag>0){
+          return ResultUtil.success("成功验收！！！");
+      }else {
+          return ResultUtil.success("验收失败，请检查您是否有未完成的操作！！！");
+      }
     }
 }

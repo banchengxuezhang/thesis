@@ -15,6 +15,7 @@ $(function () {
     }
     var flag = theRequest.flag;
     if(flag=="2"){
+        $("#getExcelBtn").show();
         $("#deleteGroupBtn").show();
         $("#modifyGroupBtn").show();
         $("#groupTable").show();
@@ -84,7 +85,9 @@ $(function () {
         location.href="./addUser.html"
     });
 
-
+    $("#getExcelBtn").click(function () {
+        window.location.href= "/thesis/exportExcel";
+    })
     $("#deleteGroupBtn").click(function () {
         if (groupIds.length <= 0) {
             $.MsgBox.Alert("提示", "请选择至少一条数据进行操作！");

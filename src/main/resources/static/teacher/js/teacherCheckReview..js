@@ -50,12 +50,6 @@ function loadInitData(thesisNo) {
         url: "/thesis/openReport/getThesisOpenReportAndOtherByThesisNo?" + $.param(param),
         success: function (data) {
             let gridData=data;
-            if(gridData.reviewContent==""){
-                $.MsgBox.Alert("提示","该生未提交文献综述！无法查看！",function () {
-                    location.href = "./teacherCheckListForReview.html";
-                });
-                return;
-            }
             $("#thesisTitle").text("论文题目为："+gridData.thesisTitle);
             if(gridData.reviewContent!=""){
                 $("#reviewContent").text(gridData.reviewContent);

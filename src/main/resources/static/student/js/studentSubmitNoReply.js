@@ -1,9 +1,14 @@
 var thesisNo="";
 var studentName="";
 var status=0;
+var checkStatus;
 $(function () {
     loadDataGrid();
     $("#noReplyBtn").click(function () {
+        if(checkStatus==1){
+            $.MsgBox.Alert("提示","很抱歉，由于您的教师已经提交系统验收！您无法再修改！");
+            return;
+        }
         if(status!=0){
             $.MsgBox.Alert("提示","很抱歉，由于您的教师已经审核！您无法再修改！");
             return;
@@ -70,6 +75,7 @@ function  loadDataGrid(){
             studentName=gridData.studentName;
             thesisNo=gridData.thesisNo;
             status=gridData.status;
+            checkStatus=gridData.checkStatus;
         },
         error: function () {
             $.MsgBox.Alert("错误", "查询课题数据失败！");

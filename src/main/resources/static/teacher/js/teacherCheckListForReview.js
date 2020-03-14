@@ -14,6 +14,16 @@ $(function () {
             $.MsgBox.Alert("提示", "只能选择一条数据进行操作！");
             return;
         }
+        let flag=$(checkedObj[0]).attr("flag");
+        if(flag==0){
+            $.MsgBox.Alert("提示","该生未提交文献综述，您无法进行该操作！！！");
+            return;
+        }
+        let checkStatus=$(checkedObj[0]).attr("checkStatus");
+        if(checkStatus==1){
+            $.MsgBox.Alert("提示","该生已经被系统验收，您无法进行该操作！！！");
+            return;
+        }
         let thesisNo = $(checkedObj[0]).val();
         location.href = "./teacherCheckReview.html?thesisNo=" + thesisNo;
     });
@@ -90,6 +100,7 @@ function loadDataGrid() {
             for (let i = 0; i < data.rows.length; i++) {
                 let gridData = (data.rows)[i];
                 let status="";
+                let flag=1;
                 if(gridData.reviewStatus==0){
                     status="<td style=\"color:red;\">待审核</td>";
                 }
@@ -101,10 +112,11 @@ function loadDataGrid() {
                 }
                 if(gridData.reviewContent==""){
                     status="<td>未提交</td>";
+                    flag=0;
                 }
                 $("#data").append(`
                     <tr>
-                        <td><input name="thesis" type="checkbox" value="${gridData.thesisNo}"/></td>
+                        <td><input name="thesis" type="checkbox" flag="${flag}"  checkStatus="${gridData.checkStatus}"  value="${gridData.thesisNo}"/></td>
                         <td>${(page-1)*rows+i + 1}</td>
                         <td>${gridData.studentNo}</td>
                         <td>${gridData.studentName}</td>

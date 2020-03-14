@@ -1,11 +1,16 @@
 var thesisNo="";
 var openReportStatus=0;
+var checkStatus;
 $(function () {
    loadDataGrid();
     $("#openReportUrl").click(function () {
         window.location.href="/thesis/file/downloadOpenReport?thesisNo="+thesisNo;
         return false;
     })
+    if(checkStatus==1){
+        $.MsgBox.Alert("提示","很抱歉，由于您的教师已经提交系统验收！您无法再修改！");
+        return;
+    }
    $("#openReportbtn").click(function () {
        if(openReportStatus!=0){
            $.MsgBox.Alert("提示","很抱歉，由于您的教师已经审核！您无法再修改！");
@@ -60,6 +65,7 @@ function  loadDataGrid(){
             }
             thesisNo=gridData.thesisNo;
             openReportStatus=gridData.openReportStatus;
+            checkStatus=gridData.checkStatus;
         },
         error: function () {
             $.MsgBox.Alert("错误", "查询课题数据失败！");

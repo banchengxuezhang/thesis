@@ -56,12 +56,6 @@ $(function () {
             url: "/thesis/openReport/getThesisOpenReportAndOtherByThesisNo?" + $.param(param),
             success: function (data) {
                 let gridData=data;
-                if(gridData.openReportSummary==""||gridData.openReportWay==""){
-                    $.MsgBox.Alert("提示","该生未提交开题报告！无法查看！",function () {
-                        location.href = "./teacherCheckListForOpenReport.html";
-                    });
-                    return;
-                }
                 $("#studentName").text(gridData.studentName);
                 $("#studentNo").text(gridData.studentNo);
                 $("#studentMajor").text(gridData.studentMajor);
