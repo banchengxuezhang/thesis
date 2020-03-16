@@ -2,6 +2,8 @@ package com.jxufe.ljw.thesis.bean;
 
 import lombok.Data;
 
+import java.util.Date;
+
 /**
  * @Classname Init
  * @Author: LeJunWen
@@ -22,4 +24,6 @@ public class Init {
     private String notesForStudent;
 
     private String notesForManager;
+    private Date firstDate;
+    private Date secondDate;
 }

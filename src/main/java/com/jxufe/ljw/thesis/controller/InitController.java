@@ -3,6 +3,7 @@ package com.jxufe.ljw.thesis.controller;
 import com.jxufe.ljw.thesis.bean.Init;
 import com.jxufe.ljw.thesis.service.InitService;
 import com.jxufe.ljw.thesis.vo.ResultUtil;
+import io.swagger.models.auth.In;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,5 +63,12 @@ public class InitController {
 
         }
         return ResultUtil.success(init);
+    }
+    @PostMapping("/updateControllDate")
+    public Object updateControllDate(Init init){
+        Init data = initService.getInitInfo();
+        init.setInitId(data.getInitId());
+        initService.updateControllDate(init);
+        return ResultUtil.success("更新成功！！！");
     }
 }

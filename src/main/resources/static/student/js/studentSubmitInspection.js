@@ -46,6 +46,11 @@ function  loadDataGrid(){
         url: "/thesis/openReport/getThesisForOpenReportAndReview",
         success: function (data) {
             let gridData=data;
+            if(gridData.openReportSummary==""||gridData.openReportWay==""){
+                $.MsgBox.Alert("提示","请先提交开题报告！！！",function () {
+                    location.href="studentSubmitOpenReport.html";
+                });
+            }
             $("#studentMajor").text(gridData.studentMajor);
             $("#studentClass").text(gridData.studentClass);
             $("#thesisTitle").text(gridData.thesisTitle);

@@ -1,7 +1,10 @@
 package com.jxufe.ljw.thesis.controller;
 
+import com.jxufe.ljw.thesis.bean.Init;
 import com.jxufe.ljw.thesis.bean.Menu;
 import com.jxufe.ljw.thesis.bean.User;
+import com.jxufe.ljw.thesis.enumeration.UserType;
+import com.jxufe.ljw.thesis.service.InitService;
 import com.jxufe.ljw.thesis.service.MenuService;
 import com.jxufe.ljw.thesis.vo.ResultUtil;
 import org.slf4j.Logger;
@@ -12,6 +15,9 @@ import org.springframework.transaction.interceptor.TransactionAspectSupport;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -24,6 +30,8 @@ import java.util.Map;
 @RequestMapping("/menu")
 public class MenuController {
     private static final Logger logger = LoggerFactory.getLogger(MenuController.class);
+    @Autowired
+    private InitService initService;
 
     @Autowired
     private MenuService menuService;
@@ -38,7 +46,33 @@ public class MenuController {
     public Object getMenu(HttpServletRequest request) {
         User user = (User) request.getSession().getAttribute("user");
         try {
+            String[] selectMenuIds={"12","20","22","25","28","29","30","6"};
+            String[] selectMenuIdList={"3","10","9"};
+            Init init=initService.getInitInfo();
             List<Menu> menuList = menuService.getMenyBymenuBelong(String.valueOf(user.getUserType()));
+            if(user.getUserType()!= UserType.MANAGE.getType()){
+                SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+                Calendar calendar = Calendar.getInstance();
+                Date date=new Date();
+                calendar.setTime(date);
+                calendar.add(Calendar.DATE, -1);
+                date = calendar.getTime();
+                String nowDate=df.format(date);
+                if(df.parse(nowDate).before(init.getFirstDate())){
+                    for (String menuId:selectMenuIds
+                    ) {
+                        Menu menu=menuService.getMenu(menuId);
+                        menuList.remove(menu);
+                    }
+                }else if(df.parse(nowDate).before(init.getSecondDate())){
+                    for (String menuId:selectMenuIdList
+                    ) {
+                        Menu menu=menuService.getMenu(menuId);
+                        menuList.remove(menu);
+                    }
+
+                }
+            }
             return ResultUtil.success(menuList);
         } catch (Exception e) {
             return ResultUtil.error("查询菜单列表异常");

@@ -46,4 +46,8 @@
           menu_status = #{menuStatus}
           ORDER BY menu_weight
     </select>
+    <select id="getMenu" resultType="com.jxufe.ljw.thesis.bean.Menu">
+        select * from t_menu
+        where menu_id=#{menuId}
+    </select>
 </mapper>

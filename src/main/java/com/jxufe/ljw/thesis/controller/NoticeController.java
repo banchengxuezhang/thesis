@@ -48,25 +48,17 @@ public class NoticeController {
         try{
 
             User user = (User) request.getSession().getAttribute("user");
-            List<Menu> list = menuService.getMenuByStatus(1);
             Map<String, Object> map = new HashMap<>();
-            StringBuilder stringBuilder = new StringBuilder("");
             Init init=initService.getInitInfo();
             List<String> noteList =new ArrayList<>() ;
-            List<Notice> noticeList=new ArrayList<>();
-            String nowStage = "评分阶段";
+            String nowStage = "选题阶段";
             String text1 = "";
             String text2 = "";
-            for (Menu menu : list
-            ) {
-                stringBuilder.append(menu.getMenuText());
-            }
-            if (stringBuilder.indexOf("学生选题") != -1 && stringBuilder.indexOf("给定题目") != -1) {
-                nowStage = "选题阶段";
-            } else if (stringBuilder.indexOf("上传任务书") != -1 && stringBuilder.indexOf("下载任务书") != -1) {
-                nowStage = "指导阶段";
-            } else if (stringBuilder.indexOf("答辩") != -1) {
-                nowStage = "答辩阶段";
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            String s = sdf.format(new Date());
+            Date nowDate =  sdf.parse(s);
+            if(nowDate.after(init.getFirstDate())){
+                nowStage="过程阶段";
             }
             map.put("nowStage", nowStage);
             if (user.getUserType() == UserType.STUDENT.getType()) {

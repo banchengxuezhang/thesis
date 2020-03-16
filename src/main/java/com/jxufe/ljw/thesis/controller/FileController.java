@@ -120,6 +120,7 @@ public class FileController {
             String thesisNo = request.getParameter("thesisNo");
             String thesisTitle = request.getParameter("thesisTitle");
             StudentTeacherRelation studentTeacherRelation = relationService.getStudentTeacherRelationByThesisNo(thesisNo);
+            studentService.updateStudentInfo(studentTeacherRelation.getStudentNo(),"","",PublicData.waitAnswer);
             String sysPath = PublicData.path + "\\" + studentTeacherRelation.getStudentNo() + "\\Thesis";
             String fileName = studentTeacherRelation.getStudentNo() + "-" + studentTeacherRelation.getStudentName() + "-" + multipartFile.getOriginalFilename();
             String taskUrl=studentTeacherRelation.getThesisUrl();

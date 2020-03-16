@@ -30,6 +30,8 @@ import java.util.Map;
 public class OpenReportController {
     private static final Logger logger= LoggerFactory.getLogger(OpenReport.class);
     @Autowired
+    private StudentService studentService;
+    @Autowired
     private GroupService groupService;
     @Autowired
     private IMailService iMailService;
@@ -54,11 +56,12 @@ public class OpenReportController {
         String openReportSummary=openReportVo.getOpenReportSummary();
         String openReportWay=openReportVo.getOpenReportWay();
         String thesisNo=openReportVo.getThesisNo();
+        StudentTeacherRelation studentTeacherRelation=relationService.getStudentTeacherRelationByThesisNo(thesisNo);
+        studentService.updateStudentInfo(studentTeacherRelation.getStudentNo(),"","",PublicData.waitInspection);
         String fileName="";
         MultipartFile multipartFile=openReportVo.getFile();
         if(multipartFile!=null){
-         StudentTeacherRelation studentTeacherRelation=relationService.getStudentTeacherRelationByThesisNo(thesisNo);
-         Boolean flag=true;
+         Boolean flag;
          String sysPath= PublicData.path+"\\"+studentTeacherRelation.getStudentNo()+"\\OpenReport";
           fileName = studentTeacherRelation.getStudentNo() + "-" + studentTeacherRelation.getStudentName() + "-" + multipartFile.getOriginalFilename();
          OpenReport openReport=openReportService.getOpenReportByThesisNo(thesisNo);
@@ -124,7 +127,8 @@ public class OpenReportController {
        String reviewContent=openReportVo.getReviewContent();
        StudentTeacherRelation studentTeacherRelation=relationService.getStudentTeacherRelationByThesisNo(openReportVo.getThesisNo());
        OpenReport openReport=openReportService.getOpenReportByThesisNo(openReportVo.getThesisNo());
-       if(openReportVo.getFile()!=null){
+        studentService.updateStudentInfo(studentTeacherRelation.getStudentNo(),"","",PublicData.waitOpenReport);
+        if(openReportVo.getFile()!=null){
            if(openReport!=null){
                 url=openReport.getReviewUrl();
            }
@@ -160,6 +164,15 @@ public class OpenReportController {
     public Object uploadInspection(OpenReportVo openReportVo){
         try{
             OpenReport openReport=new OpenReport();
+            String thesisNo=openReportVo.getThesisNo();
+            StudentTeacherRelation studentTeacherRelation=relationService.getStudentTeacherRelationByThesisNo(thesisNo);
+            if(studentTeacherRelation.getThesisUrl()==""){
+                studentService.updateStudentInfo(studentTeacherRelation.getStudentNo(),"","",PublicData.waitUploadThesis);
+
+            }else {
+                studentService.updateStudentInfo(studentTeacherRelation.getStudentNo(),"","",PublicData.waitAnswer);
+
+            }
             BeanUtils.copyProperties(openReportVo,openReport);
             if( openReportService.updateOpenReport(openReport)<1){
                 return ResultUtil.success("提交失败！请提交文献综述和开题报告后再进行此操作！");

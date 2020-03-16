@@ -188,7 +188,7 @@ public class StudentTeacherRelationController {
                 if (relationService.getStudentSelectThesisAgreeNumByTeacherNo(user.getUserAccount(), 1) >= init.getTeacherNum()) {
                     return ResultUtil.success("您已选满了" + init.getTeacherNum() + "名学生，无法同意该申请!");
                 }
-                studentService.updateStudentInfo(relation.getStudentNo(),"","",PublicData.waitSubmitTask);
+                studentService.updateStudentInfo(relation.getStudentNo(),"","",PublicData.waitReview);
                 iMailService.sendSimpleMail(relation.getStudentEmail(), "论文课题选题成功！请查看详情！", relation.getStudentName() + "同学您好！恭喜你！\n您选择的论文课题《" + relation.getThesisTitle() + "》被" + relation.getTeacherName() + "教师同意了，教师给的留言是：\n" + relation.getTeacherOpinion());
 
             }

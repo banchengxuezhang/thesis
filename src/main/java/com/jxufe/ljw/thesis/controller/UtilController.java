@@ -2,12 +2,12 @@ package com.jxufe.ljw.thesis.controller;
 
 import ch.qos.logback.core.joran.util.beans.BeanUtil;
 import com.jxufe.ljw.thesis.bean.Group;
+import com.jxufe.ljw.thesis.bean.StudentInfo;
 import com.jxufe.ljw.thesis.bean.StudentTeacherRelation;
 import com.jxufe.ljw.thesis.bean.TeacherInfo;
-import com.jxufe.ljw.thesis.service.GroupService;
-import com.jxufe.ljw.thesis.service.StudentTeacherRelationService;
-import com.jxufe.ljw.thesis.service.TeacherService;
+import com.jxufe.ljw.thesis.service.*;
 import com.jxufe.ljw.thesis.util.VerifyCodeUtils;
+import com.jxufe.ljw.thesis.vo.ResultUtil;
 import org.apache.poi.ss.util.CellRangeAddress;
 import org.apache.poi.xssf.streaming.SXSSFRow;
 import org.apache.poi.xssf.streaming.SXSSFSheet;
@@ -17,6 +17,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -40,6 +41,10 @@ import java.util.List;
 @RestController
 public class UtilController {
     private static final Logger logger = LoggerFactory.getLogger(UtilController.class);
+    @Autowired
+    private IMailService iMailService;
+    @Autowired
+    private StudentService studentService;
     @Autowired
     private GroupService groupService;
     @Autowired
@@ -104,6 +109,21 @@ public class UtilController {
             List<TeacherInfo> teacherInfoList=teacherService.getTeacherByGroupName(g.getGroupName());
             for(TeacherInfo t:teacherInfoList){
                 List<StudentTeacherRelation> studentTeacherRelations=relationService.getStudentAgreeByTeacherNo(t.getTeacherNo());
+               if(studentTeacherRelations.size()<1){
+                   SXSSFRow dataRow = sheet.createRow(sheet.getLastRowNum() + 1);
+                   dataRow.createCell(0).setCellValue(k);
+                   k++;
+                   if(g.getReplyDate()!=null){
+                       dataRow.createCell(5).setCellValue(formatter.format(g.getReplyDate()));
+                   }else {
+                       dataRow.createCell(5).setCellValue(g.getReplyDate());
+                   }
+
+                   dataRow.createCell(6).setCellValue(g.getReplyPlace());
+                   dataRow.createCell(7).setCellValue(t.getTeacherName());
+                   dataRow.createCell(8).setCellValue(g.getGrouperName());
+                   dataRow.createCell(9).setCellValue(t.getGroupName());
+               }
                 for (StudentTeacherRelation s:studentTeacherRelations
                      ) {
                     BeanUtils.copyProperties(t,s);
@@ -144,5 +164,15 @@ public class UtilController {
         // 关闭
         outputStream.close();
         sxssfWorkbook.close();
+    }
+    @PostMapping("/remindStudents")
+    public Object remindStudents(String[] studentNoList){
+        for (String studentNo:studentNoList
+             ) {
+            StudentInfo studentInfo=studentService.getStudentInfoByStudentNo(studentNo);
+            iMailService.sendSimpleMail(studentInfo.getStudentEmail(),"答辩时间已出！请前往查看！",studentInfo.getStudentName()+
+                    "同学您好，您的答辩信息已发布，请前往毕业论文管理系统进行查看！！！");
+        }
+        return ResultUtil.success("提醒同学们成功！！！");
     }
 }

@@ -14,5 +14,6 @@ public interface MenuDao {
     List<Menu> selectAllMenu(Menu menu, Pagination page);
 
     int updateMenuByMenuId(Menu menu);
+    Menu getMenu(String menuId);
 
 }

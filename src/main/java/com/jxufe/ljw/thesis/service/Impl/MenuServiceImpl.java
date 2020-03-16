@@ -47,4 +47,9 @@ public class MenuServiceImpl implements MenuService {
         return menuDao.updateMenuByMenuId(menu);
     }
 
+    @Override
+    public Menu getMenu(String menuId) {
+        return menuDao.getMenu(menuId);
+    }
+
 }

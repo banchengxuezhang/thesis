@@ -46,29 +46,34 @@ $(function () {
 
        })
    })
-})
-function  loadDataGrid(){
-    $.ajax({
-        type: 'get',
-        url: "/thesis/openReport/getThesisForOpenReportAndReview",
-        success: function (data) {
-            let gridData=data;
-            $("#studentName").text(gridData.studentName);
-            $("#studentNo").text(gridData.studentNo);
-            $("#studentMajor").text(gridData.studentMajor);
-            $("#studentClass").text(gridData.studentClass);
-            $("#thesisTitle").text(gridData.thesisTitle);
-            $("#openReportSummary").text(gridData.openReportSummary);
-            $("#openReportWay").text(gridData.openReportWay);
-            if(gridData.openReportUrl!=""){
-                $("#openReportUrl").text("附件："+gridData.openReportUrl);
+    function  loadDataGrid(){
+        $.ajax({
+            type: 'get',
+            url: "/thesis/openReport/getThesisForOpenReportAndReview",
+            success: function (data) {
+               let  gridData=data;
+                if(gridData.reviewContent==""){
+                    $.MsgBox.Alert("提示","请先提交文献综诉！！！",function () {
+                        location.href="studentSubmitReview.html";
+                    });
+                }
+                $("#studentName").text(gridData.studentName);
+                $("#studentNo").text(gridData.studentNo);
+                $("#studentMajor").text(gridData.studentMajor);
+                $("#studentClass").text(gridData.studentClass);
+                $("#thesisTitle").text(gridData.thesisTitle);
+                $("#openReportSummary").text(gridData.openReportSummary);
+                $("#openReportWay").text(gridData.openReportWay);
+                if(gridData.openReportUrl!=""){
+                    $("#openReportUrl").text("附件："+gridData.openReportUrl);
+                }
+                thesisNo=gridData.thesisNo;
+                openReportStatus=gridData.openReportStatus;
+                checkStatus=gridData.checkStatus;
+            },
+            error: function () {
+                $.MsgBox.Alert("错误", "查询课题数据失败！");
             }
-            thesisNo=gridData.thesisNo;
-            openReportStatus=gridData.openReportStatus;
-            checkStatus=gridData.checkStatus;
-        },
-        error: function () {
-            $.MsgBox.Alert("错误", "查询课题数据失败！");
-        }
-    })
-}
+        })
+    }
+})

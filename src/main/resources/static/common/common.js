@@ -19,12 +19,14 @@
     //生成Html
     var GenerateHtml = function (type, title, msg) {
         var _html = "";
-        _html += '<div  class="am-panel am-panel-default" id="mb_box"></div><div id="mb_con"><span  id="mb_tit"><div class="am-animation-slide-bottom">' + title + '</div></span>';
-        _html += '<a  class="am-close am-close-alt am-close-spin am-icon-times " id="mb_ico"></a><div class="am-animation-slide-top" id="mb_msg">' + msg + '</div><div id="mb_btnbox">';
-        if (type == "alert") {
-            _html += '<input class="am-btn am-btn-default am-round" id="mb_btn_ok" type="button" value="确定" />';
+      if (type == "alert") {
+          _html += '<div  class="am-panel am-panel-default" id="mb_box"></div><div id="mb_con"><span  id="mb_tit"><div class="am-animation-slide-bottom">' + title + '</div></span>';
+          _html += '<div class="am-animation-slide-top" id="mb_msg">' + msg + '</div><div id="mb_btnbox">';
+          _html += '<input class="am-btn am-btn-default am-round" id="mb_btn_ok" type="button" value="确定" />';
         }
         if (type == "confirm") {
+            _html += '<div  class="am-panel am-panel-default" id="mb_box"></div><div id="mb_con"><span  id="mb_tit"><div class="am-animation-slide-bottom">' + title + '</div></span>';
+            _html += '<a  class="am-close am-close-alt am-close-spin am-icon-times " id="mb_ico"></a><div class="am-animation-slide-top" id="mb_msg">' + msg + '</div><div id="mb_btnbox">';
             _html += '<input id="mb_btn_ok" class="am-btn am-btn-default am-round" type="button" value="确定" />';
             _html += '<input id="mb_btn_no" class="am-btn am-btn-danger am-round" type="button" value="取消" />';
         }

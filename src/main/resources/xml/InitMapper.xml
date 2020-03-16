@@ -7,6 +7,18 @@
         notes_for_teacher=#{notesForTeacher},notes_for_student=#{notesForStudent},notes_for_manager=#{notesForManager}
         where init_id=#{initId}
     </update>
+    <update id="updateControllDate">
+        update t_init
+        <set>
+            <if test="firstDate!=null">
+                first_date=#{firstDate},
+            </if>
+            <if test="secondDate!=null">
+                second_date=#{secondDate},
+            </if>
+        </set>
+        where init_id=#{initId}
+    </update>
     <select id="getInitInfo" resultType="com.jxufe.ljw.thesis.bean.Init">
         select * from t_init;
     </select>

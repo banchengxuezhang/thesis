@@ -13,4 +13,5 @@ public interface InitDao {
     Init getInitInfo();
 
     int updateInitInfo(Init init);
+    int updateControllDate(Init init);
 }

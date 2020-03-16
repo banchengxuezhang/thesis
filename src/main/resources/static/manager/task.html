@@ -1,0 +1,49 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>无标题文档</title>
+    <link rel="stylesheet" href="../amazeui/css/amazeui.flat.min.css" />
+    <link rel="stylesheet" href="../css/admin.css">
+    <link rel="stylesheet" href="../css/app.css">
+    <script type="text/javascript" src="../amazeui/js/amazeui.min.js"> </script>
+    <script type="text/javascript" src="../js/jquery.js"></script>
+    <script language="JavaScript" src="../common/common.js"></script>
+    <script type="text/javascript" src="js/task.js"></script>
+</head>
+<body class="am-animation-slide-right">
+<div class="tpl-content-page-title" style="margin-bottom: 10px;">
+    进程管理</div>
+<ol class="am-breadcrumb">
+    <li><a href="../content.html" class="am-icon-home">首页</a></li>
+    <li class="am-active">进程控制</li>
+</ol>
+<div class="am-panel am-panel-default">
+    <div class="am-panel-bd">
+        <form class="am-form am-center"  style="width: 500px" data-am-validator>
+            <div class="am-form-group">
+                <p><b id="returnFirstBtn" style="margin-top: 10px" class="am-btn am-btn-primary">强制退回到第一阶段</b>
+            </div>
+            <div class="am-form-group am-form-icon">
+                <label for="firstDate">第一阶段截止日期</label>
+                <i class="am-icon-calendar"></i>
+                <input type="date" id="firstDate"  class="am-form-field am-input-sm" style="height: 37px">
+            </div>
+            <div class="am-form-group">
+                <p><b id="returnSecondBtn" style="margin-top: 10px" class="am-btn am-btn-success">强制退回到第二阶段</b>
+            </div>
+            <div class="am-form-group am-form-icon">
+                <label for="secondDate">第二阶段截止日期</label>
+                <i class="am-icon-calendar"></i>
+                <input type="date" id="secondDate" class="am-form-field am-input-sm" style="height: 37px">
+            </div>
+            <div class="am-form-group">
+                <p><b id="updateDateBtn" style="margin-top: 10px" class="am-btn am-btn-default">提交</b>
+                    <b  id="returnBtn" style="margin-top: 10px;margin-left: 20px" class="am-btn am-btn-danger">返回</b></p>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>

@@ -3,8 +3,8 @@ package com.jxufe.ljw.thesis.controller;
 import com.jxufe.ljw.thesis.bean.Group;
 import com.jxufe.ljw.thesis.bean.StudentTeacherRelation;
 import com.jxufe.ljw.thesis.bean.TeacherInfo;
-import com.jxufe.ljw.thesis.bean.User;
 import com.jxufe.ljw.thesis.service.GroupService;
+import com.jxufe.ljw.thesis.service.IMailService;
 import com.jxufe.ljw.thesis.service.StudentTeacherRelationService;
 import com.jxufe.ljw.thesis.service.TeacherService;
 import com.jxufe.ljw.thesis.util.ClassUtil;
@@ -16,8 +16,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -30,6 +30,8 @@ import java.util.Map;
 @RestController
 public class GroupController {
     private static final Logger logger= LoggerFactory.getLogger(GroupController.class);
+    @Autowired
+    private IMailService iMailService;
     @Autowired
     private StudentTeacherRelationService relationService;
     @Autowired
@@ -56,9 +58,11 @@ public class GroupController {
            }
        }
         group.setGroupId("GROUP"+System.currentTimeMillis());
+       List<TeacherInfo> list=new ArrayList<>();
         for (String userId:userIds
              ) {
             TeacherInfo teacherInfo1=teacherService.getTeacherInfo(userId);
+            list.add(teacherInfo1);
            if(teacherInfo1!=null){
                if((!StringUtils.isEmpty(teacherInfo1.getGroupName()))&&(!teacherInfo1.getGroupName().equals(""))){
                    return ResultUtil.error("很抱歉，您选了其它分组的教师！！！");
@@ -67,9 +71,16 @@ public class GroupController {
         }
         group.setGrouperName(teacherInfo.getTeacherName());
         groupService.addGroup((Group) ClassUtil.checkNull(group));
+        int k=0;
         for (String userId:userIds
              ) {
+            if(group.getGroupStatus()==1){
+                TeacherInfo teacherInfo1=list.get(k);
+                iMailService.sendSimpleMail(teacherInfo1.getTeacherEmail(),"答辩时间已出！",teacherInfo1.getTeacherName()+
+                        "教师您好！您参与的答辩时间已出！请前往毕业论文管理系统查看！请及时告知学生答辩时间及地点！");
+            }
             teacherService.updateTeacherGroupName(userId,group.getGroupName());
+            k++;
         }
         return ResultUtil.success("添加分组成功！！！");
     }
@@ -80,6 +91,14 @@ public class GroupController {
             return ResultUtil.error("该教师不存在！！！");
         }else if(!teacherInfo.getGroupName().equals(group.getGroupName())){
             return ResultUtil.error("该教师不在此分组！！！");
+        }
+        if(group.getGroupStatus()==1){
+           List<TeacherInfo> teacherInfoList=teacherService.getTeacherByGroupName(group.getGroupName());
+            for (TeacherInfo t:teacherInfoList
+                 ) {
+                iMailService.sendSimpleMail(t.getTeacherEmail(),"答辩时间已出！",t.getTeacherName()+
+                        "教师您好！您参与的答辩时间已出！请前往毕业论文管理系统查看！请及时告知学生答辩时间及地点！");
+            }
         }
         groupService.updateGroupByGroupName(group);
         return  ResultUtil.success("更改分组信息成功！！！");

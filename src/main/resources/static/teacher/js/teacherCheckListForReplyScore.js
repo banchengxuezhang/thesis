@@ -1,6 +1,7 @@
 var page = 1;
 const rows = 5;
 var totalPage;
+var studentNoList=new Array();
 $(function () {
     loadDataGrid();
 
@@ -20,9 +21,6 @@ $(function () {
             $.MsgBox.Alert("提示", "答辩尚未安排，您无法进行该操作！！！");
             return;
         }
-        console.log("查看当前时间:"+getNowFormatDate()+"答辩时间:"+flag.split(" ")[0]);
-        console.log("查看比较结果:"+compareDate(getNowFormatDate(),flag.split(" ")[0]))
-        console.log("查看比较结果1:"+compareDate(flag.split(" ")[0],getNowFormatDate()))
         if(compareDate(getNowFormatDate(),flag.split(" ")[0])){
             $.MsgBox.Alert("提示","答辩时间尚未开始，您无法进行该操作！！！");
             return;
@@ -35,6 +33,19 @@ $(function () {
         let thesisNo = $(checkedObj[0]).val();
         location.href = "./teacherGiveScore.html?thesisNo=" + thesisNo;
     });
+    $("#remindBtn").click(function () {
+          $.ajax({
+              type:"post",
+              url:"/thesis/remindStudents?studentNoList="+studentNoList,
+              success:function (data) {
+               $.MsgBox.Alert("提示",data.msg);
+               return;
+              },
+              error:function () {
+
+              }
+          })
+    })
 
     $("#firstPage").click(function () {
         if(totalPage==0){
@@ -107,6 +118,7 @@ function loadDataGrid() {
             $("#currentPage").html(page + "/" + totalPage);
             for (let i = 0; i < data.rows.length; i++) {
                 let gridData = (data.rows)[i];
+                studentNoList.push(gridData.studentNo);
                 let status="";
                 let score="";
                 if(gridData.thesisScoreList!=""&&gridData.thesisScoreList!=null){

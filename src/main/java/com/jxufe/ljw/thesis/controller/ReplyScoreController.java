@@ -1,6 +1,7 @@
 package com.jxufe.ljw.thesis.controller;
 
 import com.jxufe.ljw.thesis.bean.*;
+import com.jxufe.ljw.thesis.enumeration.PublicData;
 import com.jxufe.ljw.thesis.service.*;
 import com.jxufe.ljw.thesis.util.ClassUtil;
 import com.jxufe.ljw.thesis.vo.ResultUtil;
@@ -26,6 +27,8 @@ import java.util.List;
 @RestController
 public class ReplyScoreController {
     private  static final Logger logger=LoggerFactory.getLogger(ReplyScoreController.class);
+    @Autowired
+    private StudentService studentService;
     @Autowired
     private TeacherService teacherService;
     @Autowired
@@ -87,6 +90,8 @@ public class ReplyScoreController {
     @PostMapping("/updateCheckStatus")
     public Object updateCheckStatus(String thesisNo){
       ReplyScore replyScore=new ReplyScore();
+      StudentTeacherRelation studentTeacherRelation=relationService.getStudentTeacherRelationByThesisNo(thesisNo);
+      studentService.updateStudentInfo(studentTeacherRelation.getStudentNo(),"","", PublicData.finish);
       replyScore.setThesisNo(thesisNo);
       replyScore.setCheckStatus(1);
      int flag= replyScoreService.updateReplyScore(replyScore);

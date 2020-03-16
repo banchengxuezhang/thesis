@@ -109,16 +109,12 @@
 							<li id="managerList"></li>
 						</ul></li>
 
-					<!-- <li class="tpl-left-nav-item"><a href="tslist.html"
-						class="nav-link tpl-left-nav-link-list link_a" target="iframe_a"> <i
-							class="am-icon-comments-o"></i> <span>互动交流</span>
-					</a></li> -->
 				</ul>
 			</div>
 		</div>
 		<!--begin  -->
 		<div class="tpl-content-wrapper">
-			<iframe  name="iframe_a" src="content.html" class="am-animation-slide-right" frameborder="0" scrolling="no" id="test" style="width: 100%" onload="this.height=100"></iframe>
+			<iframe  name="iframe_a" src="content.html" class="am-animation-slide-right" frameborder="0" scrolling="no" id="test" style="width: 100%" onload="this.height=500"></iframe>
 			<script type="text/javascript">
 				function reinitIframe(){
 					var iframe = document.getElementById("test");
@@ -129,7 +125,7 @@
 						iframe.height = height;
 					}catch (ex){}
 				}
-				window.setInterval("reinitIframe()", 200);
+				window.setInterval("reinitIframe()", 100);
 			</script>
 		</div>
 		<!--end  -->

@@ -14,4 +14,5 @@ public interface MenuService {
     Map<String, Object> selectAllMenu(Menu menu, int page, int rows);
 
     int updateMenuByMenuId(Menu menu);
+    Menu getMenu(String menuId);
 }

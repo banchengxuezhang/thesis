@@ -11,4 +11,5 @@ public interface InitService {
     Init getInitInfo();
 
     int updateInitInfo(Init init);
+    int updateControllDate(Init init);
 }

@@ -1,13 +1,8 @@
 package com.jxufe.ljw.thesis.controller;
 
-import com.jxufe.ljw.thesis.bean.StudentInfo;
-import com.jxufe.ljw.thesis.bean.TeacherInfo;
-import com.jxufe.ljw.thesis.bean.User;
+import com.jxufe.ljw.thesis.bean.*;
 import com.jxufe.ljw.thesis.enumeration.UserType;
-import com.jxufe.ljw.thesis.service.IMailService;
-import com.jxufe.ljw.thesis.service.StudentService;
-import com.jxufe.ljw.thesis.service.TeacherService;
-import com.jxufe.ljw.thesis.service.UserService;
+import com.jxufe.ljw.thesis.service.*;
 import com.jxufe.ljw.thesis.util.Md5Tools;
 import com.jxufe.ljw.thesis.util.VerifyCodeUtils;
 import com.jxufe.ljw.thesis.vo.ResultUtil;
@@ -21,6 +16,8 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -85,7 +82,7 @@ public class LoginController {
                             session.removeAttribute(user.getUserAccount() + "password");
                             user.setUserPassword(Md5Tools.convertMD5(password));
                             session.setAttribute("user", user);
-                            return ResultUtil.success("登陆成功！！！");
+                            return ResultUtil.success("登录成功！！！");
                         }
                     } catch (Exception e) {
                         logger.info("session中无密码！");

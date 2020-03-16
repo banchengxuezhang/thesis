@@ -53,7 +53,7 @@ $(function () {
                         $("#flowList").append("<a href=\""+gridData.menuUrl+"\" class=\"link_a\" target=\"iframe_a\"> <i\n" +
                             "class=\"am-icon-angle-right\"></i> <span>"+gridData.menuText+"</span></a>");
                     }
-                    if(gridData.menuText=="添加用户"||gridData.menuText=="设置数据"||gridData.menuText=="数据分析"||gridData.menuText=="控制进程"||gridData.menuText=="权限控制"
+                    if(gridData.menuText=="用户管理"||gridData.menuText=="设置数据"||gridData.menuText=="数据分析"||gridData.menuText=="控制进程"||gridData.menuText=="权限控制"
                         ||gridData.menuText=="发布公告"){
                         $("#systemManager").css('display','block');
                         $("#managerList").append("<a href=\""+gridData.menuUrl+"\" class=\"link_a\" target=\"iframe_a\"> <i\n" +
@@ -67,7 +67,7 @@ $(function () {
         },
         error:function () {
             // 登录存在错误，弹出提示信息
-         //   $.MsgBox.Alert("错误", "登录出错！");
+           $.MsgBox.Alert("错误", "登录出错！");
         }
     })
 

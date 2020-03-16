@@ -25,4 +25,9 @@ public class InitServiceImpl implements InitService {
     public int updateInitInfo(Init init) {
         return initDao.updateInitInfo(init);
     }
+
+    @Override
+    public int updateControllDate(Init init) {
+        return initDao.updateControllDate(init);
+    }
 }
