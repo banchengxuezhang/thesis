@@ -166,7 +166,7 @@ public class OpenReportController {
             OpenReport openReport=new OpenReport();
             String thesisNo=openReportVo.getThesisNo();
             StudentTeacherRelation studentTeacherRelation=relationService.getStudentTeacherRelationByThesisNo(thesisNo);
-            if(studentTeacherRelation.getThesisUrl()==""){
+            if(studentTeacherRelation.getThesisUrl()==""||StringUtils.isEmpty(studentTeacherRelation.getThesisUrl())){
                 studentService.updateStudentInfo(studentTeacherRelation.getStudentNo(),"","",PublicData.waitUploadThesis);
 
             }else {
@@ -280,6 +280,12 @@ public class OpenReportController {
         map.put("rows",list);
         return map;
     }
+
+    /**
+     * 获取单个课题学生详情
+     * @param thesisNo
+     * @return
+     */
     @GetMapping("/getThesisOpenReportAndOtherByThesisNo")
     public Object getThesisOpenReportAndOtherByThesisNo(String thesisNo){
       try {
@@ -303,6 +309,11 @@ public class OpenReportController {
       }
     }
 
+    /**
+     *教师检查开题报告
+     * @param replyScore
+     * @return
+     */
     @PostMapping("/teacherCheckOpenReport")
     public Object teacherCheckOpenReport(ReplyScore replyScore){
     ReplyScore replyScore1=replyScoreService.getReplyScoreByThesisNo(replyScore.getThesisNo());
@@ -322,6 +333,12 @@ public class OpenReportController {
     }
     return ResultUtil.success("提交开题报告分数成功！");
     }
+
+    /**
+     * 教师检查文献综述
+     * @param replyScore
+     * @return
+     */
     @PostMapping("/teacherCheckReview")
     public Object teacherCheckReview(ReplyScore replyScore){
         ReplyScore replyScore1=replyScoreService.getReplyScoreByThesisNo(replyScore.getThesisNo());
@@ -339,6 +356,12 @@ public class OpenReportController {
         }
      return  ResultUtil.success("提交文献综述审核成功！！！");
     }
+
+    /**
+     * 教师检查中期视察
+     * @param replyScore
+     * @return
+     */
     @PostMapping("/teacherCheckInspection")
     public Object teacherCheckInspection(ReplyScore replyScore){
         ReplyScore replyScore1=replyScoreService.getReplyScoreByThesisNo(replyScore.getThesisNo());
@@ -356,6 +379,12 @@ public class OpenReportController {
         }
         return  ResultUtil.success("提交中期检查审核成功！！！");
     }
+
+    /**
+     * 教师检查免答辩申请
+     * @param noReply
+     * @return
+     */
     @PostMapping("/teacherCheckNoReply")
     public Object teacherCheckNoReply(NoReply noReply){
         StudentTeacherRelation studentTeacherRelation=relationService.getStudentTeacherRelationByThesisNo(noReply.getThesisNo());

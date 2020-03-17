@@ -48,6 +48,27 @@ $(function () {
         })
 
     });
+    $("#noCheckStudentBtn").click(function () {
+        if (userIds.length <= 0) {
+            $.MsgBox.Alert("提示", "请选择一条数据进行操作！");
+            return;
+        }
+        if (userIds.length > 1) {
+            $.MsgBox.Alert("提示", "只能选择一条数据进行操作！");
+            return;
+        }
+        let userId = userIds[0];
+        $.ajax({
+            type:"post",
+            url:"/thesis/replyScore/noCheckStudentStatus?userId="+userId,
+            success:function (data) {
+                 $.MsgBox.Alert("提示",data.msg);
+            },
+            error: function () {
+             $.MsgBox.Alert("提示","取消验收失败！！！");
+            }
+        })
+    })
 
     $("#firstPage").click(function () {
         if(totalPage==0){

@@ -29,7 +29,6 @@ import java.util.Map;
 @RequestMapping("/group")
 @RestController
 public class GroupController {
-    private static final Logger logger= LoggerFactory.getLogger(GroupController.class);
     @Autowired
     private IMailService iMailService;
     @Autowired
@@ -38,6 +37,13 @@ public class GroupController {
     private GroupService groupService;
     @Autowired
     private TeacherService teacherService;
+
+    /**
+     * 管理员添加分组
+     * @param userIds 添加教师列表
+     * @param group 小组信息
+     * @return
+     */
     @PostMapping("/addGroup")
     public Object addGroup(String[] userIds, Group group){
         Group group1=groupService.getGroupByGroupName(group.getGroupName());
@@ -84,6 +90,12 @@ public class GroupController {
         }
         return ResultUtil.success("添加分组成功！！！");
     }
+
+    /**
+     * 管理员修改分组信息
+     * @param group 分组信息
+     * @return
+     */
     @PostMapping("/modifyGroup")
     public Object modifyGroup(Group group){
         TeacherInfo teacherInfo=teacherService.getTeacherInfoByTeacherNo(group.getGrouperNo());
@@ -103,6 +115,12 @@ public class GroupController {
         groupService.updateGroupByGroupName(group);
         return  ResultUtil.success("更改分组信息成功！！！");
     }
+
+    /**
+     * 管理员删除分组
+     * @param groupIds
+     * @return
+     */
     @DeleteMapping("deleteGroupsByIds")
     public Object deleteGroupsByIds(String[] groupIds){
         for (String groupId:groupIds
@@ -113,10 +131,22 @@ public class GroupController {
         }
         return ResultUtil.success("删除分组信息成功！！！");
     }
+
+    /**
+     * 管理员获取分组信息
+     * @param groupId
+     * @return
+     */
     @GetMapping("/getGroupById")
     public Object getGroupById(String groupId){
         return groupService.getGroupById(groupId);
     }
+
+    /**
+     * 随机分组
+     * @param num
+     * @return
+     */
     @PostMapping("/randomGroup")
     public Object randomGroup(int num){
         try {
@@ -145,6 +175,13 @@ public class GroupController {
         }
 
     }
+
+    /**
+     * 获取分组列表
+     * @param page
+     * @param rows
+     * @return
+     */
     @GetMapping("/getGroups")
     public Object getGroups(int page,int rows){
         Map<String,Object> map= (Map<String, Object>) groupService.getAllGroup(page,rows);

@@ -205,6 +205,12 @@ public class UserController {
     public Object getUserList(int page,int rows,UserInfoDetail userInfoDetail){
        return userService.getUserList(page,rows,userInfoDetail);
    }
+
+    /**
+     * 管理员获取用户信息
+     * @param userId
+     * @return
+     */
    @GetMapping("/getUserDetailInfoById")
     public Object getUserDetailInfoById(String userId){
        User user=userService.getUserById(userId);
@@ -219,18 +225,36 @@ public class UserController {
            return map;
        }
    }
+
+    /**
+     * 管理员修改教师信息
+     * @param teacherInfo
+     * @return
+     */
    @PostMapping("/updateTeacherInfo")
     public Object updateTeacherInfo(TeacherInfo teacherInfo){
       logger.info("查看修改教师信息："+teacherInfo);
        teacherService.updateTeacherInfoByTeacher(teacherInfo);
        return ResultUtil.success("修改成功！");
    }
+
+    /**
+     * 管理员修改学生信息
+     * @param studentInfo
+     * @return
+     */
     @PostMapping("/updateStudentInfo")
     public Object updateStudentInfo(StudentInfo studentInfo){
        logger.info("查看修改学生信息："+studentInfo);
        studentService.updateStudentInfoByStudent(studentInfo);
        return ResultUtil.success("修改成功！");
     }
+
+    /**
+     * 管理员删除用户
+     * @param userIds
+     * @return
+     */
     @DeleteMapping("/deleteUsersByIds")
     @Transactional
     public Object deleteUsersByIds(String[] userIds){
@@ -273,6 +297,14 @@ public class UserController {
         }
       return ResultUtil.success("删除成功！！！");
     }
+
+    /**
+     * 管理员获取教师列表
+     * @param page
+     * @param rows
+     * @param teacherInfo
+     * @return
+     */
     @GetMapping("/getTeacherListForManager")
     public Object getTeacherListForManager(int page,int rows,TeacherInfo teacherInfo){
       List<Group> groups=groupService.getGroupNames();

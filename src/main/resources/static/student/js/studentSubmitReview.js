@@ -50,6 +50,11 @@ function  loadDataGrid(){
         type: 'get',
         url: "/thesis/openReport/getThesisForOpenReportAndReview",
         success: function (data) {
+            if (data.code==2){
+                $.MsgBox.Alert("提示","请先通过课题！！！",function () {
+                    location.href="studentSelectThesis.html";
+                });
+            }
             let gridData=data;
            $("#thesisTitle").text("你的论文题目为："+gridData.thesisTitle);
            if(gridData.reviewContent!=""){

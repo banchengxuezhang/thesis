@@ -185,6 +185,12 @@ public class ThesisInfoController {
         }
         return ResultUtil.dataGridEmptyResult();
     }
+
+    /**
+     * 教师判断自己能否再出题
+     * @param request
+     * @return
+     */
     @GetMapping("/getPowerGiveThesis")
     public Object getPowerGiveThesis(HttpServletRequest request){
         try {

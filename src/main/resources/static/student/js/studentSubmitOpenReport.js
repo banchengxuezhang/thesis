@@ -52,6 +52,11 @@ $(function () {
             url: "/thesis/openReport/getThesisForOpenReportAndReview",
             success: function (data) {
                let  gridData=data;
+               if (data.code==2){
+                   $.MsgBox.Alert("提示","请先通过课题！！！",function () {
+                       location.href="studentSelectThesis.html";
+                   });
+               }
                 if(gridData.reviewContent==""){
                     $.MsgBox.Alert("提示","请先提交文献综诉！！！",function () {
                         location.href="studentSubmitReview.html";

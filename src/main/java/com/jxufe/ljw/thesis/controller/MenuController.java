@@ -15,6 +15,7 @@ import org.springframework.transaction.interceptor.TransactionAspectSupport;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -43,31 +44,31 @@ public class MenuController {
      * @return
      */
     @GetMapping("/getMenuByMenuBelong")
-    public Object getMenu(HttpServletRequest request) {
+    public Object getMenu(HttpServletRequest request) throws ParseException {
         User user = (User) request.getSession().getAttribute("user");
         try {
-            String[] selectMenuIds={"12","20","22","25","28","29","30","6"};
-            String[] selectMenuIdList={"3","10","9"};
-            Init init=initService.getInitInfo();
+            String[] selectMenuIds = {"12", "20", "22", "25", "28", "29", "30", "6"};
+            String[] selectMenuIdList = {"3", "10", "9"};
+            Init init = initService.getInitInfo();
             List<Menu> menuList = menuService.getMenyBymenuBelong(String.valueOf(user.getUserType()));
-            if(user.getUserType()!= UserType.MANAGE.getType()){
+            if (user.getUserType() != UserType.MANAGE.getType()) {
                 SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
                 Calendar calendar = Calendar.getInstance();
-                Date date=new Date();
+                Date date = new Date();
                 calendar.setTime(date);
                 calendar.add(Calendar.DATE, -1);
                 date = calendar.getTime();
-                String nowDate=df.format(date);
-                if(df.parse(nowDate).before(init.getFirstDate())){
-                    for (String menuId:selectMenuIds
+                String nowDate = df.format(date);
+                if (df.parse(nowDate).before(init.getFirstDate())) {
+                    for (String menuId : selectMenuIds
                     ) {
-                        Menu menu=menuService.getMenu(menuId);
+                        Menu menu = menuService.getMenu(menuId);
                         menuList.remove(menu);
                     }
-                }else if(df.parse(nowDate).before(init.getSecondDate())){
-                    for (String menuId:selectMenuIdList
+                } else if (df.parse(nowDate).before(init.getSecondDate())) {
+                    for (String menuId : selectMenuIdList
                     ) {
-                        Menu menu=menuService.getMenu(menuId);
+                        Menu menu = menuService.getMenu(menuId);
                         menuList.remove(menu);
                     }
 

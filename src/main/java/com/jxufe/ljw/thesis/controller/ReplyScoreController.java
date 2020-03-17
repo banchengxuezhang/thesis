@@ -41,6 +41,12 @@ public class ReplyScoreController {
     private StudentTeacherRelationService relationService;
     @Autowired
     private NoReplyService noReplyService;
+
+    /**
+     * 获取开题报告等信息
+     * @param request
+     * @return
+     */
     @GetMapping("/getOpenReportScore")
     public Object getOpenReportScore(HttpServletRequest request) {
         try {
@@ -66,9 +72,11 @@ public class ReplyScoreController {
             TeacherInfo teacherInfo=teacherService.getTeacherInfoByTeacherNo(studentTeacherRelation.getTeacherNo());
             if(teacherInfo.getGroupName()!=""&&!StringUtils.isEmpty(teacherInfo.getGroupName())){
                 Group group=groupService.getGroupByGroupName(teacherInfo.getGroupName());
-                if(group.getGroupStatus()==1){
-                    BeanUtils.copyProperties(group,studentTeacherRelation);
-                }
+              if(group!=null){
+                  if(group.getGroupStatus()==1){
+                      BeanUtils.copyProperties(group,studentTeacherRelation);
+                  }
+              }
             }
 
             return ClassUtil.checkNull(studentTeacherRelation);
@@ -76,17 +84,35 @@ public class ReplyScoreController {
             return ResultUtil.success("并无相关信息！");
         }
     }
+
+    /**
+     * 教师获取开题报告等数据
+     * @param thesisNo
+     * @return
+     */
     @GetMapping("/getReplyScore")
     public Object getReplyScore(String thesisNo){
         ReplyScore replyScore=replyScoreService.getReplyScoreByThesisNo(thesisNo);
             return replyScore;
     }
+
+    /**
+     * 教师评分答辩
+     * @param replyScore
+     * @return
+     */
     @PostMapping("/updateScoreList")
     public Object updateScoreList(ReplyScore replyScore){
         logger.info("查看分数信息！！！"+replyScore);
         replyScoreService.updateReplyScore(replyScore);
         return ResultUtil.success("提交分数信息成功！！！");
     }
+
+    /**
+     * 教师验收
+     * @param thesisNo
+     * @return
+     */
     @PostMapping("/updateCheckStatus")
     public Object updateCheckStatus(String thesisNo){
       ReplyScore replyScore=new ReplyScore();
@@ -100,5 +126,24 @@ public class ReplyScoreController {
       }else {
           return ResultUtil.success("验收失败，请检查您是否有未完成的操作！！！");
       }
+    }
+
+    /**
+     * 管理员取消学生验收状态
+     * @param userId
+     * @return
+     */
+    @PostMapping("/noCheckStudentStatus")
+    public Object noCheckStudentStatus(String userId){
+        StudentInfo studentInfo=studentService.getStudentInfo(userId);
+        if(studentInfo==null){
+            return ResultUtil.success("请选择学生进行取消验收！！！");
+        }
+        StudentTeacherRelation studentTeacherRelation=relationService.getStudentTeacherRelationByStudentNo(studentInfo.getStudentNo()).get(0);
+        ReplyScore replyScore=new ReplyScore();
+        replyScore.setCheckStatus(2);
+        replyScore.setThesisNo(studentTeacherRelation.getThesisNo());
+        replyScoreService.updateReplyScore(replyScore);
+        return ResultUtil.success("取消验收学生成功！！！");
     }
 }

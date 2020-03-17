@@ -20,6 +20,8 @@ public class PublicData {
     public static String waitUploadThesis="待上传论文";
     public static  String waitAnswer="待答辩";
     public  static String finish="已验收";
+    public static  String[] managerController={"updateMenuStatus","/init","addStudent","addTeacher","doc.html","druid","/group","list","updateMenuStatus","publishNotice","updateNotice","getAllNoticeList","deleteNoticesByIds","getNoticeByNoticeId","getEchartData","getUserList","getUserDetailInfoById","getTeacherListForManager","deleteUsersByIds","updateTeacherInfo","updateStudentInfo","noCheckStudentStatus"};
+    public static  String[] teacherController={"uploadTask","getStudentSelectThesisByTeacherNo","getAgreeThesisByTeacherNo","getThesisInfoByTeacherNo","addThesis","updateThesis","deleteThesisInfoByThesisIds","operateStudent","getThesisForOpenReportAndReviewList","teacherCheckOpenReport","teacherCheckReview","teacherCheckInspection","teacherCheckNoReply","updateScoreList","updateCheckStatus","getPowerGiveThesis"};
 
 
 }

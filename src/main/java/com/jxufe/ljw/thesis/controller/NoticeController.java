@@ -39,10 +39,13 @@ public class NoticeController {
     @Autowired
     private StudentService studentService;
     @Autowired
-    private MenuService menuService;
-    @Autowired
     private ThesisInfoService thesisInfoService;
 
+    /**
+     * 获取首页数据
+     * @param request
+     * @return
+     */
     @GetMapping("/getNoticeInfo")
     public Object getNoticeInfo(HttpServletRequest request) {
         try{
@@ -59,6 +62,16 @@ public class NoticeController {
             Date nowDate =  sdf.parse(s);
             if(nowDate.after(init.getFirstDate())){
                 nowStage="过程阶段";
+                List<StudentTeacherRelation>  studentTeacherRelations=relationService.getStudentTeacherRelationByStudentNo(user.getUserAccount());
+                if(studentTeacherRelations.size()>0){
+                    StudentTeacherRelation studentTeacherRelation=studentTeacherRelations.get(0);
+                    if(studentTeacherRelation.getOpinionFlag()==0){
+                        studentTeacherRelation.setOpinionFlag(1);
+                        studentTeacherRelation.setTeacherOpinion("超时！系统自动同意！");
+                        relationService.operateStudent(studentTeacherRelation);
+                        studentService.updateStudentInfo(user.getUserAccount(),"","", PublicData.waitReview);
+                    }
+                }
             }
             map.put("nowStage", nowStage);
             if (user.getUserType() == UserType.STUDENT.getType()) {
@@ -111,6 +124,12 @@ public class NoticeController {
             return ResultUtil.error("加载首页信息异常！");
         }
     }
+
+    /**
+     * 发布公告
+     * @param notice
+     * @return
+     */
     @PostMapping("/publishNotice")
     public Object publishNotice(Notice notice) {
         try {
@@ -131,6 +150,12 @@ public class NoticeController {
         }
 
     }
+
+    /**
+     * 更新公告
+     * @param notice
+     * @return
+     */
     @PostMapping("/updateNotice")
     public Object updateNotice(Notice notice) {
         try {
@@ -153,16 +178,35 @@ public class NoticeController {
         }
 
     }
+
+    /**
+     * 用户获取公告详情
+     * @param request
+     * @return
+     */
     @GetMapping("/getNoticeByUserType")
     public Object getNoticeByUserType(HttpServletRequest request){
         User user= (User) request.getSession().getAttribute("user");
         List<Notice> notices=noticeService.getNoticeListByUserType(String.valueOf(user.getUserType()));
         return notices;
     }
+
+    /**
+     * 管理员获取公告列表
+     * @param page
+     * @param rows
+     * @return
+     */
     @GetMapping("/getAllNoticeList")
     public Object getAllNoticeList(int page,int rows){
         return noticeService.getAllNoticeList(page,rows);
     }
+
+    /**
+     * 管理员删除公告
+     * @param noticeIds
+     * @return
+     */
     @DeleteMapping("/deleteNoticesByIds")
     public Object deleteNoticesByIds(String[] noticeIds){
         for (String noticeId:noticeIds
@@ -174,6 +218,12 @@ public class NoticeController {
         }
         return ResultUtil.success("删除成功！！！");
     }
+
+    /**
+     * 修改时获取公告信息
+     * @param noticeId
+     * @return
+     */
     @GetMapping("/getNoticeByNoticeId")
     public Object getNoticeByNoticeId(String noticeId){
         return noticeService.getNoticeByNoticeId(noticeId);

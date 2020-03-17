@@ -3,6 +3,7 @@ package com.jxufe.ljw.thesis.controller;
 import com.jxufe.ljw.thesis.bean.*;
 import com.jxufe.ljw.thesis.enumeration.PublicData;
 import com.jxufe.ljw.thesis.service.*;
+import com.jxufe.ljw.thesis.util.ClassUtil;
 import com.jxufe.ljw.thesis.vo.ResultUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -90,7 +91,7 @@ public class StudentTeacherRelationController {
             if (!(teacherInfo.getTeacherEmail().isEmpty()) && teacherInfo.getTeacherEmail() != "") {
                 iMailService.sendSimpleMail(teacherInfo.getTeacherEmail(), "论文课题已被选择！请查看详情！", teacherInfo.getTeacherName() + "教师您好！\n您的论文课题《" + studentTeacherRelation.getThesisTitle() + "》已经被" + studentTeacherRelation.getStudentClass() + "的" + studentTeacherRelation.getStudentName() + "同学申请了，请您及时处理，超过选题阶段时限后，系统将自动为您同意！");
             }
-            relationService.addStudentTeacherRelation(studentTeacherRelation);
+            relationService.addStudentTeacherRelation((StudentTeacherRelation) ClassUtil.checkNull(studentTeacherRelation));
             thesisInfo.setSelectNum(thesisInfo.getSelectNum() + 1);
             logger.info("查看ThesisInfo：" + thesisInfo);
             thesisInfoService.updateThesis(thesisInfo);
