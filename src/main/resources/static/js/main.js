@@ -49,7 +49,7 @@ $(function () {
                         $("#thesisList").append("<a href=\""+gridData.menuUrl+"\" class=\"link_a\" target=\"iframe_a\"> <i\n" +
                             "class=\"am-icon-angle-right\"></i> <span>"+gridData.menuText+"</span></a>");
                     }
-                    if(gridData.menuText=="提交免答辩申请"||gridData.menuText=="提交文献综述"||gridData.menuText=="提交开题报告"||gridData.menuText=="查看免答辩申请"||gridData.menuText=="查看文献综述"||gridData.menuText=="查看开题报告"||gridData.menuText=="查看论文"||gridData.menuText=="答辩详情"||gridData.menuText=="答辩分组"||gridData.menuText=="系统验收"||gridData.menuText=="提交论文"||gridData.menuText=="提交中期检查"||gridData.menuText=="查看中期检查"||gridData.menuText=="控制进程"||gridData.menuText=="权限控制"
+                    if(gridData.menuText=="提交免答辩申请"||gridData.menuText=="提交文献综述"||gridData.menuText=="提交开题报告"||gridData.menuText=="查看免答辩申请"||gridData.menuText=="查看文献综述"||gridData.menuText=="查看开题报告"||gridData.menuText=="查看论文"||gridData.menuText=="答辩详情"||gridData.menuText=="答辩分组"||gridData.menuText=="系统验收"||gridData.menuText=="提交论文"||gridData.menuText=="提交中期检查"||gridData.menuText=="查看中期检查"||gridData.menuText=="阶段控制"||gridData.menuText=="权限控制"
                         ||gridData.menuText=="发布公告"){
                         $("#flowList").append("<a href=\""+gridData.menuUrl+"\" class=\"link_a\" target=\"iframe_a\"> <i\n" +
                             "class=\"am-icon-angle-right\"></i> <span>"+gridData.menuText+"</span></a>");

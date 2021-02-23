@@ -148,7 +148,7 @@ public class OpenReportController {
            }
            openReport.setReviewContent(reviewContent);
            openReport.setReviewUrl(fileName);
-           openReportService.addOpenReport((OpenReport) ClassUtil.checkNull(openReport));
+           openReportService.updateOpenReport(((OpenReport) ClassUtil.checkNull(openReport)));
            return ResultUtil.success("提交文献综述成功！！！");
        }
        return ResultUtil.success("提交文献综述失败！！！");

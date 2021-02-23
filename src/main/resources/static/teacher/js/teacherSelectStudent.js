@@ -89,6 +89,10 @@ function loadDataGrid() {
             $("#currentPage").html(page + "/" + totalPage);
             for (let i = 0; i < data.rows.length; i++) {
                 let gridData = (data.rows)[i];
+                   status="<td style=\"color:limegreen;\">已同意</td>";
+                if(gridData.opinionFlagStr=="未处理"){
+                   status="<td style=\"color:red;\">未处理</td>";
+                }
                 $("#data").append(`
                     <tr>
                         <td><input name="thesis" type="checkbox" value="${gridData.thesisNo}"/></td>
@@ -101,7 +105,7 @@ function loadDataGrid() {
                         <td>${gridData.studentPhone}</td>
                         <td>${gridData.studentEmail}</td>
                         <td>${gridData.thesisTitle}</td>
-                        <td style="color: red">${gridData.opinionFlagStr}</td>
+                        ${status}
                         <td>${gridData.teacherOpinion}</td>
                     </tr>
                 `)

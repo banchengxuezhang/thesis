@@ -26,7 +26,8 @@ import java.util.*;
  */
 @RestController
 @RequestMapping("/notice")
-public class NoticeController {
+public class
+NoticeController {
     private static final Logger logger= LoggerFactory.getLogger(NoticeController.class);
     @Autowired
     private NoticeService noticeService;
